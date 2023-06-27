@@ -10,11 +10,10 @@
 ```
 
 ```
-@inproceedings{
-jiang2023multi,
-title={MLIC++: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},
-author={Jiang, Wei and Wang, Ronggang},
-booktitle={Neural Compression: From Information Theory to Applications -- Workshop @ ICML 2023},
-year={2023}
+@inproceedings{jiang2023multi,
+  title={MLIC++: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},
+  author={Jiang, Wei and Wang, Ronggang},
+  booktitle={Neural Compression: From Information Theory to Applications -- Workshop @ ICML 2023},
+  year={2023}
 }
 ```

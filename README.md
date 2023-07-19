@@ -1,4 +1,3 @@
-<img width="937" alt="image" src="https://github.com/JiangWeibeta/MLIC/assets/55226087/b51ca46c-aa60-40d5-b3b6-52668277dcb6"># MLIC
 
 ```
 @article{jiang2022multi,

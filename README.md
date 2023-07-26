@@ -13,12 +13,11 @@
 ```
 
 ```
-@inproceedings{
-jiang2023mlic,
-title={{MLIC}\${\textasciicircum}\{++\}\$: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},
-author={Wei Jiang and Ronggang Wang},
-booktitle={ICML 2023 Workshop Neural Compression: From Information Theory to Applications},
-year={2023},
-url={https://openreview.net/forum?id=hxIpcSoz2t}
+@inproceedings{jiang2023mlic,
+  title={{MLIC}\${\textasciicircum}\{++\}\$: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},
+  author={Wei Jiang and Ronggang Wang},
+  booktitle={ICML 2023 Workshop Neural Compression: From Information Theory to Applications},
+  year={2023},
+  url={https://openreview.net/forum?id=hxIpcSoz2t}
 }
 ```

@@ -1,4 +1,4 @@
-Our *MLIC: Multi-Reference Entropy Model for Learned Image Compression* is accepted at ACMMM 2023!
+*MLIC: Multi-Reference Entropy Model for Learned Image Compression* is accepted at ACMMM 2023!
 
 
 

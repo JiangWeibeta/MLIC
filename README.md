@@ -1,6 +1,6 @@
 *MLIC: Multi-Reference Entropy Model for Learned Image Compression* is accepted at ACMMM 2023!
 
-*MLIC <sup>++<\sup>: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression* is accepted at ICML 2023 Neural Compression Workshop!
+*MLIC <sup> ++ </sup>: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression* is accepted at ICML 2023 Neural Compression Workshop!
 
 
 ```

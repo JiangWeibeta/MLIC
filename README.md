@@ -11,7 +11,7 @@ We highlight MLIC <sup> ++ </sup>, which **sloves the quadratic complexity of gl
 
 ## Architectures
 
-<img src="./assets/mlic++_arch.pdf" style="zoom: 100%">
+<img src="./assets/mlic++_arch.png" style="zoom: 100%">
 
 
 ## Performance

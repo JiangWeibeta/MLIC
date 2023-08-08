@@ -9,6 +9,16 @@ We highlight MLIC <sup> ++ </sup>, which **sloves the quadratic complexity of gl
 *MLIC <sup> ++ </sup>: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression*  [[Arxiv](https://arxiv.org/abs/2307.15421)] [[OpenReview](https://openreview.net/forum?id=hxIpcSoz2t)] is accepted at ICML 2023 Neural Compression Workshop !
 
 
+## Architectures
+
+<img src="./assets/mlic++_arch.pdf" style="zoom: 100%">
+
+
+## Performance
+
+
+
+
 ```
 @article{jiang2022mlic,
   title={Multi-reference entropy model for learned image compression},

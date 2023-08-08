@@ -22,7 +22,7 @@ We highlight MLIC <sup> ++ </sup>, which **sloves the quadratic complexity of gl
 
 | Lambda | Metric | Link |
 |--------|--------|------|
-| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/8AA05395EB875D32EA9215C5337C6B18)   |
+| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/0E97B567CBFD99C147CBA23EDDEE8125)   |
 
 ## Citation
 ```

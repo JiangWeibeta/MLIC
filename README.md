@@ -1,6 +1,6 @@
 ### Update
 
-Release the code of MLIC$^{++}$ !
+Release the code of MLIC <sup> ++ </sup> !
 
 *MLIC: Multi-Reference Entropy Model for Learned Image Compression* [[Arxiv](https://arxiv.org/abs/2211.07273)] is accepted at ACMMM 2023 !
 

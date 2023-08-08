@@ -15,8 +15,8 @@ We highlight MLIC <sup> ++ </sup>, which **sloves the quadratic complexity of gl
 
 
 ## Performance
-
-
+![image](assets/kodak.png)
+![image](assets/tecnick.png)
 
 ## Pretrained Models
 

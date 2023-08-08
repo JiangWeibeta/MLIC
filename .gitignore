@@ -2,7 +2,6 @@
 *.pyc
 *.tar
 *.txt
-*.png
 *.log
 *.0
 *.out

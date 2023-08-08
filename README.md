@@ -1,6 +1,8 @@
 ### Update
 
-Release the code of MLIC <sup> ++ </sup> ! We highlight MLIC <sup> ++ </sup>, which sloves the quadratic complexity of global context capturing!
+Release the code of MLIC <sup> ++ </sup> ! 
+
+We highlight MLIC <sup> ++ </sup>, which sloves the quadratic complexity of global context capturing!
 
 *MLIC: Multi-Reference Entropy Model for Learned Image Compression* [[Arxiv](https://arxiv.org/abs/2211.07273)] is accepted at ACMMM 2023 !
 

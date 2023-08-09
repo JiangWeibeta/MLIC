@@ -27,6 +27,11 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 | 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/8AA05395EB875D32EA9215C5337C6B18)   |
 | 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/5F80E5132BEC0C042BBEA3A4FDE33076)   |
 | 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/F6ED8F850DE2DEBCE930B0AB68B8D750)   |
+
+# Environment
+
+CompressAI 1.2.0b3
+
 ## Citation
 ```
 @article{jiang2022mlic,

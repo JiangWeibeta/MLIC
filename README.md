@@ -28,9 +28,13 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 | 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/5F80E5132BEC0C042BBEA3A4FDE33076)   |
 | 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/F6ED8F850DE2DEBCE930B0AB68B8D750)   |
 
-# Environment
+## Environment
 
 CompressAI 1.2.0b3
+
+## Contact
+
+If you have any questions about MLIC, please contact Wei Jiang (wei.jiang1999@outlook.com or jiangwei@stu.pku.edu.cn)
 
 ## Citation
 ```

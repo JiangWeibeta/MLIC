@@ -34,7 +34,7 @@ CompressAI 1.2.0b3
 
 ## Contact
 
-If you have any questions about MLIC, please contact Wei Jiang (wei.jiang1999@outlook.com or jiangwei@stu.pku.edu.cn)
+If you have any questions about MLIC, please contact Wei Jiang ( wei.jiang1999@outlook.com or jiangwei@stu.pku.edu.cn )
 
 ## Citation
 ```

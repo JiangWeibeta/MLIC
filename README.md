@@ -10,7 +10,7 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 ## Bug Fixes
 
-We fix the implementation of *LinearGlobalIntraContext*.
+I fix the implementation of *LinearGlobalIntraContext*.
 
 New pre-trained models will be released soon.
 

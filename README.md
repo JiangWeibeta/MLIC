@@ -12,7 +12,7 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 I fix the implementation of *LinearGlobalIntraContext*.
 
-New pre-trained models will be released soon.
+New pre-trained models will be released soon. The performance is slightly better than before on Kodak and Tecnick.
 
 ## Architectures
 

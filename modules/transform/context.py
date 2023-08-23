@@ -157,7 +157,6 @@ class ChannelContextEX(nn.Module):
 
         return channel_params
 
-
 class LinearGlobalIntraContext(nn.Module):
     def __init__(
             self,
@@ -189,12 +188,11 @@ class LinearGlobalIntraContext(nn.Module):
 
     def forward(self, x1, x2):
         B, C, H, W = x1.shape
-        x1_ac = ckbd_anchor_sequeeze(x1)
-        x1_na = ckbd_nonanchor_sequeeze(x1)
-        x2_ac = ckbd_anchor_sequeeze(x2)
-        queries = self.queries(x1_ac).reshape(B, self.dim, H * W // 2)
-        keys = self.keys(x1_na).reshape(B, self.dim, H * W // 2)
-        values = self.values(x2_ac).reshape(B, self.dim, H * W // 2)
+        x1_ac = ckbd_anchor(x1)
+        x1_na = ckbd_nonanchor(x1)
+        queries = ckbd_nonanchor_sequeeze(self.queries(x1_na)).reshape(B, self.dim, H * W//2)
+        keys = ckbd_anchor_sequeeze(self.keys(x1_ac)).reshape(B, self.dim, H * W//2)
+        values = ckbd_anchor_sequeeze(self.values(x2)).reshape(B, self.dim, H * W//2)
         head_dim = self.dim // self.num_heads
 
         attended_values = []
@@ -202,16 +200,17 @@ class LinearGlobalIntraContext(nn.Module):
             key = F.softmax(keys[:, i * head_dim: (i + 1) * head_dim, :], dim=2)
             query = F.softmax(queries[:, i * head_dim: (i + 1) * head_dim, :], dim=1)
             value = values[:, i * head_dim: (i + 1) * head_dim, :]
+            key = ckbd_anchor_unsequeeze(key.reshape(B, head_dim, H, W //2)).reshape(B, head_dim, H * W)
+            value = ckbd_anchor_unsequeeze(value.reshape(B, head_dim, H, W //2)).reshape(B, head_dim, H * W)
+            query = ckbd_nonanchor_unsequeeze(query.reshape(B, head_dim, H, W //2)).reshape(B, head_dim, H * W)
             context = key @ value.transpose(1, 2)
-            attended_value = (context.transpose(1, 2) @ query).reshape(B, head_dim, H, W // 2)
+            attended_value = (context.transpose(1, 2) @ query).reshape(B, head_dim, H, W)
             attended_values.append(attended_value)
 
         aggregated_values = torch.cat(attended_values, dim=1)
-        aggregated_values = ckbd_nonanchor_unsequeeze(aggregated_values)
         attention = self.reprojection(aggregated_values)
 
         return attention + self.mlp(attention)
-
 
 class LinearGlobalInterContext(nn.Module):
     def __init__(

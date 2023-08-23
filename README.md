@@ -8,6 +8,11 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 *MLIC <sup> ++ </sup>: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression*  [[Arxiv](https://arxiv.org/abs/2307.15421)] [[OpenReview](https://openreview.net/forum?id=hxIpcSoz2t)] is accepted at ICML 2023 Neural Compression Workshop !
 
+## Bug Fixes
+
+We fix the implementation of *LinearGlobalIntraContext*.
+
+New pre-trained models will be released soon.
 
 ## Architectures
 

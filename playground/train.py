@@ -64,7 +64,7 @@ def main():
     )
 
     train_dataset = ImageFolder(args.dataset, split="train", transform=train_transforms)
-    test_dataset = ImageFolder(args.dataset, split="kodak", transform=test_transforms)
+    test_dataset = ImageFolder(args.dataset, split="test", transform=test_transforms)
 
     train_dataloader = DataLoader(
         train_dataset,
@@ -82,7 +82,7 @@ def main():
         pin_memory=(device == "cuda"),
     )
 
-    net = SLICUnevenChARMNoChannel(config=config)
+    net = MLICPlusPlus(config=config)
     net = torch.compile(net)
     if args.cuda and torch.cuda.device_count() > 1:
         net = CustomDataParallel(net)

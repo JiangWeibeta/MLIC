@@ -8,12 +8,6 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 *MLIC <sup> ++ </sup>: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression*  [[Arxiv](https://arxiv.org/abs/2307.15421)] [[OpenReview](https://openreview.net/forum?id=hxIpcSoz2t)] is accepted at ICML 2023 Neural Compression Workshop !
 
-## Bug Fixes
-
-I fix the implementation of *LinearGlobalIntraContext*.
-
-New pre-trained models will be released soon. The performance is slightly better than before on Kodak and Tecnick.
-
 ## Architectures
 
 ![image](assets/arch.png)
@@ -26,12 +20,23 @@ New pre-trained models will be released soon. The performance is slightly better
 
 ## Pretrained Models
 
-| Lambda | Metric | Link |
+#### Bug Fixes
+
+I fix the implementation of *LinearGlobalIntraContext*.
+
+New pre-trained models will be released soon. The performance is slightly better than before on Kodak and Tecnick.
+
+#### New Weights
+
+<!-- | Lambda | Metric | Link |
 |--------|--------|------|
 | 0.0018   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/8C38E68C74F24D03FFE4E98C72C9C852)   |
 | 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/8AA05395EB875D32EA9215C5337C6B18)   |
 | 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/5F80E5132BEC0C042BBEA3A4FDE33076)   |
 | 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/F6ED8F850DE2DEBCE930B0AB68B8D750)   |
+| 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/F6ED8F850DE2DEBCE930B0AB68B8D750)   | -->
+
+TBD
 
 ## Environment
 

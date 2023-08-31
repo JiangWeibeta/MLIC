@@ -83,7 +83,6 @@ def main():
     )
 
     net = MLICPlusPlus(config=config)
-    net = torch.compile(net)
     if args.cuda and torch.cuda.device_count() > 1:
         net = CustomDataParallel(net)
     net = net.to(device)

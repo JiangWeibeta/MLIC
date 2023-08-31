@@ -28,13 +28,13 @@ New pre-trained models will be released soon. The performance is slightly better
 
 #### New Weights
 
-<!-- | Lambda | Metric | Link |
+| Lambda | Metric | Link |
 |--------|--------|------|
-| 0.0018   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/8C38E68C74F24D03FFE4E98C72C9C852)   |
-| 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/8AA05395EB875D32EA9215C5337C6B18)   |
-| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/5F80E5132BEC0C042BBEA3A4FDE33076)   |
-| 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/F6ED8F850DE2DEBCE930B0AB68B8D750)   |
-| 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/F6ED8F850DE2DEBCE930B0AB68B8D750)   | -->
+| 0.0018   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/56ABCF09A715A197523E5B8929DBA2BB)   |
+| 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/22775C0DBB903AC3A43342C8AFDBFD05)   |
+| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/9474C67EE30DCCB3C77CDCC459425B38)   |
+| 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/59F4117444A787B253DE04D72C4AE2AB)   |
+| 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/00200D4B21E7428471DFF69C5B9878E5)   |
 
 TBD
 

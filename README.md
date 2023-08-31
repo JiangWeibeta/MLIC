@@ -28,13 +28,14 @@ New pre-trained models will be released soon. The performance is slightly better
 
 #### New Weights
 
-| Lambda | Metric | Link |
-|--------|--------|------|
-| 0.0018   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/56ABCF09A715A197523E5B8929DBA2BB)   |
-| 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/22775C0DBB903AC3A43342C8AFDBFD05)   |
-| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/9474C67EE30DCCB3C77CDCC459425B38)   |
-| 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/59F4117444A787B253DE04D72C4AE2AB)   |
-| 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/00200D4B21E7428471DFF69C5B9878E5)   |
+| Lambda | Metric | Link | Lambda | Metric | Link | 
+|--------|--------|------|--------|--------|------|
+| 0.0018   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/56ABCF09A715A197523E5B8929DBA2BB)   |2.4 |MS-SSIM|*TODO* |
+| 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/22775C0DBB903AC3A43342C8AFDBFD05)   |4.58|MS-SSIM|*TODO* |
+| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/9474C67EE30DCCB3C77CDCC459425B38)   |8.73|MS-SSIM|*TODO* |
+| 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/59F4117444A787B253DE04D72C4AE2AB)   |16.64|MS-SSIM|*TODO* |
+| 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/00200D4B21E7428471DFF69C5B9878E5)   |31.73|MS-SSIM|*TODO* |
+| 0.0483   | MSE    |   *TODO*   |60.5|MS-SSIM|*TODO* |
 
 Training details: We train each model on a single Tesla A100 GPU. The batch size is set to $32$. The initial 
 patch size is set to $256\times 256$. We set the patch size to $512\times 512$ after $1.2$ M steps. 

@@ -37,7 +37,7 @@ New pre-trained models will be released soon. The performance is slightly better
 | 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/9474C67EE30DCCB3C77CDCC459425B38)   |8.73|MS-SSIM|*TODO* |
 | 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/59F4117444A787B253DE04D72C4AE2AB)   |16.64|MS-SSIM|*TODO* |
 | 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/00200D4B21E7428471DFF69C5B9878E5)   |31.73|MS-SSIM|*TODO* |
-| 0.0483   | MSE    |   *TODO*   |60.5|MS-SSIM|*TODO* |
+| 0.0483   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/97112E78DC4F6D232A14FB1E4BD18260)   |60.5|MS-SSIM|*TODO* |
 
 </div>
 

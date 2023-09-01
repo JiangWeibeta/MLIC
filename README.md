@@ -43,11 +43,11 @@ New pre-trained models will be released soon. The performance is slightly better
 | Lambda | Metric | Link | Lambda | Metric | Link | 
 |:--------:|:--------:|:------:|:--------:|:--------:|:------:|
 | 0.0018   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/56ABCF09A715A197523E5B8929DBA2BB), [GoogleDrive](https://drive.google.com/file/d/1rRdM5X5ueWvW5-ZN3gwPoXGECvgIcz-2/view?usp=drive_link)  |2.4 |MS-SSIM|*TODO* |
-| 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/22775C0DBB903AC3A43342C8AFDBFD05)   |4.58|MS-SSIM|*TODO* |
-| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/9474C67EE30DCCB3C77CDCC459425B38)   |8.73|MS-SSIM|*TODO* |
-| 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/59F4117444A787B253DE04D72C4AE2AB)   |16.64|MS-SSIM|*TODO* |
-| 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/00200D4B21E7428471DFF69C5B9878E5)   |31.73|MS-SSIM|*TODO* |
-| 0.0483   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/97112E78DC4F6D232A14FB1E4BD18260)   |60.5|MS-SSIM|*TODO* |
+| 0.0035   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/22775C0DBB903AC3A43342C8AFDBFD05), [GoogleDrive](https://drive.google.com/file/d/1SlIsurg4JocEBAWrnp1jiEe1EnFgw5AP/view?usp=drive_link)   |4.58|MS-SSIM|*TODO* |
+| 0.0067   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/9474C67EE30DCCB3C77CDCC459425B38), [GoogleDrive](https://drive.google.com/file/d/1CKpyUXwifJZ9gb0l_Di6R-TMH9f4UmAU/view?usp=drive_link)   |8.73|MS-SSIM|*TODO* |
+| 0.0130   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/59F4117444A787B253DE04D72C4AE2AB), [GoogleDrive](https://drive.google.com/file/d/1Qp4YBea3GkLSGDyYgo7OeaWZa5_rX8kJ/view?usp=drive_link)   |16.64|MS-SSIM|*TODO* |
+| 0.0250   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/00200D4B21E7428471DFF69C5B9878E5), [GoogleDrive](https://drive.google.com/file/d/1krGCTYat0Qkcp0QPaNC5sP3ofrq-eQsv/view?usp=drive_link)   |31.73|MS-SSIM|*TODO* |
+| 0.0483   | MSE    |   [PKUDisk](https://disk.pku.edu.cn:443/link/97112E78DC4F6D232A14FB1E4BD18260), [GoogleDrive](https://drive.google.com/file/d/1mIDwO_2Q1sNVriCFiLS1oxgfbVUaHihl/view?usp=drive_link)   |60.5|MS-SSIM|*TODO* |
 
 </div>
 

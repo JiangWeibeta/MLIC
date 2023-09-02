@@ -71,9 +71,11 @@ Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/mai
 
 Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
 
-### Environment
+## Environment
 
 CompressAI 1.2.0b3
+
+Pytorch 2.0.1
 
 ## Contact
 

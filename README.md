@@ -59,7 +59,7 @@ patch size is set to $256\times 256$. We set the patch size to $512\times 512$ a
 ### Training Set
 
 Training list is provided. These images are from DIV2K, Flicker2K, CLIC Train, COCO, ImageNet.
-We downsample the most JPG images and save the downsampled images in PNG format.
+Most JPG images are downsampled and the downsampled images are stored in PNG format.
 
 ### Environment
 

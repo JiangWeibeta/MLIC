@@ -65,11 +65,11 @@ Most JPG images are downsampled and the downsampled images are stored in PNG for
 
 #### Command
 
-Example command is provided in [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
+Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
 
 ## Testing
 
-Example command is provided in [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
+Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
 
 ### Environment
 

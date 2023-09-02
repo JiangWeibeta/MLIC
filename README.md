@@ -51,15 +51,25 @@ New pre-trained models will be released soon. The performance is slightly better
 
 </div>
 
-### Training details
+## Training
+
+#### Settings
 
 We train each model on a single Tesla A100 GPU. The batch size is set to $32$. The initial 
 patch size is set to $256\times 256$. We set the patch size to $512\times 512$ after $1.2$ M steps.
 
-### Training Set
+#### Training Set
 
 Training list is provided. These images are from DIV2K, Flicker2K, CLIC Train, COCO, ImageNet.
 Most JPG images are downsampled and the downsampled images are stored in PNG format.
+
+#### Command
+
+Example command is provided in [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
+
+## Testing
+
+Example command is provided in [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
 
 ### Environment
 

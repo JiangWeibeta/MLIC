@@ -51,10 +51,17 @@ New pre-trained models will be released soon. The performance is slightly better
 
 </div>
 
-Training details: We train each model on a single Tesla A100 GPU. The batch size is set to $32$. The initial 
-patch size is set to $256\times 256$. We set the patch size to $512\times 512$ after $1.2$ M steps. 
+### Training details
 
-## Environment
+We train each model on a single Tesla A100 GPU. The batch size is set to $32$. The initial 
+patch size is set to $256\times 256$. We set the patch size to $512\times 512$ after $1.2$ M steps.
+
+### Training Set
+
+Training list is provided. These images are from DIV2K, Flicker2K, CLIC Train, COCO, ImageNet.
+We downsample the most JPG images and save the downsampled images in PNG format.
+
+### Environment
 
 CompressAI 1.2.0b3
 

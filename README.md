@@ -34,7 +34,7 @@ BD-rate comparison
 
 I fix the implementation of *LinearGlobalIntraContext*.
 
-New pre-trained models will be released soon. The performance is slightly better than before on Kodak and Tecnick.
+New pre-trained models are available now. The performance is slightly better than before on Kodak and Tecnick.
 
 #### New Weights
 

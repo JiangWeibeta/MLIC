@@ -15,7 +15,7 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 ## Performance
 
-BD-rate comparison
+Benchmark
 
 |  | Kodak | Tecnick | CLIC Pro Valid | CLIC 2021 Test | CLIC 2022 Test | JPEG AI Test | 
 |:--------:|:--------:|:------:|:--------:|:--------:|:------:|:------:|

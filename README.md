@@ -62,6 +62,10 @@ patch size is set to $256\times 256$. We set the patch size to $512\times 512$ a
 
 Training list is provided. These images are from DIV2K, Flicker2K, CLIC Train, COCO, ImageNet.
 Most JPG images are downsampled and the downsampled images are stored in PNG format.
+We use following function from PIL to downsample images.
+```
+img.resize((new_width, new_height), Image.ANTIALIAS)
+```
 
 #### Command
 

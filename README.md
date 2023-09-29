@@ -51,6 +51,18 @@ New pre-trained models are available now. The performance is slightly better tha
 
 </div>
 
+The structure of the provided weights is 
+```
+{
+      "epoch": epoch + 1,
+      "state_dict": net.state_dict(),
+      "loss": loss,
+      "optimizer": optimizer.state_dict(),
+      "aux_optimizer": aux_optimizer.state_dict(),
+      "lr_scheduler": lr_scheduler.state_dict(),
+}
+```
+
 ## Training
 
 #### Settings

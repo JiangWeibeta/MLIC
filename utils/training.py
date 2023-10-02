@@ -28,38 +28,37 @@ def train_one_epoch(
         aux_optimizer.step()
 
         current_step += 1
-        if is_main_process():
-            if current_step % 100 == 0:
-                tb_logger.add_scalar('{}'.format('[train]: loss'), out_criterion["loss"].item(), current_step)
-                tb_logger.add_scalar('{}'.format('[train]: bpp_loss'), out_criterion["bpp_loss"].item(), current_step)
-                tb_logger.add_scalar('{}'.format('[train]: lr'), optimizer.param_groups[0]['lr'], current_step)
-                tb_logger.add_scalar('{}'.format('[train]: aux_loss'), aux_loss.item(), current_step)
-                if out_criterion["mse_loss"] is not None:
-                    tb_logger.add_scalar('{}'.format('[train]: mse_loss'), out_criterion["mse_loss"].item(), current_step)
-                if out_criterion["ms_ssim_loss"] is not None:
-                    tb_logger.add_scalar('{}'.format('[train]: ms_ssim_loss'), out_criterion["ms_ssim_loss"].item(), current_step)
+        if current_step % 100 == 0:
+            tb_logger.add_scalar('{}'.format('[train]: loss'), out_criterion["loss"].item(), current_step)
+            tb_logger.add_scalar('{}'.format('[train]: bpp_loss'), out_criterion["bpp_loss"].item(), current_step)
+            tb_logger.add_scalar('{}'.format('[train]: lr'), optimizer.param_groups[0]['lr'], current_step)
+            tb_logger.add_scalar('{}'.format('[train]: aux_loss'), aux_loss.item(), current_step)
+            if out_criterion["mse_loss"] is not None:
+                tb_logger.add_scalar('{}'.format('[train]: mse_loss'), out_criterion["mse_loss"].item(), current_step)
+            if out_criterion["ms_ssim_loss"] is not None:
+                tb_logger.add_scalar('{}'.format('[train]: ms_ssim_loss'), out_criterion["ms_ssim_loss"].item(), current_step)
 
-            if i % 100 == 0:
-                if out_criterion["ms_ssim_loss"] is None:
-                    logger_train.info(
-                        f"Train epoch {epoch}: ["
-                        f"{i*len(d):5d}/{len(train_dataloader.dataset)}"
-                        f" ({100. * i / len(train_dataloader):.0f}%)] "
-                        f'Loss: {out_criterion["loss"].item():.4f} | '
-                        f'MSE loss: {out_criterion["mse_loss"].item():.4f} | '
-                        f'Bpp loss: {out_criterion["bpp_loss"].item():.2f} | '
-                        f"Aux loss: {aux_loss.item():.2f}"
-                    )
-                else:
-                    logger_train.info(
-                        f"Train epoch {epoch}: ["
-                        f"{i*len(d):5d}/{len(train_dataloader.dataset)}"
-                        f" ({100. * i / len(train_dataloader):.0f}%)] "
-                        f'Loss: {out_criterion["loss"].item():.4f} | '
-                        f'MS-SSIM loss: {out_criterion["ms_ssim_loss"].item():.4f} | '
-                        f'Bpp loss: {out_criterion["bpp_loss"].item():.2f} | '
-                        f"Aux loss: {aux_loss.item():.2f}"
-                    )
+        if i % 100 == 0:
+            if out_criterion["ms_ssim_loss"] is None:
+                logger_train.info(
+                    f"Train epoch {epoch}: ["
+                    f"{i*len(d):5d}/{len(train_dataloader.dataset)}"
+                    f" ({100. * i / len(train_dataloader):.0f}%)] "
+                    f'Loss: {out_criterion["loss"].item():.4f} | '
+                    f'MSE loss: {out_criterion["mse_loss"].item():.4f} | '
+                    f'Bpp loss: {out_criterion["bpp_loss"].item():.2f} | '
+                    f"Aux loss: {aux_loss.item():.2f}"
+                )
+            else:
+                logger_train.info(
+                    f"Train epoch {epoch}: ["
+                    f"{i*len(d):5d}/{len(train_dataloader.dataset)}"
+                    f" ({100. * i / len(train_dataloader):.0f}%)] "
+                    f'Loss: {out_criterion["loss"].item():.4f} | '
+                    f'MS-SSIM loss: {out_criterion["ms_ssim_loss"].item():.4f} | '
+                    f'Bpp loss: {out_criterion["bpp_loss"].item():.2f} | '
+                    f"Aux loss: {aux_loss.item():.2f}"
+                )
 
     return current_step
 

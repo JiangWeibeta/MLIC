@@ -114,7 +114,7 @@ pages = {7618–7627}
 @inproceedings{
 jiang2023mlicpp,
 title={{MLIC}\${\textasciicircum}\{++\}\$: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},
-author={Wei Jiang and Ronggang Wang},
+author={Jiang, Wei and Wang, Ronggang},
 booktitle={ICML 2023 Workshop Neural Compression: From Information Theory to Applications},
 year={2023},
 url={https://openreview.net/forum?id=hxIpcSoz2t}

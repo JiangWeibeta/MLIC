@@ -11,6 +11,7 @@ class LatentResidualPrediction(nn.Module):
         super().__init__()
         diff = abs(out_dim - in_dim)
         # such setting leads to much more parameters, you'd better use the setting in Minnen'20 ICIP paper.
+        # To be fixed
         self.lrp_transform = nn.Sequential(
             conv3x3(in_dim, in_dim - diff // 4),
             act(),

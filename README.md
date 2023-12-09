@@ -18,7 +18,7 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 Benchmark
 
 |  | Kodak | Tecnick | CLIC Pro Valid |
-|:--------:|:--------:|:------:|:--------:|:--------:|:------:|:------:|
+|:--------:|:--------:|:------:|:--------:|
 | VTM-17.0 Intra   | 0.00    |   0.00   | 0.00 | 
 | STF (CVPR'22)  | -2.48    |   -2.75   | +0.42  | 
 | WACNN (CVPR'22)   | -2.95    | - | +0.04   | 

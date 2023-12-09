@@ -17,16 +17,16 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 Benchmark
 
-|  | Kodak | Tecnick | CLIC Pro Valid | CLIC 2021 Test | CLIC 2022 Test | JPEG AI Test | 
+|  | Kodak | Tecnick | CLIC Pro Valid |
 |:--------:|:--------:|:------:|:--------:|:--------:|:------:|:------:|
-| VTM-17.0 Intra   | 0.00    |   0.00   | 0.00 | 0.00 | 0.00 | 0.00 |
-| STF (CVPR'22)  | -2.48    |   -2.75   | +0.42  | -0.16 | +0.08 | +1.54 |
-| WACNN (CVPR'22)   | -2.95    | - | +0.04   | - | - | - |
-| ELIC (CVPR'22)   | -5.95    |   -   |-|-7.52|- |- |
-| LIC-TCM Large (CVPR'23)   | -10.14    |   -11.47   |-8.04 |-|- |- |
-| MLIC (ACMMM'23)   | -8.05    |  -12.73  |-8.79 |-11.17| -10.89 | -9.90|
-| MLIC+ (ACMMM'23)  | -11.39    |   -16.38   |-12.56|-15.03|-14.85 |-13.42|
-| MLIC++ (NCW ICML'23)   | -13.39    |   -17.59   |-13.08|-14.86|-14.39 |-13.03|
+| VTM-17.0 Intra   | 0.00    |   0.00   | 0.00 | 
+| STF (CVPR'22)  | -2.48    |   -2.75   | +0.42  | 
+| WACNN (CVPR'22)   | -2.95    | - | +0.04   | 
+| ELIC (CVPR'22)   | -5.95    |   -   |-|
+| LIC-TCM Large (CVPR'23)   | -10.14    |   -11.47   |-8.04 |
+| MLIC (ACMMM'23)   | -8.05    |  -12.73  |-8.79 |
+| MLIC+ (ACMMM'23)  | -11.39    |   -16.38   |-12.56|
+| MLIC++ (NCW ICML'23)   | -13.39    |   -17.59   |-13.08|
 
 ## Pretrained Models
 

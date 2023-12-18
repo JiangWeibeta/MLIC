@@ -107,7 +107,7 @@ year = {2023},
 publisher = {Association for Computing Machinery},
 doi = {10.1145/3581783.3611694},
 booktitle = {Proceedings of the 31st ACM International Conference on Multimedia},
-pages = {7618–7627}
+pages={7618--7627},
 }
 ```
 

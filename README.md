@@ -101,13 +101,11 @@ If you have any questions about MLIC, please contact Wei Jiang ( wei.jiang1999@o
 ## Citation
 ```
 @inproceedings{jiang2023mlic,
-author = {Jiang, Wei and Yang, Jiayu and Zhai, Yongqi and Ning, Peirong and Gao, Feng and Wang, Ronggang},
-title = {MLIC: Multi-Reference Entropy Model for Learned Image Compression},
-year = {2023},
-publisher = {Association for Computing Machinery},
-doi = {10.1145/3581783.3611694},
-booktitle = {Proceedings of the 31st ACM International Conference on Multimedia},
-pages={7618--7627},
+  title={MLIC: Multi-Reference Entropy Model for Learned Image Compression},
+  author={Jiang, Wei and Yang, Jiayu and Zhai, Yongqi and Ning, Peirong and Gao, Feng and Wang, Ronggang},
+  booktitle={Proceedings of the 31st ACM International Conference on Multimedia},
+  pages={7618--7627},
+  year={2023}
 }
 ```
 

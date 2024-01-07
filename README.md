@@ -99,6 +99,9 @@ Pytorch 2.0.1
 If you have any questions about MLIC, please contact Wei Jiang ( wei.jiang1999@outlook.com or jiangwei@stu.pku.edu.cn )
 
 ## Citation
+
+#### MLIC
+
 ```
 @inproceedings{jiang2023mlic,
   title={MLIC: Multi-Reference Entropy Model for Learned Image Compression},
@@ -120,6 +123,8 @@ or
   year={2022}
 }
 ```
+
+#### MLIC <sup> ++ </sup>
 
 ```
 @article{jiang2023mlicpp,

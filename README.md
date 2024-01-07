@@ -110,6 +110,17 @@ If you have any questions about MLIC, please contact Wei Jiang ( wei.jiang1999@o
 }
 ```
 
+or
+
+```
+@article{jiang2022multi,
+  title={Multi-reference entropy model for learned image compression},
+  author={Jiang, Wei and Yang, Jiayu and Zhai, Yongqi and Wang, Ronggang},
+  journal={arXiv preprint arXiv:2211.07273},
+  year={2022}
+}
+```
+
 ```
 @article{jiang2023mlicpp,
   title={MLIC++: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},

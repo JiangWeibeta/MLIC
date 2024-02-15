@@ -7,7 +7,7 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 *MLIC: Multi-Reference Entropy Model for Learned Image Compression* [[Arxiv](https://arxiv.org/abs/2211.07273)] [[ACMDL](https://dl.acm.org/doi/10.1145/3581783.3611694)] is accepted at ACMMM 2023 !
 
 *MLIC <sup> ++ </sup>: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression*  [[Arxiv](https://arxiv.org/abs/2307.15421)] [[OpenReview](https://openreview.net/forum?id=hxIpcSoz2t)] is accepted at ICML 2023 Neural Compression Workshop !
-- This workshop does not have formal proceedings. A more detailed version is at [Arxiv](https://arxiv.org/pdf/2307.15421.pdf).
+- Compared with version presented at Neural Compression Workshop, ICML 2023 at OpenReview, in the latest arxiv version, we add the details of our prior work presented at ACMMM 2023, new comparisons on complexity and more ablation studies [Arxiv](https://arxiv.org/pdf/2307.15421.pdf).
 
 For the versions of papers, we recommand the latest arxiv version.
 

@@ -31,6 +31,7 @@ class LatentResidualPrediction(nn.Module):
 class CorrectLatentResidualPrediction(nn.Module):
     def __init__(self, in_dim, out_dim, act=nn.GELU):
         super().__init__()
+        # leads to 50M parameters reduction
         self.lrp_transform = nn.Sequential(
             conv3x3(in_dim, 224),
             act(),

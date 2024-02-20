@@ -101,6 +101,7 @@ Pytorch 2.0.1
 If you have any questions about MLIC, please contact Wei Jiang ( wei.jiang1999@outlook.com or jiangwei@stu.pku.edu.cn )
 
 ## Citation
+If you find our papers and this repo useful, kindly cite:
 
 #### MLIC
 

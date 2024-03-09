@@ -116,29 +116,7 @@ If you find our papers and this repo useful, kindly cite:
 }
 ```
 
-or
-
-```
-@article{jiang2022multi,
-  title={Multi-reference entropy model for learned image compression},
-  author={Jiang, Wei and Yang, Jiayu and Zhai, Yongqi and Wang, Ronggang},
-  journal={arXiv preprint arXiv:2211.07273},
-  year={2022}
-}
-```
-
 #### MLIC <sup> ++ </sup>
-
-```
-@article{jiang2023mlicpp,
-  title={MLIC++: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},
-  author={Jiang, Wei and Wang, Ronggang},
-  journal={arXiv preprint arXiv:2307.15421},
-  year={2023}
-}
-```
-
-or
 
 ```
 @inproceedings{jiang2023mlicpp,

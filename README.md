@@ -11,7 +11,7 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 For the versions of papers, we recommand the latest arxiv version.
 
-<a href="https://star-history.com/#AILab-CVC/UniRepLKNet&Date">
+<a href="https://star-history.com/#JiangWeibeta/MLIC&Date">
   <img src="https://api.star-history.com/svg?repos=JiangWeibeta/MLIC&type=Date" width="70%" alt="Star History Chart">
 </a>
 

@@ -53,6 +53,26 @@ class SynthesisTransform(nn.Module):
         return x
 
 
+class SynthesisTransformFix(nn.Module):
+    def __init__(self, N, M):
+        super().__init__()
+        self.synthesis_transform = nn.Sequential(
+            ResidualBlock(M, M),
+            ResidualBlockUpsample(M, N, 2),
+            ResidualBlock(N, N),
+            ResidualBlockUpsample(N, N, 2),
+            ResidualBlock(N, N),
+            ResidualBlockUpsample(N, N, 2),
+            ResidualBlock(N, N),
+            subpel_conv3x3(N, 3, 2),
+        )
+
+    def forward(self, x):
+        x = self.synthesis_transform(x)
+
+        return x
+
+
 class SynthesisTransformEX(nn.Module):
     def __init__(self, N, M, act=nn.GELU) -> None:
         super().__init__()

@@ -1,0 +1,1469 @@
+24-04-05 14:00:21.515 - INFO: Namespace(experiment='mlicpp_mse_0250', dataset='/mnt/bn/jiangwei-lvc3/dataset/image', epochs=50000, learning_rate=0.0001, num_workers=8, lmbda=0.025, metrics='mse', batch_size=8, test_batch_size=1, aux_learning_rate=0.001, patch_size=[512, 512], gpu_id=0, cuda=True, save=True, seed=1984.0, clip_max_norm=1.0, checkpoint='/mnt/bn/jiangwei-lvc3/work_space/MLICPlusPlus/playground/experiments/mlicpp_mse_0250/checkpoints', world_size=4, dist_url='env://', rank=1, gpu=1, distributed=True, dist_backend='nccl')
+24-04-05 14:00:21.536 - INFO: {'N': 192, 'M': 320, 'enc_dims': [3, 192, 192, 192, 320], 'dec_dims': [320, 192, 192, 192, 16, 3], 'slice_num': 10, 'context_window': 5, 'slice_ch': [8, 8, 8, 8, 16, 16, 32, 32, 96, 96], 'max_support_slices': 5, 'quant': 'ste', 'lambda_list': [0.07, 0.08, 0.09], 'use_hyper_gain': False, 'interpolated_type': 'exponential', 'act': <class 'torch.nn.modules.activation.GELU'>, 'L': 10, 'target_bpp': [0.0761, 0.1854, 0.2752, 0.3652, 0.4282, 0.5238, 0.5653, 0.6334, 0.745], 'bpp_threshold': [0.02, 0.02, 0.02, 0.02, 0.03, 0.02, 0.02, 0.02, 0.02], 'min_lmbda': 0.001, 'init_lmbda': [0.001, 0.0018, 0.0035, 0.0035, 0.0067, 0.0067, 0.013, 0.013, 0.025, 0.0483], 'lower_bound': 1e-09, 'ki': 0.1, 'kp': 0.1}
+24-04-05 14:00:21.537 - INFO: DistributedDataParallel(
+  (module): MLICPlusPlus(
+    (entropy_bottleneck): EntropyBottleneck(
+      (likelihood_lower_bound): LowerBound()
+    )
+    (g_a): AnalysisTransform(
+      (analysis_transform): Sequential(
+        (0): ResidualBlockWithStride(
+          (conv1): Conv2d(3, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (gdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (skip): Conv2d(3, 192, kernel_size=(1, 1), stride=(2, 2))
+        )
+        (1): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (2): ResidualBlockWithStride(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (gdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (skip): Conv2d(192, 192, kernel_size=(1, 1), stride=(2, 2))
+        )
+        (3): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (4): ResidualBlockWithStride(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (gdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (skip): Conv2d(192, 192, kernel_size=(1, 1), stride=(2, 2))
+        )
+        (5): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (6): Conv2d(192, 320, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      )
+    )
+    (g_s): SynthesisTransform(
+      (synthesis_transform): Sequential(
+        (0): ResidualBlock(
+          (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (1): ResidualBlockUpsample(
+          (subpel_conv): Sequential(
+            (0): Conv2d(320, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (act): GELU(approximate='none')
+          (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (igdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (upsample): Sequential(
+            (0): Conv2d(320, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+        )
+        (2): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (3): ResidualBlockUpsample(
+          (subpel_conv): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (act): GELU(approximate='none')
+          (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (igdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (upsample): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+        )
+        (4): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (5): ResidualBlockUpsample(
+          (subpel_conv): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (act): GELU(approximate='none')
+          (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (igdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (upsample): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+        )
+        (6): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (7): Sequential(
+          (0): Conv2d(192, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+      )
+    )
+    (h_a): HyperAnalysis(
+      (reduction): Sequential(
+        (0): Conv2d(320, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): GELU(approximate='none')
+        (2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): GELU(approximate='none')
+        (4): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (5): GELU(approximate='none')
+        (6): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (7): GELU(approximate='none')
+        (8): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      )
+    )
+    (h_s): HyperSynthesis(
+      (increase): Sequential(
+        (0): Conv2d(192, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): GELU(approximate='none')
+        (2): Sequential(
+          (0): Conv2d(320, 1280, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+        (3): GELU(approximate='none')
+        (4): Conv2d(320, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (5): GELU(approximate='none')
+        (6): Sequential(
+          (0): Conv2d(480, 1920, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+        (7): GELU(approximate='none')
+        (8): Conv2d(480, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (gaussian_conditional): GaussianConditional(
+      (likelihood_lower_bound): LowerBound()
+      (lower_bound_scale): LowerBound()
+    )
+    (local_context): ModuleList(
+      (0-9): 10 x LocalContext(
+        (qkv_proj): Linear(in_features=32, out_features=96, bias=True)
+        (unfold): Unfold(kernel_size=5, dilation=1, padding=2, stride=1)
+        (softmax): Softmax(dim=-1)
+        (proj): Linear(in_features=64, out_features=64, bias=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=64, out_features=128, bias=True)
+          (act): GELU(approximate='none')
+          (fc2): Linear(in_features=128, out_features=64, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+        (norm1): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (fusion): Conv2d(32, 64, kernel_size=(5, 5), stride=(1, 1))
+      )
+    )
+    (channel_context): ModuleList(
+      (0): None
+      (1): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(32, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(64, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (3): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(96, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (4): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(128, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (5): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(160, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (6): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (7): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(224, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (8): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(256, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (9): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(288, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (global_inter_context): ModuleList(
+      (0): None
+      (1): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (queries): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (values): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (reprojection): Conv2d(32, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+        )
+        (queries): Sequential(
+          (0): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+        )
+        (values): Sequential(
+          (0): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+        )
+        (reprojection): Conv2d(64, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        )
+        (queries): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        )
+        (values): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        )
+        (reprojection): Conv2d(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (4): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+        )
+        (queries): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+        )
+        (values): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+        )
+        (reprojection): Conv2d(128, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (5): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(160, 160, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=160)
+        )
+        (queries): Sequential(
+          (0): Conv2d(160, 160, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=160)
+        )
+        (values): Sequential(
+          (0): Conv2d(160, 160, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=160)
+        )
+        (reprojection): Conv2d(160, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (6): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        )
+        (queries): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        )
+        (values): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        )
+        (reprojection): Conv2d(192, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (7): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(224, 224, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(224, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=224)
+        )
+        (queries): Sequential(
+          (0): Conv2d(224, 224, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(224, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=224)
+        )
+        (values): Sequential(
+          (0): Conv2d(224, 224, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(224, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=224)
+        )
+        (reprojection): Conv2d(224, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (8): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+        )
+        (queries): Sequential(
+          (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+        )
+        (values): Sequential(
+          (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+        )
+        (reprojection): Conv2d(256, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (9): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(288, 288, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(288, 288, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=288)
+        )
+        (queries): Sequential(
+          (0): Conv2d(288, 288, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(288, 288, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=288)
+        )
+        (values): Sequential(
+          (0): Conv2d(288, 288, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(288, 288, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=288)
+        )
+        (reprojection): Conv2d(288, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (global_intra_context): ModuleList(
+      (0): None
+      (1-9): 9 x LinearGlobalIntraContext(
+        (keys): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (queries): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (values): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (reprojection): Conv2d(32, 64, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+    )
+    (entropy_parameters_anchor): ModuleList(
+      (0): EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(640, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+      (1-9): 9 x EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(832, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+    )
+    (entropy_parameters_nonanchor): ModuleList(
+      (0): EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(704, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+      (1-9): 9 x EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(960, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+    )
+    (lrp_anchor): ModuleList(
+      (0): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(352, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(384, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(416, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (3): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(448, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (4): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(480, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (5): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(512, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (6): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(544, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (7): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(576, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (8): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(608, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (9): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(640, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (lrp_nonanchor): ModuleList(
+      (0): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(352, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(384, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(416, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (3): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(448, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (4): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(480, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (5): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(512, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (6): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(544, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (7): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(576, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (8): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(608, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (9): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(640, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+  )
+)
+24-04-05 14:00:21.557 - INFO: Learning rate: 0.0001
+24-04-05 14:24:43.141 - INFO: Learning rate: 0.0001
+24-04-05 14:48:47.476 - INFO: Learning rate: 0.0001
+24-04-05 15:12:41.759 - INFO: Learning rate: 0.0001
+24-04-05 15:36:36.765 - INFO: Learning rate: 0.0001
+24-04-05 16:00:44.197 - INFO: Learning rate: 0.0001
+24-04-05 16:24:56.606 - INFO: Learning rate: 0.0001
+24-04-05 16:48:44.436 - INFO: Learning rate: 0.0001
+24-04-05 17:12:48.645 - INFO: Learning rate: 0.0001
+24-04-05 17:37:10.186 - INFO: Learning rate: 0.0001
+24-04-05 18:01:18.658 - INFO: Learning rate: 0.0001
+24-04-05 18:25:24.571 - INFO: Learning rate: 0.0001
+24-04-05 18:49:49.419 - INFO: Learning rate: 0.0001
+24-04-05 19:14:07.378 - INFO: Learning rate: 0.0001
+24-04-05 19:38:04.765 - INFO: Learning rate: 0.0001
+24-04-05 20:02:26.950 - INFO: Learning rate: 0.0001
+24-04-05 20:26:37.607 - INFO: Learning rate: 0.0001
+24-04-05 20:50:34.662 - INFO: Learning rate: 0.0001
+24-04-05 21:14:49.754 - INFO: Learning rate: 0.0001
+24-04-05 21:39:08.269 - INFO: Learning rate: 0.0001
+24-04-05 22:03:11.516 - INFO: Learning rate: 0.0001
+24-04-05 22:27:25.741 - INFO: Learning rate: 0.0001
+24-04-05 22:51:40.072 - INFO: Learning rate: 0.0001
+.63 | Aux loss: 38.20
+24-04-05 14:06:26.270 - INFO: Train epoch 500: [22400/94637 (24%)] Step: [2704087] | Lr: 0.000100 | Loss: 1.4120 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 40.31
+24-04-05 14:07:15.230 - INFO: Train epoch 500: [25600/94637 (27%)] Step: [2704187] | Lr: 0.000100 | Loss: 1.4830 | MSE loss: 0.0004 | Bpp loss: 0.90 | Aux loss: 37.23
+24-04-05 14:08:03.868 - INFO: Train epoch 500: [28800/94637 (30%)] Step: [2704287] | Lr: 0.000100 | Loss: 0.8538 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 40.64
+24-04-05 14:08:52.514 - INFO: Train epoch 500: [32000/94637 (34%)] Step: [2704387] | Lr: 0.000100 | Loss: 0.8895 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 42.41
+24-04-05 14:09:40.735 - INFO: Train epoch 500: [35200/94637 (37%)] Step: [2704487] | Lr: 0.000100 | Loss: 1.3521 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 41.84
+24-04-05 14:10:29.066 - INFO: Train epoch 500: [38400/94637 (41%)] Step: [2704587] | Lr: 0.000100 | Loss: 1.3682 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 44.49
+24-04-05 14:11:17.243 - INFO: Train epoch 500: [41600/94637 (44%)] Step: [2704687] | Lr: 0.000100 | Loss: 1.1298 | MSE loss: 0.0002 | Bpp loss: 0.74 | Aux loss: 43.83
+24-04-05 14:12:05.704 - INFO: Train epoch 500: [44800/94637 (47%)] Step: [2704787] | Lr: 0.000100 | Loss: 0.9086 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 38.56
+24-04-05 14:12:53.979 - INFO: Train epoch 500: [48000/94637 (51%)] Step: [2704887] | Lr: 0.000100 | Loss: 1.4367 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 40.92
+24-04-05 14:13:42.309 - INFO: Train epoch 500: [51200/94637 (54%)] Step: [2704987] | Lr: 0.000100 | Loss: 1.1525 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 42.14
+24-04-05 14:14:32.488 - INFO: Train epoch 500: [54400/94637 (57%)] Step: [2705087] | Lr: 0.000100 | Loss: 1.1683 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 43.23
+24-04-05 14:15:20.905 - INFO: Train epoch 500: [57600/94637 (61%)] Step: [2705187] | Lr: 0.000100 | Loss: 1.2812 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 41.59
+24-04-05 14:16:09.546 - INFO: Train epoch 500: [60800/94637 (64%)] Step: [2705287] | Lr: 0.000100 | Loss: 1.1511 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 39.74
+24-04-05 14:16:58.009 - INFO: Train epoch 500: [64000/94637 (68%)] Step: [2705387] | Lr: 0.000100 | Loss: 0.9586 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 39.99
+24-04-05 14:17:46.501 - INFO: Train epoch 500: [67200/94637 (71%)] Step: [2705487] | Lr: 0.000100 | Loss: 1.3304 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 41.52
+24-04-05 14:18:35.385 - INFO: Train epoch 500: [70400/94637 (74%)] Step: [2705587] | Lr: 0.000100 | Loss: 1.3487 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 41.00
+24-04-05 14:19:24.326 - INFO: Train epoch 500: [73600/94637 (78%)] Step: [2705687] | Lr: 0.000100 | Loss: 1.4403 | MSE loss: 0.0003 | Bpp loss: 0.92 | Aux loss: 37.95
+24-04-05 14:20:12.965 - INFO: Train epoch 500: [76800/94637 (81%)] Step: [2705787] | Lr: 0.000100 | Loss: 1.1313 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 41.63
+24-04-05 14:21:01.428 - INFO: Train epoch 500: [80000/94637 (85%)] Step: [2705887] | Lr: 0.000100 | Loss: 0.9337 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 41.53
+24-04-05 14:21:50.153 - INFO: Train epoch 500: [83200/94637 (88%)] Step: [2705987] | Lr: 0.000100 | Loss: 1.1592 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 39.33
+24-04-05 14:22:38.840 - INFO: Train epoch 500: [86400/94637 (91%)] Step: [2706087] | Lr: 0.000100 | Loss: 1.3101 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 41.00
+24-04-05 14:23:27.268 - INFO: Train epoch 500: [89600/94637 (95%)] Step: [2706187] | Lr: 0.000100 | Loss: 0.9233 | MSE loss: 0.0002 | Bpp loss: 0.60 | Aux loss: 44.11
+24-04-05 14:24:15.714 - INFO: Train epoch 500: [92800/94637 (98%)] Step: [2706287] | Lr: 0.000100 | Loss: 1.4661 | MSE loss: 0.0003 | Bpp loss: 0.94 | Aux loss: 41.13
+24-04-05 14:25:00.955 - INFO: Learning rate: 0.0001
+24-04-05 14:25:02.533 - INFO: Train epoch 501: [    0/94637 (0%)] Step: [2706344] | Lr: 0.000100 | Loss: 0.9967 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 43.78
+24-04-05 14:25:50.784 - INFO: Train epoch 501: [ 3200/94637 (3%)] Step: [2706444] | Lr: 0.000100 | Loss: 1.4102 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 42.88
+24-04-05 14:26:38.676 - INFO: Train epoch 501: [ 6400/94637 (7%)] Step: [2706544] | Lr: 0.000100 | Loss: 1.2030 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 38.71
+24-04-05 14:27:26.571 - INFO: Train epoch 501: [ 9600/94637 (10%)] Step: [2706644] | Lr: 0.000100 | Loss: 1.0990 | MSE loss: 0.0003 | Bpp loss: 0.63 | Aux loss: 42.09
+24-04-05 14:28:14.301 - INFO: Train epoch 501: [12800/94637 (14%)] Step: [2706744] | Lr: 0.000100 | Loss: 1.2681 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 37.21
+24-04-05 14:29:01.965 - INFO: Train epoch 501: [16000/94637 (17%)] Step: [2706844] | Lr: 0.000100 | Loss: 1.1520 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 40.34
+24-04-05 14:29:49.554 - INFO: Train epoch 501: [19200/94637 (20%)] Step: [2706944] | Lr: 0.000100 | Loss: 1.2178 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 38.65
+24-04-05 14:30:36.977 - INFO: Train epoch 501: [22400/94637 (24%)] Step: [2707044] | Lr: 0.000100 | Loss: 1.0621 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 40.95
+24-04-05 14:31:24.460 - INFO: Train epoch 501: [25600/94637 (27%)] Step: [2707144] | Lr: 0.000100 | Loss: 1.0745 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 37.70
+24-04-05 14:32:11.922 - INFO: Train epoch 501: [28800/94637 (30%)] Step: [2707244] | Lr: 0.000100 | Loss: 1.4900 | MSE loss: 0.0003 | Bpp loss: 0.92 | Aux loss: 36.73
+24-04-05 14:33:00.270 - INFO: Train epoch 501: [32000/94637 (34%)] Step: [2707344] | Lr: 0.000100 | Loss: 1.0252 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 39.82
+24-04-05 14:33:47.823 - INFO: Train epoch 501: [35200/94637 (37%)] Step: [2707444] | Lr: 0.000100 | Loss: 1.0878 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 37.12
+24-04-05 14:34:37.233 - INFO: Train epoch 501: [38400/94637 (41%)] Step: [2707544] | Lr: 0.000100 | Loss: 0.9063 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 37.08
+24-04-05 14:35:25.232 - INFO: Train epoch 501: [41600/94637 (44%)] Step: [2707644] | Lr: 0.000100 | Loss: 1.1949 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 38.40
+24-04-05 14:36:13.891 - INFO: Train epoch 501: [44800/94637 (47%)] Step: [2707744] | Lr: 0.000100 | Loss: 1.1441 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 40.45
+24-04-05 14:37:02.267 - INFO: Train epoch 501: [48000/94637 (51%)] Step: [2707844] | Lr: 0.000100 | Loss: 1.0229 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 39.80
+24-04-05 14:37:50.286 - INFO: Train epoch 501: [51200/94637 (54%)] Step: [2707944] | Lr: 0.000100 | Loss: 1.5640 | MSE loss: 0.0004 | Bpp loss: 0.99 | Aux loss: 41.07
+24-04-05 14:38:38.786 - INFO: Train epoch 501: [54400/94637 (57%)] Step: [2708044] | Lr: 0.000100 | Loss: 1.2631 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 39.40
+24-04-05 14:39:26.919 - INFO: Train epoch 501: [57600/94637 (61%)] Step: [2708144] | Lr: 0.000100 | Loss: 1.2002 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 36.35
+24-04-05 14:40:15.169 - INFO: Train epoch 501: [60800/94637 (64%)] Step: [2708244] | Lr: 0.000100 | Loss: 1.0599 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 37.95
+24-04-05 14:41:03.243 - INFO: Train epoch 501: [64000/94637 (68%)] Step: [2708344] | Lr: 0.000100 | Loss: 0.9379 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 38.02
+24-04-05 14:41:51.311 - INFO: Train epoch 501: [67200/94637 (71%)] Step: [2708444] | Lr: 0.000100 | Loss: 1.1405 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 37.15
+24-04-05 14:42:39.661 - INFO: Train epoch 501: [70400/94637 (74%)] Step: [2708544] | Lr: 0.000100 | Loss: 0.9197 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 41.66
+24-04-05 14:43:27.728 - INFO: Train epoch 501: [73600/94637 (78%)] Step: [2708644] | Lr: 0.000100 | Loss: 1.4483 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 38.83
+24-04-05 14:44:16.317 - INFO: Train epoch 501: [76800/94637 (81%)] Step: [2708744] | Lr: 0.000100 | Loss: 1.0615 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 36.80
+24-04-05 14:45:04.811 - INFO: Train epoch 501: [80000/94637 (85%)] Step: [2708844] | Lr: 0.000100 | Loss: 1.3323 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 35.36
+24-04-05 14:45:53.871 - INFO: Train epoch 501: [83200/94637 (88%)] Step: [2708944] | Lr: 0.000100 | Loss: 1.0322 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 37.99
+24-04-05 14:46:42.560 - INFO: Train epoch 501: [86400/94637 (91%)] Step: [2709044] | Lr: 0.000100 | Loss: 1.1027 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 37.03
+24-04-05 14:47:31.437 - INFO: Train epoch 501: [89600/94637 (95%)] Step: [2709144] | Lr: 0.000100 | Loss: 0.9944 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 38.24
+24-04-05 14:48:20.072 - INFO: Train epoch 501: [92800/94637 (98%)] Step: [2709244] | Lr: 0.000100 | Loss: 1.5704 | MSE loss: 0.0004 | Bpp loss: 0.98 | Aux loss: 37.99
+24-04-05 14:48:58.589 - INFO: Learning rate: 0.0001
+24-04-05 14:48:59.949 - INFO: Train epoch 502: [    0/94637 (0%)] Step: [2709301] | Lr: 0.000100 | Loss: 1.0405 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 39.24
+24-04-05 14:49:47.587 - INFO: Train epoch 502: [ 3200/94637 (3%)] Step: [2709401] | Lr: 0.000100 | Loss: 1.0437 | MSE loss: 0.0003 | Bpp loss: 0.61 | Aux loss: 35.79
+24-04-05 14:50:35.970 - INFO: Train epoch 502: [ 6400/94637 (7%)] Step: [2709501] | Lr: 0.000100 | Loss: 1.0551 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 37.81
+24-04-05 14:51:24.561 - INFO: Train epoch 502: [ 9600/94637 (10%)] Step: [2709601] | Lr: 0.000100 | Loss: 1.0041 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 39.23
+24-04-05 14:52:12.157 - INFO: Train epoch 502: [12800/94637 (14%)] Step: [2709701] | Lr: 0.000100 | Loss: 1.1625 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 39.51
+24-04-05 14:53:00.146 - INFO: Train epoch 502: [16000/94637 (17%)] Step: [2709801] | Lr: 0.000100 | Loss: 1.3476 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 38.44
+24-04-05 14:53:48.211 - INFO: Train epoch 502: [19200/94637 (20%)] Step: [2709901] | Lr: 0.000100 | Loss: 1.2151 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 38.35
+24-04-05 14:54:37.808 - INFO: Train epoch 502: [22400/94637 (24%)] Step: [2710001] | Lr: 0.000100 | Loss: 1.0305 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 42.28
+24-04-05 14:55:25.931 - INFO: Train epoch 502: [25600/94637 (27%)] Step: [2710101] | Lr: 0.000100 | Loss: 1.0259 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 38.08
+24-04-05 14:56:13.909 - INFO: Train epoch 502: [28800/94637 (30%)] Step: [2710201] | Lr: 0.000100 | Loss: 1.0483 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 37.98
+24-04-05 14:57:01.722 - INFO: Train epoch 502: [32000/94637 (34%)] Step: [2710301] | Lr: 0.000100 | Loss: 1.0955 | MSE loss: 0.0002 | Bpp loss: 0.72 | Aux loss: 39.22
+24-04-05 14:57:49.239 - INFO: Train epoch 502: [35200/94637 (37%)] Step: [2710401] | Lr: 0.000100 | Loss: 1.1597 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 36.90
+24-04-05 14:58:36.918 - INFO: Train epoch 502: [38400/94637 (41%)] Step: [2710501] | Lr: 0.000100 | Loss: 1.3097 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 39.36
+24-04-05 14:59:24.325 - INFO: Train epoch 502: [41600/94637 (44%)] Step: [2710601] | Lr: 0.000100 | Loss: 1.3458 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 41.03
+24-04-05 15:00:11.827 - INFO: Train epoch 502: [44800/94637 (47%)] Step: [2710701] | Lr: 0.000100 | Loss: 1.2801 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 34.14
+24-04-05 15:00:59.742 - INFO: Train epoch 502: [48000/94637 (51%)] Step: [2710801] | Lr: 0.000100 | Loss: 1.1175 | MSE loss: 0.0002 | Bpp loss: 0.72 | Aux loss: 36.85
+24-04-05 15:01:47.867 - INFO: Train epoch 502: [51200/94637 (54%)] Step: [2710901] | Lr: 0.000100 | Loss: 1.1780 | MSE loss: 0.0002 | Bpp loss: 0.78 | Aux loss: 39.91
+24-04-05 15:02:35.790 - INFO: Train epoch 502: [54400/94637 (57%)] Step: [2711001] | Lr: 0.000100 | Loss: 1.0854 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 37.93
+24-04-05 15:03:24.869 - INFO: Train epoch 502: [57600/94637 (61%)] Step: [2711101] | Lr: 0.000100 | Loss: 1.2320 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 40.43
+24-04-05 15:04:13.998 - INFO: Train epoch 502: [60800/94637 (64%)] Step: [2711201] | Lr: 0.000100 | Loss: 1.7304 | MSE loss: 0.0004 | Bpp loss: 1.01 | Aux loss: 41.70
+24-04-05 15:05:02.485 - INFO: Train epoch 502: [64000/94637 (68%)] Step: [2711301] | Lr: 0.000100 | Loss: 1.5292 | MSE loss: 0.0004 | Bpp loss: 0.87 | Aux loss: 37.15
+24-04-05 15:05:50.660 - INFO: Train epoch 502: [67200/94637 (71%)] Step: [2711401] | Lr: 0.000100 | Loss: 1.7800 | MSE loss: 0.0005 | Bpp loss: 0.99 | Aux loss: 39.96
+24-04-05 15:06:38.777 - INFO: Train epoch 502: [70400/94637 (74%)] Step: [2711501] | Lr: 0.000100 | Loss: 0.9626 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 37.69
+24-04-05 15:07:26.867 - INFO: Train epoch 502: [73600/94637 (78%)] Step: [2711601] | Lr: 0.000100 | Loss: 0.9855 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 40.87
+24-04-05 15:08:15.042 - INFO: Train epoch 502: [76800/94637 (81%)] Step: [2711701] | Lr: 0.000100 | Loss: 1.0150 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 38.82
+24-04-05 15:09:03.196 - INFO: Train epoch 502: [80000/94637 (85%)] Step: [2711801] | Lr: 0.000100 | Loss: 0.9949 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 41.23
+24-04-05 15:09:51.500 - INFO: Train epoch 502: [83200/94637 (88%)] Step: [2711901] | Lr: 0.000100 | Loss: 0.8027 | MSE loss: 0.0002 | Bpp loss: 0.50 | Aux loss: 39.75
+24-04-05 15:10:39.278 - INFO: Train epoch 502: [86400/94637 (91%)] Step: [2712001] | Lr: 0.000100 | Loss: 1.0770 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 38.53
+24-04-05 15:11:26.920 - INFO: Train epoch 502: [89600/94637 (95%)] Step: [2712101] | Lr: 0.000100 | Loss: 1.0230 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 38.94
+24-04-05 15:12:14.795 - INFO: Train epoch 502: [92800/94637 (98%)] Step: [2712201] | Lr: 0.000100 | Loss: 1.0202 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 40.10
+24-04-05 15:12:52.754 - INFO: Learning rate: 0.0001
+24-04-05 15:12:53.779 - INFO: Train epoch 503: [    0/94637 (0%)] Step: [2712258] | Lr: 0.000100 | Loss: 1.3210 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 40.14
+24-04-05 15:13:41.199 - INFO: Train epoch 503: [ 3200/94637 (3%)] Step: [2712358] | Lr: 0.000100 | Loss: 1.2446 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 40.50
+24-04-05 15:14:29.209 - INFO: Train epoch 503: [ 6400/94637 (7%)] Step: [2712458] | Lr: 0.000100 | Loss: 1.1528 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 34.90
+24-04-05 15:15:18.974 - INFO: Train epoch 503: [ 9600/94637 (10%)] Step: [2712558] | Lr: 0.000100 | Loss: 1.0917 | MSE loss: 0.0003 | Bpp loss: 0.62 | Aux loss: 40.35
+24-04-05 15:16:06.843 - INFO: Train epoch 503: [12800/94637 (14%)] Step: [2712658] | Lr: 0.000100 | Loss: 1.4617 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 40.74
+24-04-05 15:16:54.901 - INFO: Train epoch 503: [16000/94637 (17%)] Step: [2712758] | Lr: 0.000100 | Loss: 1.2737 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 37.02
+24-04-05 15:17:42.820 - INFO: Train epoch 503: [19200/94637 (20%)] Step: [2712858] | Lr: 0.000100 | Loss: 1.3962 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 41.10
+24-04-05 15:18:30.799 - INFO: Train epoch 503: [22400/94637 (24%)] Step: [2712958] | Lr: 0.000100 | Loss: 0.9459 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 38.85
+24-04-05 15:19:18.486 - INFO: Train epoch 503: [25600/94637 (27%)] Step: [2713058] | Lr: 0.000100 | Loss: 1.1206 | MSE loss: 0.0002 | Bpp loss: 0.71 | Aux loss: 36.47
+24-04-05 15:20:06.330 - INFO: Train epoch 503: [28800/94637 (30%)] Step: [2713158] | Lr: 0.000100 | Loss: 1.2436 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 37.88
+24-04-05 15:20:54.396 - INFO: Train epoch 503: [32000/94637 (34%)] Step: [2713258] | Lr: 0.000100 | Loss: 1.2686 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 38.90
+24-04-05 15:21:42.414 - INFO: Train epoch 503: [35200/94637 (37%)] Step: [2713358] | Lr: 0.000100 | Loss: 1.4686 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 39.01
+24-04-05 15:22:30.574 - INFO: Train epoch 503: [38400/94637 (41%)] Step: [2713458] | Lr: 0.000100 | Loss: 0.8926 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 39.74
+24-04-05 15:23:18.549 - INFO: Train epoch 503: [41600/94637 (44%)] Step: [2713558] | Lr: 0.000100 | Loss: 0.9025 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 41.47
+24-04-05 15:24:06.995 - INFO: Train epoch 503: [44800/94637 (47%)] Step: [2713658] | Lr: 0.000100 | Loss: 1.5124 | MSE loss: 0.0004 | Bpp loss: 0.93 | Aux loss: 38.29
+24-04-05 15:24:54.968 - INFO: Train epoch 503: [48000/94637 (51%)] Step: [2713758] | Lr: 0.000100 | Loss: 1.3616 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 39.19
+24-04-05 15:25:43.015 - INFO: Train epoch 503: [51200/94637 (54%)] Step: [2713858] | Lr: 0.000100 | Loss: 1.3250 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 37.92
+24-04-05 15:26:31.097 - INFO: Train epoch 503: [54400/94637 (57%)] Step: [2713958] | Lr: 0.000100 | Loss: 1.5063 | MSE loss: 0.0003 | Bpp loss: 0.94 | Aux loss: 40.50
+24-04-05 15:27:19.897 - INFO: Train epoch 503: [57600/94637 (61%)] Step: [2714058] | Lr: 0.000100 | Loss: 1.1499 | MSE loss: 0.0002 | Bpp loss: 0.75 | Aux loss: 40.65
+24-04-05 15:28:08.066 - INFO: Train epoch 503: [60800/94637 (64%)] Step: [2714158] | Lr: 0.000100 | Loss: 1.5624 | MSE loss: 0.0004 | Bpp loss: 0.94 | Aux loss: 41.31
+24-04-05 15:28:56.510 - INFO: Train epoch 503: [64000/94637 (68%)] Step: [2714258] | Lr: 0.000100 | Loss: 0.9974 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 39.70
+24-04-05 15:29:44.704 - INFO: Train epoch 503: [67200/94637 (71%)] Step: [2714358] | Lr: 0.000100 | Loss: 1.0583 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 40.90
+24-04-05 15:30:32.706 - INFO: Train epoch 503: [70400/94637 (74%)] Step: [2714458] | Lr: 0.000100 | Loss: 1.4374 | MSE loss: 0.0004 | Bpp loss: 0.86 | Aux loss: 38.23
+24-04-05 15:31:21.476 - INFO: Train epoch 503: [73600/94637 (78%)] Step: [2714558] | Lr: 0.000100 | Loss: 1.0992 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 37.35
+24-04-05 15:32:09.670 - INFO: Train epoch 503: [76800/94637 (81%)] Step: [2714658] | Lr: 0.000100 | Loss: 1.1775 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 39.54
+24-04-05 15:32:57.754 - INFO: Train epoch 503: [80000/94637 (85%)] Step: [2714758] | Lr: 0.000100 | Loss: 1.3630 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 36.93
+24-04-05 15:33:45.394 - INFO: Train epoch 503: [83200/94637 (88%)] Step: [2714858] | Lr: 0.000100 | Loss: 1.5925 | MSE loss: 0.0004 | Bpp loss: 0.95 | Aux loss: 40.10
+24-04-05 15:34:33.145 - INFO: Train epoch 503: [86400/94637 (91%)] Step: [2714958] | Lr: 0.000100 | Loss: 1.0962 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 38.67
+24-04-05 15:35:22.767 - INFO: Train epoch 503: [89600/94637 (95%)] Step: [2715058] | Lr: 0.000100 | Loss: 1.0082 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 43.35
+24-04-05 15:36:09.960 - INFO: Train epoch 503: [92800/94637 (98%)] Step: [2715158] | Lr: 0.000100 | Loss: 1.1471 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 40.01
+24-04-05 15:36:47.995 - INFO: Learning rate: 0.0001
+24-04-05 15:36:49.956 - INFO: Train epoch 504: [    0/94637 (0%)] Step: [2715215] | Lr: 0.000100 | Loss: 1.2003 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 41.69
+24-04-05 15:37:37.545 - INFO: Train epoch 504: [ 3200/94637 (3%)] Step: [2715315] | Lr: 0.000100 | Loss: 1.0472 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 39.06
+24-04-05 15:38:25.399 - INFO: Train epoch 504: [ 6400/94637 (7%)] Step: [2715415] | Lr: 0.000100 | Loss: 1.5380 | MSE loss: 0.0004 | Bpp loss: 0.97 | Aux loss: 39.01
+24-04-05 15:39:12.917 - INFO: Train epoch 504: [ 9600/94637 (10%)] Step: [2715515] | Lr: 0.000100 | Loss: 0.9332 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 35.48
+24-04-05 15:40:00.334 - INFO: Train epoch 504: [12800/94637 (14%)] Step: [2715615] | Lr: 0.000100 | Loss: 1.5368 | MSE loss: 0.0004 | Bpp loss: 0.95 | Aux loss: 37.78
+24-04-05 15:40:48.299 - INFO: Train epoch 504: [16000/94637 (17%)] Step: [2715715] | Lr: 0.000100 | Loss: 1.3173 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 34.56
+24-04-05 15:41:36.423 - INFO: Train epoch 504: [19200/94637 (20%)] Step: [2715815] | Lr: 0.000100 | Loss: 1.2893 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 37.19
+24-04-05 15:42:24.463 - INFO: Train epoch 504: [22400/94637 (24%)] Step: [2715915] | Lr: 0.000100 | Loss: 1.5963 | MSE loss: 0.0004 | Bpp loss: 1.00 | Aux loss: 36.66
+24-04-05 15:43:12.667 - INFO: Train epoch 504: [25600/94637 (27%)] Step: [2716015] | Lr: 0.000100 | Loss: 1.1791 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 35.99
+24-04-05 15:44:00.951 - INFO: Train epoch 504: [28800/94637 (30%)] Step: [2716115] | Lr: 0.000100 | Loss: 1.0161 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 35.98
+24-04-05 15:44:49.183 - INFO: Train epoch 504: [32000/94637 (34%)] Step: [2716215] | Lr: 0.000100 | Loss: 1.8287 | MSE loss: 0.0004 | Bpp loss: 1.13 | Aux loss: 36.10
+24-04-05 15:45:37.704 - INFO: Train epoch 504: [35200/94637 (37%)] Step: [2716315] | Lr: 0.000100 | Loss: 1.4886 | MSE loss: 0.0003 | Bpp loss: 0.96 | Aux loss: 38.40
+24-04-05 15:46:25.961 - INFO: Train epoch 504: [38400/94637 (41%)] Step: [2716415] | Lr: 0.000100 | Loss: 1.1188 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 39.20
+24-04-05 15:47:14.184 - INFO: Train epoch 504: [41600/94637 (44%)] Step: [2716515] | Lr: 0.000100 | Loss: 5.2228 | MSE loss: 0.0027 | Bpp loss: 0.75 | Aux loss: 37.36
+24-04-05 15:48:02.199 - INFO: Train epoch 504: [44800/94637 (47%)] Step: [2716615] | Lr: 0.000100 | Loss: 1.0186 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 38.61
+24-04-05 15:48:49.899 - INFO: Train epoch 504: [48000/94637 (51%)] Step: [2716715] | Lr: 0.000100 | Loss: 1.4275 | MSE loss: 0.0003 | Bpp loss: 0.92 | Aux loss: 38.44
+24-04-05 15:49:38.798 - INFO: Train epoch 504: [51200/94637 (54%)] Step: [2716815] | Lr: 0.000100 | Loss: 1.4779 | MSE loss: 0.0005 | Bpp loss: 0.67 | Aux loss: 34.88
+24-04-05 15:50:27.345 - INFO: Train epoch 504: [54400/94637 (57%)] Step: [2716915] | Lr: 0.000100 | Loss: 0.9765 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 36.65
+24-04-05 15:51:16.367 - INFO: Train epoch 504: [57600/94637 (61%)] Step: [2717015] | Lr: 0.000100 | Loss: 1.2664 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 44.62
+24-04-05 15:52:05.293 - INFO: Train epoch 504: [60800/94637 (64%)] Step: [2717115] | Lr: 0.000100 | Loss: 1.7562 | MSE loss: 0.0005 | Bpp loss: 0.99 | Aux loss: 39.72
+24-04-05 15:52:54.039 - INFO: Train epoch 504: [64000/94637 (68%)] Step: [2717215] | Lr: 0.000100 | Loss: 1.3543 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 36.14
+24-04-05 15:53:43.233 - INFO: Train epoch 504: [67200/94637 (71%)] Step: [2717315] | Lr: 0.000100 | Loss: 1.1868 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 37.59
+24-04-05 15:54:32.155 - INFO: Train epoch 504: [70400/94637 (74%)] Step: [2717415] | Lr: 0.000100 | Loss: 1.1212 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 34.74
+24-04-05 15:55:23.327 - INFO: Train epoch 504: [73600/94637 (78%)] Step: [2717515] | Lr: 0.000100 | Loss: 1.0027 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 34.25
+24-04-05 15:56:12.035 - INFO: Train epoch 504: [76800/94637 (81%)] Step: [2717615] | Lr: 0.000100 | Loss: 0.9958 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 34.46
+24-04-05 15:57:00.582 - INFO: Train epoch 504: [80000/94637 (85%)] Step: [2717715] | Lr: 0.000100 | Loss: 1.1636 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 32.96
+24-04-05 15:57:49.143 - INFO: Train epoch 504: [83200/94637 (88%)] Step: [2717815] | Lr: 0.000100 | Loss: 1.4696 | MSE loss: 0.0004 | Bpp loss: 0.89 | Aux loss: 33.64
+24-04-05 15:58:38.151 - INFO: Train epoch 504: [86400/94637 (91%)] Step: [2717915] | Lr: 0.000100 | Loss: 1.2624 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 36.40
+24-04-05 15:59:27.219 - INFO: Train epoch 504: [89600/94637 (95%)] Step: [2718015] | Lr: 0.000100 | Loss: 1.2444 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 34.50
+24-04-05 16:00:16.621 - INFO: Train epoch 504: [92800/94637 (98%)] Step: [2718115] | Lr: 0.000100 | Loss: 1.1060 | MSE loss: 0.0003 | Bpp loss: 0.67 | Aux loss: 36.28
+24-04-05 16:00:55.285 - INFO: Learning rate: 0.0001
+24-04-05 16:00:56.424 - INFO: Train epoch 505: [    0/94637 (0%)] Step: [2718172] | Lr: 0.000100 | Loss: 1.2835 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 34.08
+24-04-05 16:01:45.332 - INFO: Train epoch 505: [ 3200/94637 (3%)] Step: [2718272] | Lr: 0.000100 | Loss: 1.2813 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 35.81
+24-04-05 16:02:34.240 - INFO: Train epoch 505: [ 6400/94637 (7%)] Step: [2718372] | Lr: 0.000100 | Loss: 1.6283 | MSE loss: 0.0004 | Bpp loss: 0.97 | Aux loss: 36.38
+24-04-05 16:03:23.283 - INFO: Train epoch 505: [ 9600/94637 (10%)] Step: [2718472] | Lr: 0.000100 | Loss: 1.3486 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 38.63
+24-04-05 16:04:12.000 - INFO: Train epoch 505: [12800/94637 (14%)] Step: [2718572] | Lr: 0.000100 | Loss: 1.2986 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 36.71
+24-04-05 16:05:00.900 - INFO: Train epoch 505: [16000/94637 (17%)] Step: [2718672] | Lr: 0.000100 | Loss: 1.2080 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 34.87
+24-04-05 16:05:50.020 - INFO: Train epoch 505: [19200/94637 (20%)] Step: [2718772] | Lr: 0.000100 | Loss: 1.7567 | MSE loss: 0.0004 | Bpp loss: 1.03 | Aux loss: 36.12
+24-04-05 16:06:38.569 - INFO: Train epoch 505: [22400/94637 (24%)] Step: [2718872] | Lr: 0.000100 | Loss: 1.1297 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 36.41
+24-04-05 16:07:27.187 - INFO: Train epoch 505: [25600/94637 (27%)] Step: [2718972] | Lr: 0.000100 | Loss: 1.3674 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 39.63
+24-04-05 16:08:15.383 - INFO: Train epoch 505: [28800/94637 (30%)] Step: [2719072] | Lr: 0.000100 | Loss: 1.1980 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 31.72
+24-04-05 16:09:03.317 - INFO: Train epoch 505: [32000/94637 (34%)] Step: [2719172] | Lr: 0.000100 | Loss: 1.3612 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 37.87
+24-04-05 16:09:51.512 - INFO: Train epoch 505: [35200/94637 (37%)] Step: [2719272] | Lr: 0.000100 | Loss: 1.4226 | MSE loss: 0.0004 | Bpp loss: 0.80 | Aux loss: 34.79
+24-04-05 16:10:40.113 - INFO: Train epoch 505: [38400/94637 (41%)] Step: [2719372] | Lr: 0.000100 | Loss: 1.1221 | MSE loss: 0.0003 | Bpp loss: 0.63 | Aux loss: 36.83
+24-04-05 16:11:28.420 - INFO: Train epoch 505: [41600/94637 (44%)] Step: [2719472] | Lr: 0.000100 | Loss: 1.1145 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 35.33
+24-04-05 16:12:17.149 - INFO: Train epoch 505: [44800/94637 (47%)] Step: [2719572] | Lr: 0.000100 | Loss: 1.4378 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 38.79
+24-04-05 16:13:06.001 - INFO: Train epoch 505: [48000/94637 (51%)] Step: [2719672] | Lr: 0.000100 | Loss: 1.0493 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 35.51
+24-04-05 16:13:54.446 - INFO: Train epoch 505: [51200/94637 (54%)] Step: [2719772] | Lr: 0.000100 | Loss: 1.2000 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 33.74
+24-04-05 16:14:42.987 - INFO: Train epoch 505: [54400/94637 (57%)] Step: [2719872] | Lr: 0.000100 | Loss: 1.4724 | MSE loss: 0.0003 | Bpp loss: 0.95 | Aux loss: 38.20
+24-04-05 16:15:32.069 - INFO: Train epoch 505: [57600/94637 (61%)] Step: [2719972] | Lr: 0.000100 | Loss: 1.2464 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 35.10
+24-04-05 16:16:22.627 - INFO: Train epoch 505: [60800/94637 (64%)] Step: [2720072] | Lr: 0.000100 | Loss: 0.9154 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 33.57
+24-04-05 16:17:10.984 - INFO: Train epoch 505: [64000/94637 (68%)] Step: [2720172] | Lr: 0.000100 | Loss: 1.2644 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 37.20
+24-04-05 16:17:59.361 - INFO: Train epoch 505: [67200/94637 (71%)] Step: [2720272] | Lr: 0.000100 | Loss: 1.2465 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 34.20
+24-04-05 16:18:48.249 - INFO: Train epoch 505: [70400/94637 (74%)] Step: [2720372] | Lr: 0.000100 | Loss: 0.8828 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 33.48
+24-04-05 16:19:37.344 - INFO: Train epoch 505: [73600/94637 (78%)] Step: [2720472] | Lr: 0.000100 | Loss: 0.9775 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 37.10
+24-04-05 16:20:26.423 - INFO: Train epoch 505: [76800/94637 (81%)] Step: [2720572] | Lr: 0.000100 | Loss: 1.3258 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 37.79
+24-04-05 16:21:15.382 - INFO: Train epoch 505: [80000/94637 (85%)] Step: [2720672] | Lr: 0.000100 | Loss: 1.1974 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 39.26
+24-04-05 16:22:03.844 - INFO: Train epoch 505: [83200/94637 (88%)] Step: [2720772] | Lr: 0.000100 | Loss: 1.0508 | MSE loss: 0.0003 | Bpp loss: 0.60 | Aux loss: 36.41
+24-04-05 16:22:52.605 - INFO: Train epoch 505: [86400/94637 (91%)] Step: [2720872] | Lr: 0.000100 | Loss: 1.2305 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 35.30
+24-04-05 16:23:41.084 - INFO: Train epoch 505: [89600/94637 (95%)] Step: [2720972] | Lr: 0.000100 | Loss: 1.0322 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 34.98
+24-04-05 16:24:29.484 - INFO: Train epoch 505: [92800/94637 (98%)] Step: [2721072] | Lr: 0.000100 | Loss: 1.1522 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 40.80
+24-04-05 16:25:07.801 - INFO: Learning rate: 0.0001
+24-04-05 16:25:09.611 - INFO: Train epoch 506: [    0/94637 (0%)] Step: [2721129] | Lr: 0.000100 | Loss: 1.2080 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 35.66
+24-04-05 16:25:57.669 - INFO: Train epoch 506: [ 3200/94637 (3%)] Step: [2721229] | Lr: 0.000100 | Loss: 1.0802 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 38.05
+24-04-05 16:26:45.499 - INFO: Train epoch 506: [ 6400/94637 (7%)] Step: [2721329] | Lr: 0.000100 | Loss: 0.9692 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 35.90
+24-04-05 16:27:32.804 - INFO: Train epoch 506: [ 9600/94637 (10%)] Step: [2721429] | Lr: 0.000100 | Loss: 1.2884 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 34.91
+24-04-05 16:28:20.636 - INFO: Train epoch 506: [12800/94637 (14%)] Step: [2721529] | Lr: 0.000100 | Loss: 1.1836 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 39.04
+24-04-05 16:29:07.989 - INFO: Train epoch 506: [16000/94637 (17%)] Step: [2721629] | Lr: 0.000100 | Loss: 1.0395 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 35.40
+24-04-05 16:29:55.565 - INFO: Train epoch 506: [19200/94637 (20%)] Step: [2721729] | Lr: 0.000100 | Loss: 1.3454 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 35.04
+24-04-05 16:30:42.939 - INFO: Train epoch 506: [22400/94637 (24%)] Step: [2721829] | Lr: 0.000100 | Loss: 1.3817 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 32.46
+24-04-05 16:31:29.837 - INFO: Train epoch 506: [25600/94637 (27%)] Step: [2721929] | Lr: 0.000100 | Loss: 1.1933 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 33.07
+24-04-05 16:32:17.419 - INFO: Train epoch 506: [28800/94637 (30%)] Step: [2722029] | Lr: 0.000100 | Loss: 1.1717 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 36.46
+24-04-05 16:33:04.753 - INFO: Train epoch 506: [32000/94637 (34%)] Step: [2722129] | Lr: 0.000100 | Loss: 1.1511 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 33.05
+24-04-05 16:33:51.687 - INFO: Train epoch 506: [35200/94637 (37%)] Step: [2722229] | Lr: 0.000100 | Loss: 1.0781 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 35.73
+24-04-05 16:34:39.039 - INFO: Train epoch 506: [38400/94637 (41%)] Step: [2722329] | Lr: 0.000100 | Loss: 1.0741 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 32.74
+24-04-05 16:35:26.516 - INFO: Train epoch 506: [41600/94637 (44%)] Step: [2722429] | Lr: 0.000100 | Loss: 0.8409 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 32.31
+24-04-05 16:36:15.825 - INFO: Train epoch 506: [44800/94637 (47%)] Step: [2722529] | Lr: 0.000100 | Loss: 1.2287 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 36.13
+24-04-05 16:37:03.425 - INFO: Train epoch 506: [48000/94637 (51%)] Step: [2722629] | Lr: 0.000100 | Loss: 1.1872 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 34.90
+24-04-05 16:37:51.368 - INFO: Train epoch 506: [51200/94637 (54%)] Step: [2722729] | Lr: 0.000100 | Loss: 1.2928 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 35.36
+24-04-05 16:38:39.445 - INFO: Train epoch 506: [54400/94637 (57%)] Step: [2722829] | Lr: 0.000100 | Loss: 1.1892 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 38.39
+24-04-05 16:39:27.891 - INFO: Train epoch 506: [57600/94637 (61%)] Step: [2722929] | Lr: 0.000100 | Loss: 1.1595 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 34.35
+24-04-05 16:40:16.304 - INFO: Train epoch 506: [60800/94637 (64%)] Step: [2723029] | Lr: 0.000100 | Loss: 1.2334 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 35.23
+24-04-05 16:41:04.493 - INFO: Train epoch 506: [64000/94637 (68%)] Step: [2723129] | Lr: 0.000100 | Loss: 1.0773 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 33.62
+24-04-05 16:41:52.343 - INFO: Train epoch 506: [67200/94637 (71%)] Step: [2723229] | Lr: 0.000100 | Loss: 1.3211 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 34.69
+24-04-05 16:42:39.582 - INFO: Train epoch 506: [70400/94637 (74%)] Step: [2723329] | Lr: 0.000100 | Loss: 0.8746 | MSE loss: 0.0002 | Bpp loss: 0.57 | Aux loss: 35.19
+24-04-05 16:43:28.001 - INFO: Train epoch 506: [73600/94637 (78%)] Step: [2723429] | Lr: 0.000100 | Loss: 1.1865 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 35.84
+24-04-05 16:44:15.873 - INFO: Train epoch 506: [76800/94637 (81%)] Step: [2723529] | Lr: 0.000100 | Loss: 1.1124 | MSE loss: 0.0002 | Bpp loss: 0.72 | Aux loss: 35.16
+24-04-05 16:45:03.938 - INFO: Train epoch 506: [80000/94637 (85%)] Step: [2723629] | Lr: 0.000100 | Loss: 1.2674 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 32.53
+24-04-05 16:45:51.800 - INFO: Train epoch 506: [83200/94637 (88%)] Step: [2723729] | Lr: 0.000100 | Loss: 1.0256 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 31.38
+24-04-05 16:46:40.068 - INFO: Train epoch 506: [86400/94637 (91%)] Step: [2723829] | Lr: 0.000100 | Loss: 1.0665 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 35.44
+24-04-05 16:47:28.740 - INFO: Train epoch 506: [89600/94637 (95%)] Step: [2723929] | Lr: 0.000100 | Loss: 1.2730 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 35.22
+24-04-05 16:48:16.940 - INFO: Train epoch 506: [92800/94637 (98%)] Step: [2724029] | Lr: 0.000100 | Loss: 1.1741 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 34.54
+24-04-05 16:48:56.060 - INFO: Learning rate: 0.0001
+24-04-05 16:48:57.272 - INFO: Train epoch 507: [    0/94637 (0%)] Step: [2724086] | Lr: 0.000100 | Loss: 1.1837 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 34.03
+24-04-05 16:49:44.824 - INFO: Train epoch 507: [ 3200/94637 (3%)] Step: [2724186] | Lr: 0.000100 | Loss: 1.0162 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 32.61
+24-04-05 16:50:32.925 - INFO: Train epoch 507: [ 6400/94637 (7%)] Step: [2724286] | Lr: 0.000100 | Loss: 1.1466 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 31.29
+24-04-05 16:51:20.880 - INFO: Train epoch 507: [ 9600/94637 (10%)] Step: [2724386] | Lr: 0.000100 | Loss: 1.2136 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 36.91
+24-04-05 16:52:08.649 - INFO: Train epoch 507: [12800/94637 (14%)] Step: [2724486] | Lr: 0.000100 | Loss: 1.2337 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 35.32
+24-04-05 16:52:56.480 - INFO: Train epoch 507: [16000/94637 (17%)] Step: [2724586] | Lr: 0.000100 | Loss: 1.2926 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 32.67
+24-04-05 16:53:44.083 - INFO: Train epoch 507: [19200/94637 (20%)] Step: [2724686] | Lr: 0.000100 | Loss: 1.7149 | MSE loss: 0.0004 | Bpp loss: 1.07 | Aux loss: 34.13
+24-04-05 16:54:32.535 - INFO: Train epoch 507: [22400/94637 (24%)] Step: [2724786] | Lr: 0.000100 | Loss: 1.1670 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 34.14
+24-04-05 16:55:20.438 - INFO: Train epoch 507: [25600/94637 (27%)] Step: [2724886] | Lr: 0.000100 | Loss: 1.2355 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 36.19
+24-04-05 16:56:08.379 - INFO: Train epoch 507: [28800/94637 (30%)] Step: [2724986] | Lr: 0.000100 | Loss: 1.4195 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 35.49
+24-04-05 16:56:58.639 - INFO: Train epoch 507: [32000/94637 (34%)] Step: [2725086] | Lr: 0.000100 | Loss: 0.9235 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 35.10
+24-04-05 16:57:47.325 - INFO: Train epoch 507: [35200/94637 (37%)] Step: [2725186] | Lr: 0.000100 | Loss: 1.3999 | MSE loss: 0.0004 | Bpp loss: 0.80 | Aux loss: 34.87
+24-04-05 16:58:35.728 - INFO: Train epoch 507: [38400/94637 (41%)] Step: [2725286] | Lr: 0.000100 | Loss: 1.3443 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 32.64
+24-04-05 16:59:24.287 - INFO: Train epoch 507: [41600/94637 (44%)] Step: [2725386] | Lr: 0.000100 | Loss: 1.6829 | MSE loss: 0.0004 | Bpp loss: 1.05 | Aux loss: 35.75
+24-04-05 17:00:12.552 - INFO: Train epoch 507: [44800/94637 (47%)] Step: [2725486] | Lr: 0.000100 | Loss: 1.0725 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 32.02
+24-04-05 17:01:01.038 - INFO: Train epoch 507: [48000/94637 (51%)] Step: [2725586] | Lr: 0.000100 | Loss: 1.4191 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 34.84
+24-04-05 17:01:48.886 - INFO: Train epoch 507: [51200/94637 (54%)] Step: [2725686] | Lr: 0.000100 | Loss: 1.2649 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 35.11
+24-04-05 17:02:37.040 - INFO: Train epoch 507: [54400/94637 (57%)] Step: [2725786] | Lr: 0.000100 | Loss: 1.6595 | MSE loss: 0.0004 | Bpp loss: 1.05 | Aux loss: 34.53
+24-04-05 17:03:25.401 - INFO: Train epoch 507: [57600/94637 (61%)] Step: [2725886] | Lr: 0.000100 | Loss: 1.2240 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 34.03
+24-04-05 17:04:14.017 - INFO: Train epoch 507: [60800/94637 (64%)] Step: [2725986] | Lr: 0.000100 | Loss: 0.7209 | MSE loss: 0.0002 | Bpp loss: 0.47 | Aux loss: 32.90
+24-04-05 17:05:02.327 - INFO: Train epoch 507: [64000/94637 (68%)] Step: [2726086] | Lr: 0.000100 | Loss: 1.0434 | MSE loss: 0.0003 | Bpp loss: 0.63 | Aux loss: 33.75
+24-04-05 17:05:50.910 - INFO: Train epoch 507: [67200/94637 (71%)] Step: [2726186] | Lr: 0.000100 | Loss: 1.2873 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 33.88
+24-04-05 17:06:39.363 - INFO: Train epoch 507: [70400/94637 (74%)] Step: [2726286] | Lr: 0.000100 | Loss: 1.1965 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 34.95
+24-04-05 17:07:28.407 - INFO: Train epoch 507: [73600/94637 (78%)] Step: [2726386] | Lr: 0.000100 | Loss: 1.5164 | MSE loss: 0.0003 | Bpp loss: 1.00 | Aux loss: 37.43
+24-04-05 17:08:17.198 - INFO: Train epoch 507: [76800/94637 (81%)] Step: [2726486] | Lr: 0.000100 | Loss: 1.1015 | MSE loss: 0.0003 | Bpp loss: 0.67 | Aux loss: 34.95
+24-04-05 17:09:05.568 - INFO: Train epoch 507: [80000/94637 (85%)] Step: [2726586] | Lr: 0.000100 | Loss: 1.1544 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 35.58
+24-04-05 17:09:54.275 - INFO: Train epoch 507: [83200/94637 (88%)] Step: [2726686] | Lr: 0.000100 | Loss: 1.3440 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 34.98
+24-04-05 17:10:43.405 - INFO: Train epoch 507: [86400/94637 (91%)] Step: [2726786] | Lr: 0.000100 | Loss: 1.0504 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 33.15
+24-04-05 17:11:32.090 - INFO: Train epoch 507: [89600/94637 (95%)] Step: [2726886] | Lr: 0.000100 | Loss: 1.1281 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 33.31
+24-04-05 17:12:21.239 - INFO: Train epoch 507: [92800/94637 (98%)] Step: [2726986] | Lr: 0.000100 | Loss: 1.4607 | MSE loss: 0.0004 | Bpp loss: 0.82 | Aux loss: 32.65
+24-04-05 17:13:05.295 - INFO: Learning rate: 0.0001
+24-04-05 17:13:06.519 - INFO: Train epoch 508: [    0/94637 (0%)] Step: [2727043] | Lr: 0.000100 | Loss: 1.0831 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 31.40
+24-04-05 17:13:55.172 - INFO: Train epoch 508: [ 3200/94637 (3%)] Step: [2727143] | Lr: 0.000100 | Loss: 1.3413 | MSE loss: 0.0004 | Bpp loss: 0.75 | Aux loss: 34.06
+24-04-05 17:14:44.060 - INFO: Train epoch 508: [ 6400/94637 (7%)] Step: [2727243] | Lr: 0.000100 | Loss: 1.3236 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 32.43
+24-04-05 17:15:33.140 - INFO: Train epoch 508: [ 9600/94637 (10%)] Step: [2727343] | Lr: 0.000100 | Loss: 1.7515 | MSE loss: 0.0005 | Bpp loss: 0.98 | Aux loss: 32.77
+24-04-05 17:16:21.988 - INFO: Train epoch 508: [12800/94637 (14%)] Step: [2727443] | Lr: 0.000100 | Loss: 1.0746 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 34.43
+24-04-05 17:17:12.541 - INFO: Train epoch 508: [16000/94637 (17%)] Step: [2727543] | Lr: 0.000100 | Loss: 1.3431 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 35.37
+24-04-05 17:18:01.188 - INFO: Train epoch 508: [19200/94637 (20%)] Step: [2727643] | Lr: 0.000100 | Loss: 1.1350 | MSE loss: 0.0002 | Bpp loss: 0.73 | Aux loss: 33.86
+24-04-05 17:18:50.132 - INFO: Train epoch 508: [22400/94637 (24%)] Step: [2727743] | Lr: 0.000100 | Loss: 1.2445 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 33.34
+24-04-05 17:19:38.390 - INFO: Train epoch 508: [25600/94637 (27%)] Step: [2727843] | Lr: 0.000100 | Loss: 1.2493 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 32.31
+24-04-05 17:20:26.601 - INFO: Train epoch 508: [28800/94637 (30%)] Step: [2727943] | Lr: 0.000100 | Loss: 1.2125 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 32.75
+24-04-05 17:21:15.388 - INFO: Train epoch 508: [32000/94637 (34%)] Step: [2728043] | Lr: 0.000100 | Loss: 1.1846 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 30.54
+24-04-05 17:22:04.201 - INFO: Train epoch 508: [35200/94637 (37%)] Step: [2728143] | Lr: 0.000100 | Loss: 1.2946 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 34.47
+24-04-05 17:22:52.970 - INFO: Train epoch 508: [38400/94637 (41%)] Step: [2728243] | Lr: 0.000100 | Loss: 1.2324 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 33.99
+24-04-05 17:23:41.611 - INFO: Train epoch 508: [41600/94637 (44%)] Step: [2728343] | Lr: 0.000100 | Loss: 1.2059 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 33.64
+24-04-05 17:24:30.430 - INFO: Train epoch 508: [44800/94637 (47%)] Step: [2728443] | Lr: 0.000100 | Loss: 1.4201 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 34.07
+24-04-05 17:25:18.950 - INFO: Train epoch 508: [48000/94637 (51%)] Step: [2728543] | Lr: 0.000100 | Loss: 1.6162 | MSE loss: 0.0004 | Bpp loss: 0.99 | Aux loss: 33.14
+24-04-05 17:26:07.799 - INFO: Train epoch 508: [51200/94637 (54%)] Step: [2728643] | Lr: 0.000100 | Loss: 0.9942 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 33.51
+24-04-05 17:26:56.489 - INFO: Train epoch 508: [54400/94637 (57%)] Step: [2728743] | Lr: 0.000100 | Loss: 1.2444 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 33.81
+24-04-05 17:27:45.162 - INFO: Train epoch 508: [57600/94637 (61%)] Step: [2728843] | Lr: 0.000100 | Loss: 1.2316 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 34.79
+24-04-05 17:28:33.822 - INFO: Train epoch 508: [60800/94637 (64%)] Step: [2728943] | Lr: 0.000100 | Loss: 0.9648 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 34.30
+24-04-05 17:29:23.085 - INFO: Train epoch 508: [64000/94637 (68%)] Step: [2729043] | Lr: 0.000100 | Loss: 1.2270 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 31.99
+24-04-05 17:30:12.223 - INFO: Train epoch 508: [67200/94637 (71%)] Step: [2729143] | Lr: 0.000100 | Loss: 0.8273 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 35.26
+24-04-05 17:31:01.503 - INFO: Train epoch 508: [70400/94637 (74%)] Step: [2729243] | Lr: 0.000100 | Loss: 1.2030 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 37.63
+24-04-05 17:31:50.223 - INFO: Train epoch 508: [73600/94637 (78%)] Step: [2729343] | Lr: 0.000100 | Loss: 1.3927 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 34.25
+24-04-05 17:32:39.255 - INFO: Train epoch 508: [76800/94637 (81%)] Step: [2729443] | Lr: 0.000100 | Loss: 1.0387 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 37.76
+24-04-05 17:33:28.035 - INFO: Train epoch 508: [80000/94637 (85%)] Step: [2729543] | Lr: 0.000100 | Loss: 1.3602 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 34.03
+24-04-05 17:34:16.580 - INFO: Train epoch 508: [83200/94637 (88%)] Step: [2729643] | Lr: 0.000100 | Loss: 2.0717 | MSE loss: 0.0007 | Bpp loss: 1.00 | Aux loss: 32.14
+24-04-05 17:35:05.360 - INFO: Train epoch 508: [86400/94637 (91%)] Step: [2729743] | Lr: 0.000100 | Loss: 1.0088 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 30.91
+24-04-05 17:35:54.081 - INFO: Train epoch 508: [89600/94637 (95%)] Step: [2729843] | Lr: 0.000100 | Loss: 0.9331 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 31.32
+24-04-05 17:36:42.655 - INFO: Train epoch 508: [92800/94637 (98%)] Step: [2729943] | Lr: 0.000100 | Loss: 0.9712 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 34.34
+24-04-05 17:37:21.685 - INFO: Learning rate: 0.0001
+24-04-05 17:37:22.814 - INFO: Train epoch 509: [    0/94637 (0%)] Step: [2730000] | Lr: 0.000100 | Loss: 1.3469 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 34.40
+24-04-05 17:38:13.358 - INFO: Train epoch 509: [ 3200/94637 (3%)] Step: [2730100] | Lr: 0.000100 | Loss: 1.3931 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 31.59
+24-04-05 17:39:01.890 - INFO: Train epoch 509: [ 6400/94637 (7%)] Step: [2730200] | Lr: 0.000100 | Loss: 1.2044 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 35.48
+24-04-05 17:39:50.232 - INFO: Train epoch 509: [ 9600/94637 (10%)] Step: [2730300] | Lr: 0.000100 | Loss: 1.1413 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 35.38
+24-04-05 17:40:38.279 - INFO: Train epoch 509: [12800/94637 (14%)] Step: [2730400] | Lr: 0.000100 | Loss: 1.0876 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 33.26
+24-04-05 17:41:26.652 - INFO: Train epoch 509: [16000/94637 (17%)] Step: [2730500] | Lr: 0.000100 | Loss: 0.9258 | MSE loss: 0.0002 | Bpp loss: 0.60 | Aux loss: 32.51
+24-04-05 17:42:14.824 - INFO: Train epoch 509: [19200/94637 (20%)] Step: [2730600] | Lr: 0.000100 | Loss: 1.1175 | MSE loss: 0.0002 | Bpp loss: 0.72 | Aux loss: 33.45
+24-04-05 17:43:03.160 - INFO: Train epoch 509: [22400/94637 (24%)] Step: [2730700] | Lr: 0.000100 | Loss: 0.8386 | MSE loss: 0.0002 | Bpp loss: 0.50 | Aux loss: 32.53
+24-04-05 17:43:51.604 - INFO: Train epoch 509: [25600/94637 (27%)] Step: [2730800] | Lr: 0.000100 | Loss: 1.0824 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 32.01
+24-04-05 17:44:39.771 - INFO: Train epoch 509: [28800/94637 (30%)] Step: [2730900] | Lr: 0.000100 | Loss: 1.1223 | MSE loss: 0.0002 | Bpp loss: 0.72 | Aux loss: 32.76
+24-04-05 17:45:28.262 - INFO: Train epoch 509: [32000/94637 (34%)] Step: [2731000] | Lr: 0.000100 | Loss: 1.6283 | MSE loss: 0.0004 | Bpp loss: 1.02 | Aux loss: 32.78
+24-04-05 17:46:16.722 - INFO: Train epoch 509: [35200/94637 (37%)] Step: [2731100] | Lr: 0.000100 | Loss: 1.0822 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 31.57
+24-04-05 17:47:04.880 - INFO: Train epoch 509: [38400/94637 (41%)] Step: [2731200] | Lr: 0.000100 | Loss: 1.2646 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 34.12
+24-04-05 17:47:53.140 - INFO: Train epoch 509: [41600/94637 (44%)] Step: [2731300] | Lr: 0.000100 | Loss: 1.2451 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 33.44
+24-04-05 17:48:40.938 - INFO: Train epoch 509: [44800/94637 (47%)] Step: [2731400] | Lr: 0.000100 | Loss: 1.4344 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 32.51
+24-04-05 17:49:29.105 - INFO: Train epoch 509: [48000/94637 (51%)] Step: [2731500] | Lr: 0.000100 | Loss: 0.9253 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 34.07
+24-04-05 17:50:17.206 - INFO: Train epoch 509: [51200/94637 (54%)] Step: [2731600] | Lr: 0.000100 | Loss: 1.0439 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 34.30
+24-04-05 17:51:05.667 - INFO: Train epoch 509: [54400/94637 (57%)] Step: [2731700] | Lr: 0.000100 | Loss: 1.1252 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 33.62
+24-04-05 17:51:54.052 - INFO: Train epoch 509: [57600/94637 (61%)] Step: [2731800] | Lr: 0.000100 | Loss: 1.5129 | MSE loss: 0.0004 | Bpp loss: 0.88 | Aux loss: 35.02
+24-04-05 17:52:42.653 - INFO: Train epoch 509: [60800/94637 (64%)] Step: [2731900] | Lr: 0.000100 | Loss: 1.1528 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 34.36
+24-04-05 17:53:31.666 - INFO: Train epoch 509: [64000/94637 (68%)] Step: [2732000] | Lr: 0.000100 | Loss: 1.1861 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 31.15
+24-04-05 17:54:20.349 - INFO: Train epoch 509: [67200/94637 (71%)] Step: [2732100] | Lr: 0.000100 | Loss: 1.4954 | MSE loss: 0.0004 | Bpp loss: 0.89 | Aux loss: 35.54
+24-04-05 17:55:08.572 - INFO: Train epoch 509: [70400/94637 (74%)] Step: [2732200] | Lr: 0.000100 | Loss: 1.3808 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 31.91
+24-04-05 17:55:56.899 - INFO: Train epoch 509: [73600/94637 (78%)] Step: [2732300] | Lr: 0.000100 | Loss: 1.5058 | MSE loss: 0.0004 | Bpp loss: 0.82 | Aux loss: 31.71
+24-04-05 17:56:45.235 - INFO: Train epoch 509: [76800/94637 (81%)] Step: [2732400] | Lr: 0.000100 | Loss: 0.9523 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 33.65
+24-04-05 17:57:33.844 - INFO: Train epoch 509: [80000/94637 (85%)] Step: [2732500] | Lr: 0.000100 | Loss: 1.0791 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 33.10
+24-04-05 17:58:24.475 - INFO: Train epoch 509: [83200/94637 (88%)] Step: [2732600] | Lr: 0.000100 | Loss: 0.9912 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 30.46
+24-04-05 17:59:13.210 - INFO: Train epoch 509: [86400/94637 (91%)] Step: [2732700] | Lr: 0.000100 | Loss: 1.1830 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 30.12
+24-04-05 18:00:01.912 - INFO: Train epoch 509: [89600/94637 (95%)] Step: [2732800] | Lr: 0.000100 | Loss: 1.4355 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 31.25
+24-04-05 18:00:51.090 - INFO: Train epoch 509: [92800/94637 (98%)] Step: [2732900] | Lr: 0.000100 | Loss: 1.3992 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 29.31
+24-04-05 18:01:29.590 - INFO: Learning rate: 0.0001
+24-04-05 18:01:31.128 - INFO: Train epoch 510: [    0/94637 (0%)] Step: [2732957] | Lr: 0.000100 | Loss: 1.0927 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 35.27
+24-04-05 18:02:18.959 - INFO: Train epoch 510: [ 3200/94637 (3%)] Step: [2733057] | Lr: 0.000100 | Loss: 0.9982 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 28.81
+24-04-05 18:03:07.179 - INFO: Train epoch 510: [ 6400/94637 (7%)] Step: [2733157] | Lr: 0.000100 | Loss: 1.3704 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 32.82
+24-04-05 18:03:55.599 - INFO: Train epoch 510: [ 9600/94637 (10%)] Step: [2733257] | Lr: 0.000100 | Loss: 1.2161 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 32.07
+24-04-05 18:04:44.516 - INFO: Train epoch 510: [12800/94637 (14%)] Step: [2733357] | Lr: 0.000100 | Loss: 1.1163 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 30.99
+24-04-05 18:05:33.070 - INFO: Train epoch 510: [16000/94637 (17%)] Step: [2733457] | Lr: 0.000100 | Loss: 1.3092 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 28.36
+24-04-05 18:06:21.522 - INFO: Train epoch 510: [19200/94637 (20%)] Step: [2733557] | Lr: 0.000100 | Loss: 1.1229 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 31.70
+24-04-05 18:07:10.137 - INFO: Train epoch 510: [22400/94637 (24%)] Step: [2733657] | Lr: 0.000100 | Loss: 1.3170 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 30.49
+24-04-05 18:07:58.470 - INFO: Train epoch 510: [25600/94637 (27%)] Step: [2733757] | Lr: 0.000100 | Loss: 0.8992 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 31.86
+24-04-05 18:08:47.023 - INFO: Train epoch 510: [28800/94637 (30%)] Step: [2733857] | Lr: 0.000100 | Loss: 1.1064 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 30.08
+24-04-05 18:09:34.923 - INFO: Train epoch 510: [32000/94637 (34%)] Step: [2733957] | Lr: 0.000100 | Loss: 1.4694 | MSE loss: 0.0003 | Bpp loss: 0.94 | Aux loss: 31.71
+24-04-05 18:10:23.473 - INFO: Train epoch 510: [35200/94637 (37%)] Step: [2734057] | Lr: 0.000100 | Loss: 1.1004 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 30.84
+24-04-05 18:11:11.753 - INFO: Train epoch 510: [38400/94637 (41%)] Step: [2734157] | Lr: 0.000100 | Loss: 1.3041 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 29.96
+24-04-05 18:11:59.432 - INFO: Train epoch 510: [41600/94637 (44%)] Step: [2734257] | Lr: 0.000100 | Loss: 1.5965 | MSE loss: 0.0004 | Bpp loss: 0.97 | Aux loss: 31.17
+24-04-05 18:12:47.243 - INFO: Train epoch 510: [44800/94637 (47%)] Step: [2734357] | Lr: 0.000100 | Loss: 1.4565 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 27.53
+24-04-05 18:13:35.398 - INFO: Train epoch 510: [48000/94637 (51%)] Step: [2734457] | Lr: 0.000100 | Loss: 1.1406 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 28.05
+24-04-05 18:14:24.269 - INFO: Train epoch 510: [51200/94637 (54%)] Step: [2734557] | Lr: 0.000100 | Loss: 0.8845 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 30.46
+24-04-05 18:15:12.087 - INFO: Train epoch 510: [54400/94637 (57%)] Step: [2734657] | Lr: 0.000100 | Loss: 1.2108 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 27.53
+24-04-05 18:16:00.549 - INFO: Train epoch 510: [57600/94637 (61%)] Step: [2734757] | Lr: 0.000100 | Loss: 1.0633 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 29.90
+24-04-05 18:16:49.083 - INFO: Train epoch 510: [60800/94637 (64%)] Step: [2734857] | Lr: 0.000100 | Loss: 1.1949 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 32.01
+24-04-05 18:17:37.931 - INFO: Train epoch 510: [64000/94637 (68%)] Step: [2734957] | Lr: 0.000100 | Loss: 1.0488 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 28.73
+24-04-05 18:18:28.804 - INFO: Train epoch 510: [67200/94637 (71%)] Step: [2735057] | Lr: 0.000100 | Loss: 0.9307 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 28.95
+24-04-05 18:19:17.189 - INFO: Train epoch 510: [70400/94637 (74%)] Step: [2735157] | Lr: 0.000100 | Loss: 1.0218 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 29.42
+24-04-05 18:20:06.242 - INFO: Train epoch 510: [73600/94637 (78%)] Step: [2735257] | Lr: 0.000100 | Loss: 1.1149 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 29.70
+24-04-05 18:20:54.648 - INFO: Train epoch 510: [76800/94637 (81%)] Step: [2735357] | Lr: 0.000100 | Loss: 1.3974 | MSE loss: 0.0004 | Bpp loss: 0.81 | Aux loss: 29.40
+24-04-05 18:21:43.286 - INFO: Train epoch 510: [80000/94637 (85%)] Step: [2735457] | Lr: 0.000100 | Loss: 1.4004 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 29.15
+24-04-05 18:22:31.684 - INFO: Train epoch 510: [83200/94637 (88%)] Step: [2735557] | Lr: 0.000100 | Loss: 1.2327 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 29.50
+24-04-05 18:23:20.740 - INFO: Train epoch 510: [86400/94637 (91%)] Step: [2735657] | Lr: 0.000100 | Loss: 0.9091 | MSE loss: 0.0002 | Bpp loss: 0.60 | Aux loss: 29.53
+24-04-05 18:24:09.338 - INFO: Train epoch 510: [89600/94637 (95%)] Step: [2735757] | Lr: 0.000100 | Loss: 1.1734 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 65.41
+24-04-05 18:24:57.484 - INFO: Train epoch 510: [92800/94637 (98%)] Step: [2735857] | Lr: 0.000100 | Loss: 1.2649 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 31.45
+24-04-05 18:25:36.426 - INFO: Learning rate: 0.0001
+24-04-05 18:25:37.483 - INFO: Train epoch 511: [    0/94637 (0%)] Step: [2735914] | Lr: 0.000100 | Loss: 1.4908 | MSE loss: 0.0003 | Bpp loss: 0.95 | Aux loss: 27.29
+24-04-05 18:26:25.596 - INFO: Train epoch 511: [ 3200/94637 (3%)] Step: [2736014] | Lr: 0.000100 | Loss: 1.1321 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 31.40
+24-04-05 18:27:14.026 - INFO: Train epoch 511: [ 6400/94637 (7%)] Step: [2736114] | Lr: 0.000100 | Loss: 1.2393 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 27.72
+24-04-05 18:28:02.763 - INFO: Train epoch 511: [ 9600/94637 (10%)] Step: [2736214] | Lr: 0.000100 | Loss: 1.4645 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 29.68
+24-04-05 18:28:52.173 - INFO: Train epoch 511: [12800/94637 (14%)] Step: [2736314] | Lr: 0.000100 | Loss: 1.5961 | MSE loss: 0.0004 | Bpp loss: 0.98 | Aux loss: 31.93
+24-04-05 18:29:41.291 - INFO: Train epoch 511: [16000/94637 (17%)] Step: [2736414] | Lr: 0.000100 | Loss: 0.8742 | MSE loss: 0.0002 | Bpp loss: 0.52 | Aux loss: 29.61
+24-04-05 18:30:29.860 - INFO: Train epoch 511: [19200/94637 (20%)] Step: [2736514] | Lr: 0.000100 | Loss: 1.6652 | MSE loss: 0.0004 | Bpp loss: 1.02 | Aux loss: 33.39
+24-04-05 18:31:19.461 - INFO: Train epoch 511: [22400/94637 (24%)] Step: [2736614] | Lr: 0.000100 | Loss: 1.4668 | MSE loss: 0.0003 | Bpp loss: 0.94 | Aux loss: 28.47
+24-04-05 18:32:08.544 - INFO: Train epoch 511: [25600/94637 (27%)] Step: [2736714] | Lr: 0.000100 | Loss: 1.1355 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 27.72
+24-04-05 18:32:57.748 - INFO: Train epoch 511: [28800/94637 (30%)] Step: [2736814] | Lr: 0.000100 | Loss: 1.0447 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 25.44
+24-04-05 18:33:47.552 - INFO: Train epoch 511: [32000/94637 (34%)] Step: [2736914] | Lr: 0.000100 | Loss: 0.9979 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 27.66
+24-04-05 18:34:36.939 - INFO: Train epoch 511: [35200/94637 (37%)] Step: [2737014] | Lr: 0.000100 | Loss: 0.6995 | MSE loss: 0.0001 | Bpp loss: 0.48 | Aux loss: 27.01
+24-04-05 18:35:26.942 - INFO: Train epoch 511: [38400/94637 (41%)] Step: [2737114] | Lr: 0.000100 | Loss: 1.5829 | MSE loss: 0.0004 | Bpp loss: 1.01 | Aux loss: 30.63
+24-04-05 18:36:16.202 - INFO: Train epoch 511: [41600/94637 (44%)] Step: [2737214] | Lr: 0.000100 | Loss: 0.9112 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 29.71
+24-04-05 18:37:05.305 - INFO: Train epoch 511: [44800/94637 (47%)] Step: [2737314] | Lr: 0.000100 | Loss: 1.1210 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 27.30
+24-04-05 18:37:54.222 - INFO: Train epoch 511: [48000/94637 (51%)] Step: [2737414] | Lr: 0.000100 | Loss: 1.2422 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 30.16
+24-04-05 18:38:45.916 - INFO: Train epoch 511: [51200/94637 (54%)] Step: [2737514] | Lr: 0.000100 | Loss: 1.6910 | MSE loss: 0.0004 | Bpp loss: 1.04 | Aux loss: 43.04
+24-04-05 18:39:34.744 - INFO: Train epoch 511: [54400/94637 (57%)] Step: [2737614] | Lr: 0.000100 | Loss: 1.0856 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 28.29
+24-04-05 18:40:24.163 - INFO: Train epoch 511: [57600/94637 (61%)] Step: [2737714] | Lr: 0.000100 | Loss: 1.2419 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 27.33
+24-04-05 18:41:13.615 - INFO: Train epoch 511: [60800/94637 (64%)] Step: [2737814] | Lr: 0.000100 | Loss: 1.2409 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 30.11
+24-04-05 18:42:02.829 - INFO: Train epoch 511: [64000/94637 (68%)] Step: [2737914] | Lr: 0.000100 | Loss: 0.9918 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 29.14
+24-04-05 18:42:51.844 - INFO: Train epoch 511: [67200/94637 (71%)] Step: [2738014] | Lr: 0.000100 | Loss: 1.0907 | MSE loss: 0.0003 | Bpp loss: 0.67 | Aux loss: 30.45
+24-04-05 18:43:40.323 - INFO: Train epoch 511: [70400/94637 (74%)] Step: [2738114] | Lr: 0.000100 | Loss: 1.6292 | MSE loss: 0.0005 | Bpp loss: 0.86 | Aux loss: 28.78
+24-04-05 18:44:28.441 - INFO: Train epoch 511: [73600/94637 (78%)] Step: [2738214] | Lr: 0.000100 | Loss: 1.2134 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 27.77
+24-04-05 18:45:17.166 - INFO: Train epoch 511: [76800/94637 (81%)] Step: [2738314] | Lr: 0.000100 | Loss: 0.9341 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 28.36
+24-04-05 18:46:05.837 - INFO: Train epoch 511: [80000/94637 (85%)] Step: [2738414] | Lr: 0.000100 | Loss: 0.9760 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 29.73
+24-04-05 18:46:54.439 - INFO: Train epoch 511: [83200/94637 (88%)] Step: [2738514] | Lr: 0.000100 | Loss: 1.4505 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 25.77
+24-04-05 18:47:43.992 - INFO: Train epoch 511: [86400/94637 (91%)] Step: [2738614] | Lr: 0.000100 | Loss: 1.6117 | MSE loss: 0.0004 | Bpp loss: 1.03 | Aux loss: 27.93
+24-04-05 18:48:32.923 - INFO: Train epoch 511: [89600/94637 (95%)] Step: [2738714] | Lr: 0.000100 | Loss: 1.4948 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 28.25
+24-04-05 18:49:22.076 - INFO: Train epoch 511: [92800/94637 (98%)] Step: [2738814] | Lr: 0.000100 | Loss: 1.1302 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 29.03
+24-04-05 18:50:00.525 - INFO: Learning rate: 0.0001
+24-04-05 18:50:01.533 - INFO: Train epoch 512: [    0/94637 (0%)] Step: [2738871] | Lr: 0.000100 | Loss: 1.1001 | MSE loss: 0.0002 | Bpp loss: 0.72 | Aux loss: 26.61
+24-04-05 18:50:49.686 - INFO: Train epoch 512: [ 3200/94637 (3%)] Step: [2738971] | Lr: 0.000100 | Loss: 1.3756 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 57.78
+24-04-05 18:51:37.236 - INFO: Train epoch 512: [ 6400/94637 (7%)] Step: [2739071] | Lr: 0.000100 | Loss: 1.3236 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 27.18
+24-04-05 18:52:25.891 - INFO: Train epoch 512: [ 9600/94637 (10%)] Step: [2739171] | Lr: 0.000100 | Loss: 1.0313 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 25.92
+24-04-05 18:53:14.261 - INFO: Train epoch 512: [12800/94637 (14%)] Step: [2739271] | Lr: 0.000100 | Loss: 1.1099 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 27.52
+24-04-05 18:54:03.068 - INFO: Train epoch 512: [16000/94637 (17%)] Step: [2739371] | Lr: 0.000100 | Loss: 1.5797 | MSE loss: 0.0004 | Bpp loss: 1.00 | Aux loss: 25.90
+24-04-05 18:54:52.072 - INFO: Train epoch 512: [19200/94637 (20%)] Step: [2739471] | Lr: 0.000100 | Loss: 1.0101 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 30.10
+24-04-05 18:55:41.210 - INFO: Train epoch 512: [22400/94637 (24%)] Step: [2739571] | Lr: 0.000100 | Loss: 1.1826 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 26.73
+24-04-05 18:56:30.531 - INFO: Train epoch 512: [25600/94637 (27%)] Step: [2739671] | Lr: 0.000100 | Loss: 1.1974 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 26.70
+24-04-05 18:57:19.515 - INFO: Train epoch 512: [28800/94637 (30%)] Step: [2739771] | Lr: 0.000100 | Loss: 1.1510 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 24.78
+24-04-05 18:58:08.399 - INFO: Train epoch 512: [32000/94637 (34%)] Step: [2739871] | Lr: 0.000100 | Loss: 1.3520 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 29.11
+24-04-05 18:58:57.302 - INFO: Train epoch 512: [35200/94637 (37%)] Step: [2739971] | Lr: 0.000100 | Loss: 1.1656 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 33.97
+24-04-05 18:59:48.550 - INFO: Train epoch 512: [38400/94637 (41%)] Step: [2740071] | Lr: 0.000100 | Loss: 1.1089 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 25.90
+24-04-05 19:00:37.669 - INFO: Train epoch 512: [41600/94637 (44%)] Step: [2740171] | Lr: 0.000100 | Loss: 1.1037 | MSE loss: 0.0002 | Bpp loss: 0.71 | Aux loss: 26.33
+24-04-05 19:01:26.383 - INFO: Train epoch 512: [44800/94637 (47%)] Step: [2740271] | Lr: 0.000100 | Loss: 1.4148 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 25.12
+24-04-05 19:02:16.074 - INFO: Train epoch 512: [48000/94637 (51%)] Step: [2740371] | Lr: 0.000100 | Loss: 0.7026 | MSE loss: 0.0001 | Bpp loss: 0.46 | Aux loss: 26.95
+24-04-05 19:03:05.447 - INFO: Train epoch 512: [51200/94637 (54%)] Step: [2740471] | Lr: 0.000100 | Loss: 1.3929 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 27.47
+24-04-05 19:03:54.682 - INFO: Train epoch 512: [54400/94637 (57%)] Step: [2740571] | Lr: 0.000100 | Loss: 1.1531 | MSE loss: 0.0003 | Bpp loss: 0.62 | Aux loss: 24.36
+24-04-05 19:04:44.051 - INFO: Train epoch 512: [57600/94637 (61%)] Step: [2740671] | Lr: 0.000100 | Loss: 1.1248 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 26.20
+24-04-05 19:05:33.785 - INFO: Train epoch 512: [60800/94637 (64%)] Step: [2740771] | Lr: 0.000100 | Loss: 0.9662 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 27.57
+24-04-05 19:06:22.949 - INFO: Train epoch 512: [64000/94637 (68%)] Step: [2740871] | Lr: 0.000100 | Loss: 1.4356 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 28.27
+24-04-05 19:07:11.757 - INFO: Train epoch 512: [67200/94637 (71%)] Step: [2740971] | Lr: 0.000100 | Loss: 1.1203 | MSE loss: 0.0003 | Bpp loss: 0.67 | Aux loss: 26.85
+24-04-05 19:08:00.072 - INFO: Train epoch 512: [70400/94637 (74%)] Step: [2741071] | Lr: 0.000100 | Loss: 1.3241 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 28.25
+24-04-05 19:08:48.261 - INFO: Train epoch 512: [73600/94637 (78%)] Step: [2741171] | Lr: 0.000100 | Loss: 1.6166 | MSE loss: 0.0004 | Bpp loss: 0.98 | Aux loss: 27.46
+24-04-05 19:09:37.024 - INFO: Train epoch 512: [76800/94637 (81%)] Step: [2741271] | Lr: 0.000100 | Loss: 0.8309 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 26.80
+24-04-05 19:10:25.287 - INFO: Train epoch 512: [80000/94637 (85%)] Step: [2741371] | Lr: 0.000100 | Loss: 1.4241 | MSE loss: 0.0003 | Bpp loss: 0.90 | Aux loss: 32.08
+24-04-05 19:11:13.763 - INFO: Train epoch 512: [83200/94637 (88%)] Step: [2741471] | Lr: 0.000100 | Loss: 0.9143 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 28.59
+24-04-05 19:12:01.990 - INFO: Train epoch 512: [86400/94637 (91%)] Step: [2741571] | Lr: 0.000100 | Loss: 1.2798 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 26.60
+24-04-05 19:12:50.972 - INFO: Train epoch 512: [89600/94637 (95%)] Step: [2741671] | Lr: 0.000100 | Loss: 1.3873 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 46.09
+24-04-05 19:13:39.861 - INFO: Train epoch 512: [92800/94637 (98%)] Step: [2741771] | Lr: 0.000100 | Loss: 1.3913 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 27.09
+24-04-05 19:14:18.467 - INFO: Learning rate: 0.0001
+24-04-05 19:14:19.521 - INFO: Train epoch 513: [    0/94637 (0%)] Step: [2741828] | Lr: 0.000100 | Loss: 1.4488 | MSE loss: 0.0004 | Bpp loss: 0.84 | Aux loss: 26.72
+24-04-05 19:15:07.307 - INFO: Train epoch 513: [ 3200/94637 (3%)] Step: [2741928] | Lr: 0.000100 | Loss: 0.8593 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 26.80
+24-04-05 19:15:55.696 - INFO: Train epoch 513: [ 6400/94637 (7%)] Step: [2742028] | Lr: 0.000100 | Loss: 0.9601 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 25.98
+24-04-05 19:16:43.693 - INFO: Train epoch 513: [ 9600/94637 (10%)] Step: [2742128] | Lr: 0.000100 | Loss: 1.1389 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 28.41
+24-04-05 19:17:31.558 - INFO: Train epoch 513: [12800/94637 (14%)] Step: [2742228] | Lr: 0.000100 | Loss: 0.9496 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 24.40
+24-04-05 19:18:19.740 - INFO: Train epoch 513: [16000/94637 (17%)] Step: [2742328] | Lr: 0.000100 | Loss: 1.4912 | MSE loss: 0.0004 | Bpp loss: 0.87 | Aux loss: 26.17
+24-04-05 19:19:07.851 - INFO: Train epoch 513: [19200/94637 (20%)] Step: [2742428] | Lr: 0.000100 | Loss: 1.3575 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 29.26
+24-04-05 19:19:58.042 - INFO: Train epoch 513: [22400/94637 (24%)] Step: [2742528] | Lr: 0.000100 | Loss: 1.2500 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 30.16
+24-04-05 19:20:46.223 - INFO: Train epoch 513: [25600/94637 (27%)] Step: [2742628] | Lr: 0.000100 | Loss: 1.0865 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 27.27
+24-04-05 19:21:34.665 - INFO: Train epoch 513: [28800/94637 (30%)] Step: [2742728] | Lr: 0.000100 | Loss: 1.5492 | MSE loss: 0.0003 | Bpp loss: 0.99 | Aux loss: 29.35
+24-04-05 19:22:22.651 - INFO: Train epoch 513: [32000/94637 (34%)] Step: [2742828] | Lr: 0.000100 | Loss: 1.1555 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 25.81
+24-04-05 19:23:10.658 - INFO: Train epoch 513: [35200/94637 (37%)] Step: [2742928] | Lr: 0.000100 | Loss: 1.1675 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 29.27
+24-04-05 19:23:58.741 - INFO: Train epoch 513: [38400/94637 (41%)] Step: [2743028] | Lr: 0.000100 | Loss: 1.0552 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 28.19
+24-04-05 19:24:46.903 - INFO: Train epoch 513: [41600/94637 (44%)] Step: [2743128] | Lr: 0.000100 | Loss: 1.1557 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 27.95
+24-04-05 19:25:35.337 - INFO: Train epoch 513: [44800/94637 (47%)] Step: [2743228] | Lr: 0.000100 | Loss: 1.0146 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 27.55
+24-04-05 19:26:23.464 - INFO: Train epoch 513: [48000/94637 (51%)] Step: [2743328] | Lr: 0.000100 | Loss: 1.4375 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 28.24
+24-04-05 19:27:11.703 - INFO: Train epoch 513: [51200/94637 (54%)] Step: [2743428] | Lr: 0.000100 | Loss: 0.8193 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 26.75
+24-04-05 19:27:59.979 - INFO: Train epoch 513: [54400/94637 (57%)] Step: [2743528] | Lr: 0.000100 | Loss: 1.2251 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 26.90
+24-04-05 19:28:48.902 - INFO: Train epoch 513: [57600/94637 (61%)] Step: [2743628] | Lr: 0.000100 | Loss: 1.0640 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 26.69
+24-04-05 19:29:37.441 - INFO: Train epoch 513: [60800/94637 (64%)] Step: [2743728] | Lr: 0.000100 | Loss: 1.0364 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 29.05
+24-04-05 19:30:25.306 - INFO: Train epoch 513: [64000/94637 (68%)] Step: [2743828] | Lr: 0.000100 | Loss: 1.0841 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 28.09
+24-04-05 19:31:13.345 - INFO: Train epoch 513: [67200/94637 (71%)] Step: [2743928] | Lr: 0.000100 | Loss: 0.8434 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 28.30
+24-04-05 19:32:01.405 - INFO: Train epoch 513: [70400/94637 (74%)] Step: [2744028] | Lr: 0.000100 | Loss: 0.7885 | MSE loss: 0.0002 | Bpp loss: 0.49 | Aux loss: 29.20
+24-04-05 19:32:49.484 - INFO: Train epoch 513: [73600/94637 (78%)] Step: [2744128] | Lr: 0.000100 | Loss: 1.1732 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 29.33
+24-04-05 19:33:37.400 - INFO: Train epoch 513: [76800/94637 (81%)] Step: [2744228] | Lr: 0.000100 | Loss: 1.3431 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 30.85
+24-04-05 19:34:25.091 - INFO: Train epoch 513: [80000/94637 (85%)] Step: [2744328] | Lr: 0.000100 | Loss: 1.1314 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 25.42
+24-04-05 19:35:13.189 - INFO: Train epoch 513: [83200/94637 (88%)] Step: [2744428] | Lr: 0.000100 | Loss: 1.1946 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 31.08
+24-04-05 19:36:01.194 - INFO: Train epoch 513: [86400/94637 (91%)] Step: [2744528] | Lr: 0.000100 | Loss: 1.1387 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 29.96
+24-04-05 19:36:49.408 - INFO: Train epoch 513: [89600/94637 (95%)] Step: [2744628] | Lr: 0.000100 | Loss: 1.7069 | MSE loss: 0.0004 | Bpp loss: 1.00 | Aux loss: 31.17
+24-04-05 19:37:37.339 - INFO: Train epoch 513: [92800/94637 (98%)] Step: [2744728] | Lr: 0.000100 | Loss: 1.3152 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 29.22
+24-04-05 19:38:15.763 - INFO: Learning rate: 0.0001
+24-04-05 19:38:16.783 - INFO: Train epoch 514: [    0/94637 (0%)] Step: [2744785] | Lr: 0.000100 | Loss: 1.3372 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 28.23
+24-04-05 19:39:04.626 - INFO: Train epoch 514: [ 3200/94637 (3%)] Step: [2744885] | Lr: 0.000100 | Loss: 1.8010 | MSE loss: 0.0002 | Bpp loss: 1.41 | Aux loss: 29.83
+24-04-05 19:39:53.096 - INFO: Train epoch 514: [ 6400/94637 (7%)] Step: [2744985] | Lr: 0.000100 | Loss: 1.6311 | MSE loss: 0.0004 | Bpp loss: 0.98 | Aux loss: 34.76
+24-04-05 19:40:43.347 - INFO: Train epoch 514: [ 9600/94637 (10%)] Step: [2745085] | Lr: 0.000100 | Loss: 1.1487 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 29.04
+24-04-05 19:41:31.653 - INFO: Train epoch 514: [12800/94637 (14%)] Step: [2745185] | Lr: 0.000100 | Loss: 1.3331 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 27.43
+24-04-05 19:42:19.440 - INFO: Train epoch 514: [16000/94637 (17%)] Step: [2745285] | Lr: 0.000100 | Loss: 1.0194 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 27.54
+24-04-05 19:43:07.382 - INFO: Train epoch 514: [19200/94637 (20%)] Step: [2745385] | Lr: 0.000100 | Loss: 1.0673 | MSE loss: 0.0003 | Bpp loss: 0.63 | Aux loss: 28.00
+24-04-05 19:43:55.662 - INFO: Train epoch 514: [22400/94637 (24%)] Step: [2745485] | Lr: 0.000100 | Loss: 2.0773 | MSE loss: 0.0005 | Bpp loss: 1.25 | Aux loss: 30.78
+24-04-05 19:44:44.219 - INFO: Train epoch 514: [25600/94637 (27%)] Step: [2745585] | Lr: 0.000100 | Loss: 1.6363 | MSE loss: 0.0004 | Bpp loss: 1.02 | Aux loss: 26.03
+24-04-05 19:45:33.452 - INFO: Train epoch 514: [28800/94637 (30%)] Step: [2745685] | Lr: 0.000100 | Loss: 1.2491 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 26.29
+24-04-05 19:46:22.524 - INFO: Train epoch 514: [32000/94637 (34%)] Step: [2745785] | Lr: 0.000100 | Loss: 0.9853 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 61.10
+24-04-05 19:47:11.575 - INFO: Train epoch 514: [35200/94637 (37%)] Step: [2745885] | Lr: 0.000100 | Loss: 1.2939 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 26.85
+24-04-05 19:48:00.511 - INFO: Train epoch 514: [38400/94637 (41%)] Step: [2745985] | Lr: 0.000100 | Loss: 1.0793 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 27.61
+24-04-05 19:48:49.925 - INFO: Train epoch 514: [41600/94637 (44%)] Step: [2746085] | Lr: 0.000100 | Loss: 1.4581 | MSE loss: 0.0004 | Bpp loss: 0.83 | Aux loss: 26.62
+24-04-05 19:49:39.426 - INFO: Train epoch 514: [44800/94637 (47%)] Step: [2746185] | Lr: 0.000100 | Loss: 1.4987 | MSE loss: 0.0004 | Bpp loss: 0.93 | Aux loss: 25.53
+24-04-05 19:50:28.551 - INFO: Train epoch 514: [48000/94637 (51%)] Step: [2746285] | Lr: 0.000100 | Loss: 1.0572 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 25.98
+24-04-05 19:51:17.804 - INFO: Train epoch 514: [51200/94637 (54%)] Step: [2746385] | Lr: 0.000100 | Loss: 1.0057 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 29.03
+24-04-05 19:52:07.076 - INFO: Train epoch 514: [54400/94637 (57%)] Step: [2746485] | Lr: 0.000100 | Loss: 1.3809 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 28.83
+24-04-05 19:52:55.883 - INFO: Train epoch 514: [57600/94637 (61%)] Step: [2746585] | Lr: 0.000100 | Loss: 1.5199 | MSE loss: 0.0004 | Bpp loss: 0.88 | Aux loss: 26.80
+24-04-05 19:53:44.490 - INFO: Train epoch 514: [60800/94637 (64%)] Step: [2746685] | Lr: 0.000100 | Loss: 1.0097 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 27.91
+24-04-05 19:54:33.735 - INFO: Train epoch 514: [64000/94637 (68%)] Step: [2746785] | Lr: 0.000100 | Loss: 0.9446 | MSE loss: 0.0002 | Bpp loss: 0.60 | Aux loss: 29.26
+24-04-05 19:55:23.220 - INFO: Train epoch 514: [67200/94637 (71%)] Step: [2746885] | Lr: 0.000100 | Loss: 1.1056 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 27.38
+24-04-05 19:56:12.584 - INFO: Train epoch 514: [70400/94637 (74%)] Step: [2746985] | Lr: 0.000100 | Loss: 0.9714 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 26.18
+24-04-05 19:57:01.819 - INFO: Train epoch 514: [73600/94637 (78%)] Step: [2747085] | Lr: 0.000100 | Loss: 1.4823 | MSE loss: 0.0003 | Bpp loss: 0.94 | Aux loss: 27.68
+24-04-05 19:57:50.664 - INFO: Train epoch 514: [76800/94637 (81%)] Step: [2747185] | Lr: 0.000100 | Loss: 1.2675 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 29.81
+24-04-05 19:58:39.952 - INFO: Train epoch 514: [80000/94637 (85%)] Step: [2747285] | Lr: 0.000100 | Loss: 0.7033 | MSE loss: 0.0002 | Bpp loss: 0.46 | Aux loss: 72.62
+24-04-05 19:59:29.342 - INFO: Train epoch 514: [83200/94637 (88%)] Step: [2747385] | Lr: 0.000100 | Loss: 1.2450 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 27.49
+24-04-05 20:00:18.171 - INFO: Train epoch 514: [86400/94637 (91%)] Step: [2747485] | Lr: 0.000100 | Loss: 1.3407 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 24.39
+24-04-05 20:01:09.699 - INFO: Train epoch 514: [89600/94637 (95%)] Step: [2747585] | Lr: 0.000100 | Loss: 0.9509 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 26.99
+24-04-05 20:01:58.994 - INFO: Train epoch 514: [92800/94637 (98%)] Step: [2747685] | Lr: 0.000100 | Loss: 1.2341 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 26.77
+24-04-05 20:02:38.614 - INFO: Learning rate: 0.0001
+24-04-05 20:02:39.893 - INFO: Train epoch 515: [    0/94637 (0%)] Step: [2747742] | Lr: 0.000100 | Loss: 1.2561 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 29.05
+24-04-05 20:03:29.068 - INFO: Train epoch 515: [ 3200/94637 (3%)] Step: [2747842] | Lr: 0.000100 | Loss: 0.8991 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 25.91
+24-04-05 20:04:17.921 - INFO: Train epoch 515: [ 6400/94637 (7%)] Step: [2747942] | Lr: 0.000100 | Loss: 1.2646 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 25.46
+24-04-05 20:05:06.442 - INFO: Train epoch 515: [ 9600/94637 (10%)] Step: [2748042] | Lr: 0.000100 | Loss: 1.1138 | MSE loss: 0.0002 | Bpp loss: 0.73 | Aux loss: 25.32
+24-04-05 20:05:54.847 - INFO: Train epoch 515: [12800/94637 (14%)] Step: [2748142] | Lr: 0.000100 | Loss: 1.2032 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 25.59
+24-04-05 20:06:43.323 - INFO: Train epoch 515: [16000/94637 (17%)] Step: [2748242] | Lr: 0.000100 | Loss: 2.0774 | MSE loss: 0.0006 | Bpp loss: 1.05 | Aux loss: 29.28
+24-04-05 20:07:31.787 - INFO: Train epoch 515: [19200/94637 (20%)] Step: [2748342] | Lr: 0.000100 | Loss: 1.1706 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 28.49
+24-04-05 20:08:20.552 - INFO: Train epoch 515: [22400/94637 (24%)] Step: [2748442] | Lr: 0.000100 | Loss: 1.0158 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 26.68
+24-04-05 20:09:08.917 - INFO: Train epoch 515: [25600/94637 (27%)] Step: [2748542] | Lr: 0.000100 | Loss: 1.0042 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 27.92
+24-04-05 20:09:57.783 - INFO: Train epoch 515: [28800/94637 (30%)] Step: [2748642] | Lr: 0.000100 | Loss: 1.1428 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 28.21
+24-04-05 20:10:45.981 - INFO: Train epoch 515: [32000/94637 (34%)] Step: [2748742] | Lr: 0.000100 | Loss: 1.4816 | MSE loss: 0.0003 | Bpp loss: 0.95 | Aux loss: 27.35
+24-04-05 20:11:34.647 - INFO: Train epoch 515: [35200/94637 (37%)] Step: [2748842] | Lr: 0.000100 | Loss: 1.0680 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 28.07
+24-04-05 20:12:23.027 - INFO: Train epoch 515: [38400/94637 (41%)] Step: [2748942] | Lr: 0.000100 | Loss: 1.1642 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 25.50
+24-04-05 20:13:11.358 - INFO: Train epoch 515: [41600/94637 (44%)] Step: [2749042] | Lr: 0.000100 | Loss: 1.0625 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 27.59
+24-04-05 20:13:59.874 - INFO: Train epoch 515: [44800/94637 (47%)] Step: [2749142] | Lr: 0.000100 | Loss: 1.3087 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 26.82
+24-04-05 20:14:48.291 - INFO: Train epoch 515: [48000/94637 (51%)] Step: [2749242] | Lr: 0.000100 | Loss: 1.2695 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 26.80
+24-04-05 20:15:36.895 - INFO: Train epoch 515: [51200/94637 (54%)] Step: [2749342] | Lr: 0.000100 | Loss: 0.8978 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 24.76
+24-04-05 20:16:25.775 - INFO: Train epoch 515: [54400/94637 (57%)] Step: [2749442] | Lr: 0.000100 | Loss: 1.2682 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 47.53
+24-04-05 20:17:14.557 - INFO: Train epoch 515: [57600/94637 (61%)] Step: [2749542] | Lr: 0.000100 | Loss: 1.4247 | MSE loss: 0.0004 | Bpp loss: 0.85 | Aux loss: 23.59
+24-04-05 20:18:03.199 - INFO: Train epoch 515: [60800/94637 (64%)] Step: [2749642] | Lr: 0.000100 | Loss: 1.0267 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 25.45
+24-04-05 20:18:51.716 - INFO: Train epoch 515: [64000/94637 (68%)] Step: [2749742] | Lr: 0.000100 | Loss: 1.1204 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 24.46
+24-04-05 20:19:40.306 - INFO: Train epoch 515: [67200/94637 (71%)] Step: [2749842] | Lr: 0.000100 | Loss: 1.6841 | MSE loss: 0.0004 | Bpp loss: 1.05 | Aux loss: 27.47
+24-04-05 20:20:28.913 - INFO: Train epoch 515: [70400/94637 (74%)] Step: [2749942] | Lr: 0.000100 | Loss: 1.1529 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 43.86
+24-04-05 20:21:19.435 - INFO: Train epoch 515: [73600/94637 (78%)] Step: [2750042] | Lr: 0.000100 | Loss: 1.2063 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 34.18
+24-04-05 20:22:07.696 - INFO: Train epoch 515: [76800/94637 (81%)] Step: [2750142] | Lr: 0.000100 | Loss: 0.9650 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 24.64
+24-04-05 20:22:56.728 - INFO: Train epoch 515: [80000/94637 (85%)] Step: [2750242] | Lr: 0.000100 | Loss: 1.0700 | MSE loss: 0.0003 | Bpp loss: 0.64 | Aux loss: 24.60
+24-04-05 20:23:45.410 - INFO: Train epoch 515: [83200/94637 (88%)] Step: [2750342] | Lr: 0.000100 | Loss: 1.0965 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 68.30
+24-04-05 20:24:33.563 - INFO: Train epoch 515: [86400/94637 (91%)] Step: [2750442] | Lr: 0.000100 | Loss: 1.2231 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 25.99
+24-04-05 20:25:21.738 - INFO: Train epoch 515: [89600/94637 (95%)] Step: [2750542] | Lr: 0.000100 | Loss: 1.5106 | MSE loss: 0.0003 | Bpp loss: 0.95 | Aux loss: 49.10
+24-04-05 20:26:10.437 - INFO: Train epoch 515: [92800/94637 (98%)] Step: [2750642] | Lr: 0.000100 | Loss: 0.8546 | MSE loss: 0.0002 | Bpp loss: 0.52 | Aux loss: 25.83
+24-04-05 20:26:48.605 - INFO: Learning rate: 0.0001
+24-04-05 20:26:49.693 - INFO: Train epoch 516: [    0/94637 (0%)] Step: [2750699] | Lr: 0.000100 | Loss: 1.3975 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 25.25
+24-04-05 20:27:37.668 - INFO: Train epoch 516: [ 3200/94637 (3%)] Step: [2750799] | Lr: 0.000100 | Loss: 1.2482 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 22.06
+24-04-05 20:28:25.761 - INFO: Train epoch 516: [ 6400/94637 (7%)] Step: [2750899] | Lr: 0.000100 | Loss: 1.1987 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 25.91
+24-04-05 20:29:13.359 - INFO: Train epoch 516: [ 9600/94637 (10%)] Step: [2750999] | Lr: 0.000100 | Loss: 1.4261 | MSE loss: 0.0004 | Bpp loss: 0.85 | Aux loss: 20.93
+24-04-05 20:30:01.939 - INFO: Train epoch 516: [12800/94637 (14%)] Step: [2751099] | Lr: 0.000100 | Loss: 1.2570 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 21.42
+24-04-05 20:30:49.366 - INFO: Train epoch 516: [16000/94637 (17%)] Step: [2751199] | Lr: 0.000100 | Loss: 1.3267 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 22.69
+24-04-05 20:31:36.888 - INFO: Train epoch 516: [19200/94637 (20%)] Step: [2751299] | Lr: 0.000100 | Loss: 0.7140 | MSE loss: 0.0001 | Bpp loss: 0.48 | Aux loss: 22.68
+24-04-05 20:32:24.299 - INFO: Train epoch 516: [22400/94637 (24%)] Step: [2751399] | Lr: 0.000100 | Loss: 1.2331 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 22.68
+24-04-05 20:33:12.432 - INFO: Train epoch 516: [25600/94637 (27%)] Step: [2751499] | Lr: 0.000100 | Loss: 1.3846 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 47.66
+24-04-05 20:34:00.764 - INFO: Train epoch 516: [28800/94637 (30%)] Step: [2751599] | Lr: 0.000100 | Loss: 1.1589 | MSE loss: 0.0003 | Bpp loss: 0.64 | Aux loss: 22.01
+24-04-05 20:34:48.739 - INFO: Train epoch 516: [32000/94637 (34%)] Step: [2751699] | Lr: 0.000100 | Loss: 1.0353 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 21.96
+24-04-05 20:35:36.946 - INFO: Train epoch 516: [35200/94637 (37%)] Step: [2751799] | Lr: 0.000100 | Loss: 1.1583 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 21.36
+24-04-05 20:36:25.043 - INFO: Train epoch 516: [38400/94637 (41%)] Step: [2751899] | Lr: 0.000100 | Loss: 1.1607 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 20.05
+24-04-05 20:37:12.989 - INFO: Train epoch 516: [41600/94637 (44%)] Step: [2751999] | Lr: 0.000100 | Loss: 1.2203 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 19.80
+24-04-05 20:38:01.094 - INFO: Train epoch 516: [44800/94637 (47%)] Step: [2752099] | Lr: 0.000100 | Loss: 1.1367 | MSE loss: 0.0002 | Bpp loss: 0.74 | Aux loss: 19.72
+24-04-05 20:38:49.130 - INFO: Train epoch 516: [48000/94637 (51%)] Step: [2752199] | Lr: 0.000100 | Loss: 1.0350 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 21.53
+24-04-05 20:39:37.261 - INFO: Train epoch 516: [51200/94637 (54%)] Step: [2752299] | Lr: 0.000100 | Loss: 1.0524 | MSE loss: 0.0003 | Bpp loss: 0.61 | Aux loss: 22.16
+24-04-05 20:40:24.824 - INFO: Train epoch 516: [54400/94637 (57%)] Step: [2752399] | Lr: 0.000100 | Loss: 1.0813 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 21.23
+24-04-05 20:41:12.888 - INFO: Train epoch 516: [57600/94637 (61%)] Step: [2752499] | Lr: 0.000100 | Loss: 1.5419 | MSE loss: 0.0004 | Bpp loss: 0.97 | Aux loss: 18.72
+24-04-05 20:42:03.278 - INFO: Train epoch 516: [60800/94637 (64%)] Step: [2752599] | Lr: 0.000100 | Loss: 1.3074 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 21.68
+24-04-05 20:42:51.524 - INFO: Train epoch 516: [64000/94637 (68%)] Step: [2752699] | Lr: 0.000100 | Loss: 1.1300 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 19.04
+24-04-05 20:43:39.601 - INFO: Train epoch 516: [67200/94637 (71%)] Step: [2752799] | Lr: 0.000100 | Loss: 1.0384 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 18.20
+24-04-05 20:44:27.973 - INFO: Train epoch 516: [70400/94637 (74%)] Step: [2752899] | Lr: 0.000100 | Loss: 1.3137 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 24.09
+24-04-05 20:45:16.345 - INFO: Train epoch 516: [73600/94637 (78%)] Step: [2752999] | Lr: 0.000100 | Loss: 0.9656 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 21.67
+24-04-05 20:46:05.019 - INFO: Train epoch 516: [76800/94637 (81%)] Step: [2753099] | Lr: 0.000100 | Loss: 1.4776 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 20.28
+24-04-05 20:46:53.638 - INFO: Train epoch 516: [80000/94637 (85%)] Step: [2753199] | Lr: 0.000100 | Loss: 1.1377 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 20.73
+24-04-05 20:47:41.896 - INFO: Train epoch 516: [83200/94637 (88%)] Step: [2753299] | Lr: 0.000100 | Loss: 1.4288 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 30.65
+24-04-05 20:48:30.562 - INFO: Train epoch 516: [86400/94637 (91%)] Step: [2753399] | Lr: 0.000100 | Loss: 1.3317 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 21.28
+24-04-05 20:49:19.155 - INFO: Train epoch 516: [89600/94637 (95%)] Step: [2753499] | Lr: 0.000100 | Loss: 1.2736 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 23.99
+24-04-05 20:50:07.265 - INFO: Train epoch 516: [92800/94637 (98%)] Step: [2753599] | Lr: 0.000100 | Loss: 1.3526 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 20.26
+24-04-05 20:50:45.706 - INFO: Learning rate: 0.0001
+24-04-05 20:50:46.838 - INFO: Train epoch 517: [    0/94637 (0%)] Step: [2753656] | Lr: 0.000100 | Loss: 1.4211 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 18.34
+24-04-05 20:51:35.357 - INFO: Train epoch 517: [ 3200/94637 (3%)] Step: [2753756] | Lr: 0.000100 | Loss: 1.2998 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 19.79
+24-04-05 20:52:23.279 - INFO: Train epoch 517: [ 6400/94637 (7%)] Step: [2753856] | Lr: 0.000100 | Loss: 0.8943 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 20.64
+24-04-05 20:53:11.346 - INFO: Train epoch 517: [ 9600/94637 (10%)] Step: [2753956] | Lr: 0.000100 | Loss: 1.0720 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 19.93
+24-04-05 20:53:59.652 - INFO: Train epoch 517: [12800/94637 (14%)] Step: [2754056] | Lr: 0.000100 | Loss: 1.0905 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 17.73
+24-04-05 20:54:48.376 - INFO: Train epoch 517: [16000/94637 (17%)] Step: [2754156] | Lr: 0.000100 | Loss: 1.4020 | MSE loss: 0.0003 | Bpp loss: 0.92 | Aux loss: 21.32
+24-04-05 20:55:37.113 - INFO: Train epoch 517: [19200/94637 (20%)] Step: [2754256] | Lr: 0.000100 | Loss: 1.1787 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 22.00
+24-04-05 20:56:25.525 - INFO: Train epoch 517: [22400/94637 (24%)] Step: [2754356] | Lr: 0.000100 | Loss: 1.3276 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 18.00
+24-04-05 20:57:13.825 - INFO: Train epoch 517: [25600/94637 (27%)] Step: [2754456] | Lr: 0.000100 | Loss: 1.1154 | MSE loss: 0.0002 | Bpp loss: 0.73 | Aux loss: 17.76
+24-04-05 20:58:02.240 - INFO: Train epoch 517: [28800/94637 (30%)] Step: [2754556] | Lr: 0.000100 | Loss: 1.4623 | MSE loss: 0.0004 | Bpp loss: 0.88 | Aux loss: 18.80
+24-04-05 20:58:50.853 - INFO: Train epoch 517: [32000/94637 (34%)] Step: [2754656] | Lr: 0.000100 | Loss: 1.2905 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 20.04
+24-04-05 20:59:39.480 - INFO: Train epoch 517: [35200/94637 (37%)] Step: [2754756] | Lr: 0.000100 | Loss: 1.2159 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 18.57
+24-04-05 21:00:28.409 - INFO: Train epoch 517: [38400/94637 (41%)] Step: [2754856] | Lr: 0.000100 | Loss: 1.2323 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 17.23
+24-04-05 21:01:17.198 - INFO: Train epoch 517: [41600/94637 (44%)] Step: [2754956] | Lr: 0.000100 | Loss: 1.5906 | MSE loss: 0.0003 | Bpp loss: 1.03 | Aux loss: 16.34
+24-04-05 21:02:07.615 - INFO: Train epoch 517: [44800/94637 (47%)] Step: [2755056] | Lr: 0.000100 | Loss: 0.7151 | MSE loss: 0.0002 | Bpp loss: 0.47 | Aux loss: 16.51
+24-04-05 21:02:56.163 - INFO: Train epoch 517: [48000/94637 (51%)] Step: [2755156] | Lr: 0.000100 | Loss: 1.0751 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 18.05
+24-04-05 21:03:44.874 - INFO: Train epoch 517: [51200/94637 (54%)] Step: [2755256] | Lr: 0.000100 | Loss: 0.8265 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 20.84
+24-04-05 21:04:33.213 - INFO: Train epoch 517: [54400/94637 (57%)] Step: [2755356] | Lr: 0.000100 | Loss: 1.3292 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 20.97
+24-04-05 21:05:21.791 - INFO: Train epoch 517: [57600/94637 (61%)] Step: [2755456] | Lr: 0.000100 | Loss: 1.6325 | MSE loss: 0.0004 | Bpp loss: 0.95 | Aux loss: 20.33
+24-04-05 21:06:10.455 - INFO: Train epoch 517: [60800/94637 (64%)] Step: [2755556] | Lr: 0.000100 | Loss: 1.0382 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 16.68
+24-04-05 21:06:59.086 - INFO: Train epoch 517: [64000/94637 (68%)] Step: [2755656] | Lr: 0.000100 | Loss: 1.2726 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 20.52
+24-04-05 21:07:48.218 - INFO: Train epoch 517: [67200/94637 (71%)] Step: [2755756] | Lr: 0.000100 | Loss: 1.2538 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 28.79
+24-04-05 21:08:37.495 - INFO: Train epoch 517: [70400/94637 (74%)] Step: [2755856] | Lr: 0.000100 | Loss: 1.0485 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 19.62
+24-04-05 21:09:26.479 - INFO: Train epoch 517: [73600/94637 (78%)] Step: [2755956] | Lr: 0.000100 | Loss: 1.6414 | MSE loss: 0.0004 | Bpp loss: 0.92 | Aux loss: 25.15
+24-04-05 21:10:15.574 - INFO: Train epoch 517: [76800/94637 (81%)] Step: [2756056] | Lr: 0.000100 | Loss: 1.1908 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 15.63
+24-04-05 21:11:04.716 - INFO: Train epoch 517: [80000/94637 (85%)] Step: [2756156] | Lr: 0.000100 | Loss: 0.9846 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 18.62
+24-04-05 21:11:53.926 - INFO: Train epoch 517: [83200/94637 (88%)] Step: [2756256] | Lr: 0.000100 | Loss: 1.1853 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 26.35
+24-04-05 21:12:43.132 - INFO: Train epoch 517: [86400/94637 (91%)] Step: [2756356] | Lr: 0.000100 | Loss: 1.3133 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 16.86
+24-04-05 21:13:32.446 - INFO: Train epoch 517: [89600/94637 (95%)] Step: [2756456] | Lr: 0.000100 | Loss: 1.4559 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 16.48
+24-04-05 21:14:22.034 - INFO: Train epoch 517: [92800/94637 (98%)] Step: [2756556] | Lr: 0.000100 | Loss: 1.2375 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 16.60
+24-04-05 21:15:01.095 - INFO: Learning rate: 0.0001
+24-04-05 21:15:02.330 - INFO: Train epoch 518: [    0/94637 (0%)] Step: [2756613] | Lr: 0.000100 | Loss: 0.7886 | MSE loss: 0.0002 | Bpp loss: 0.52 | Aux loss: 15.55
+24-04-05 21:15:51.387 - INFO: Train epoch 518: [ 3200/94637 (3%)] Step: [2756713] | Lr: 0.000100 | Loss: 0.9566 | MSE loss: 0.0002 | Bpp loss: 0.57 | Aux loss: 14.48
+24-04-05 21:16:40.194 - INFO: Train epoch 518: [ 6400/94637 (7%)] Step: [2756813] | Lr: 0.000100 | Loss: 1.4332 | MSE loss: 0.0003 | Bpp loss: 0.90 | Aux loss: 13.82
+24-04-05 21:17:28.832 - INFO: Train epoch 518: [ 9600/94637 (10%)] Step: [2756913] | Lr: 0.000100 | Loss: 0.8772 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 14.45
+24-04-05 21:18:17.427 - INFO: Train epoch 518: [12800/94637 (14%)] Step: [2757013] | Lr: 0.000100 | Loss: 0.8783 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 14.55
+24-04-05 21:19:05.837 - INFO: Train epoch 518: [16000/94637 (17%)] Step: [2757113] | Lr: 0.000100 | Loss: 1.4079 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 15.94
+24-04-05 21:19:55.206 - INFO: Train epoch 518: [19200/94637 (20%)] Step: [2757213] | Lr: 0.000100 | Loss: 1.4524 | MSE loss: 0.0003 | Bpp loss: 0.94 | Aux loss: 15.57
+24-04-05 21:20:44.076 - INFO: Train epoch 518: [22400/94637 (24%)] Step: [2757313] | Lr: 0.000100 | Loss: 1.3625 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 15.14
+24-04-05 21:21:32.802 - INFO: Train epoch 518: [25600/94637 (27%)] Step: [2757413] | Lr: 0.000100 | Loss: 1.1784 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 19.05
+24-04-05 21:22:23.522 - INFO: Train epoch 518: [28800/94637 (30%)] Step: [2757513] | Lr: 0.000100 | Loss: 1.0361 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 15.49
+24-04-05 21:23:12.248 - INFO: Train epoch 518: [32000/94637 (34%)] Step: [2757613] | Lr: 0.000100 | Loss: 1.1002 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 17.64
+24-04-05 21:24:00.406 - INFO: Train epoch 518: [35200/94637 (37%)] Step: [2757713] | Lr: 0.000100 | Loss: 1.0296 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 17.24
+24-04-05 21:24:48.665 - INFO: Train epoch 518: [38400/94637 (41%)] Step: [2757813] | Lr: 0.000100 | Loss: 1.0468 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 18.20
+24-04-05 21:25:37.364 - INFO: Train epoch 518: [41600/94637 (44%)] Step: [2757913] | Lr: 0.000100 | Loss: 1.2590 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 15.10
+24-04-05 21:26:26.120 - INFO: Train epoch 518: [44800/94637 (47%)] Step: [2758013] | Lr: 0.000100 | Loss: 1.1947 | MSE loss: 0.0002 | Bpp loss: 0.79 | Aux loss: 16.41
+24-04-05 21:27:15.476 - INFO: Train epoch 518: [48000/94637 (51%)] Step: [2758113] | Lr: 0.000100 | Loss: 1.0469 | MSE loss: 0.0003 | Bpp loss: 0.60 | Aux loss: 16.90
+24-04-05 21:28:04.832 - INFO: Train epoch 518: [51200/94637 (54%)] Step: [2758213] | Lr: 0.000100 | Loss: 1.1803 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 15.58
+24-04-05 21:28:54.073 - INFO: Train epoch 518: [54400/94637 (57%)] Step: [2758313] | Lr: 0.000100 | Loss: 1.1607 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 14.92
+24-04-05 21:29:43.361 - INFO: Train epoch 518: [57600/94637 (61%)] Step: [2758413] | Lr: 0.000100 | Loss: 0.9970 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 16.54
+24-04-05 21:30:32.634 - INFO: Train epoch 518: [60800/94637 (64%)] Step: [2758513] | Lr: 0.000100 | Loss: 1.2111 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 23.21
+24-04-05 21:31:21.747 - INFO: Train epoch 518: [64000/94637 (68%)] Step: [2758613] | Lr: 0.000100 | Loss: 1.0064 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 17.31
+24-04-05 21:32:10.740 - INFO: Train epoch 518: [67200/94637 (71%)] Step: [2758713] | Lr: 0.000100 | Loss: 1.3808 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 19.15
+24-04-05 21:32:59.707 - INFO: Train epoch 518: [70400/94637 (74%)] Step: [2758813] | Lr: 0.000100 | Loss: 1.1972 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 19.16
+24-04-05 21:33:48.391 - INFO: Train epoch 518: [73600/94637 (78%)] Step: [2758913] | Lr: 0.000100 | Loss: 1.2484 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 18.67
+24-04-05 21:34:37.184 - INFO: Train epoch 518: [76800/94637 (81%)] Step: [2759013] | Lr: 0.000100 | Loss: 0.8343 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 16.49
+24-04-05 21:35:26.019 - INFO: Train epoch 518: [80000/94637 (85%)] Step: [2759113] | Lr: 0.000100 | Loss: 1.2881 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 18.24
+24-04-05 21:36:15.303 - INFO: Train epoch 518: [83200/94637 (88%)] Step: [2759213] | Lr: 0.000100 | Loss: 1.0003 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 21.92
+24-04-05 21:37:03.726 - INFO: Train epoch 518: [86400/94637 (91%)] Step: [2759313] | Lr: 0.000100 | Loss: 1.4049 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 37.94
+24-04-05 21:37:52.298 - INFO: Train epoch 518: [89600/94637 (95%)] Step: [2759413] | Lr: 0.000100 | Loss: 1.0314 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 15.51
+24-04-05 21:38:40.605 - INFO: Train epoch 518: [92800/94637 (98%)] Step: [2759513] | Lr: 0.000100 | Loss: 1.5075 | MSE loss: 0.0004 | Bpp loss: 0.92 | Aux loss: 16.42
+24-04-05 21:39:19.393 - INFO: Learning rate: 0.0001
+24-04-05 21:39:20.455 - INFO: Train epoch 519: [    0/94637 (0%)] Step: [2759570] | Lr: 0.000100 | Loss: 1.1784 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 16.11
+24-04-05 21:40:08.839 - INFO: Train epoch 519: [ 3200/94637 (3%)] Step: [2759670] | Lr: 0.000100 | Loss: 1.4229 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 17.66
+24-04-05 21:40:56.482 - INFO: Train epoch 519: [ 6400/94637 (7%)] Step: [2759770] | Lr: 0.000100 | Loss: 1.1874 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 16.85
+24-04-05 21:41:44.045 - INFO: Train epoch 519: [ 9600/94637 (10%)] Step: [2759870] | Lr: 0.000100 | Loss: 1.0241 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 18.59
+24-04-05 21:42:31.196 - INFO: Train epoch 519: [12800/94637 (14%)] Step: [2759970] | Lr: 0.000100 | Loss: 1.2329 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 17.85
+24-04-05 21:43:20.011 - INFO: Train epoch 519: [16000/94637 (17%)] Step: [2760070] | Lr: 0.000100 | Loss: 1.0204 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 17.56
+24-04-05 21:44:08.023 - INFO: Train epoch 519: [19200/94637 (20%)] Step: [2760170] | Lr: 0.000100 | Loss: 1.4188 | MSE loss: 0.0003 | Bpp loss: 0.90 | Aux loss: 16.24
+24-04-05 21:44:55.745 - INFO: Train epoch 519: [22400/94637 (24%)] Step: [2760270] | Lr: 0.000100 | Loss: 1.2619 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 17.28
+24-04-05 21:45:43.558 - INFO: Train epoch 519: [25600/94637 (27%)] Step: [2760370] | Lr: 0.000100 | Loss: 1.3098 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 18.52
+24-04-05 21:46:31.608 - INFO: Train epoch 519: [28800/94637 (30%)] Step: [2760470] | Lr: 0.000100 | Loss: 1.2285 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 37.85
+24-04-05 21:47:19.968 - INFO: Train epoch 519: [32000/94637 (34%)] Step: [2760570] | Lr: 0.000100 | Loss: 1.9228 | MSE loss: 0.0004 | Bpp loss: 1.24 | Aux loss: 16.54
+24-04-05 21:48:08.681 - INFO: Train epoch 519: [35200/94637 (37%)] Step: [2760670] | Lr: 0.000100 | Loss: 1.1754 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 15.62
+24-04-05 21:48:57.342 - INFO: Train epoch 519: [38400/94637 (41%)] Step: [2760770] | Lr: 0.000100 | Loss: 1.0374 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 18.28
+24-04-05 21:49:46.391 - INFO: Train epoch 519: [41600/94637 (44%)] Step: [2760870] | Lr: 0.000100 | Loss: 1.1804 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 18.10
+24-04-05 21:50:34.683 - INFO: Train epoch 519: [44800/94637 (47%)] Step: [2760970] | Lr: 0.000100 | Loss: 1.1686 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 17.20
+24-04-05 21:51:23.119 - INFO: Train epoch 519: [48000/94637 (51%)] Step: [2761070] | Lr: 0.000100 | Loss: 1.1001 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 16.96
+24-04-05 21:52:11.157 - INFO: Train epoch 519: [51200/94637 (54%)] Step: [2761170] | Lr: 0.000100 | Loss: 1.0877 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 18.85
+24-04-05 21:52:59.677 - INFO: Train epoch 519: [54400/94637 (57%)] Step: [2761270] | Lr: 0.000100 | Loss: 1.1175 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 18.64
+24-04-05 21:53:48.045 - INFO: Train epoch 519: [57600/94637 (61%)] Step: [2761370] | Lr: 0.000100 | Loss: 1.8220 | MSE loss: 0.0004 | Bpp loss: 1.12 | Aux loss: 19.26
+24-04-05 21:54:36.100 - INFO: Train epoch 519: [60800/94637 (64%)] Step: [2761470] | Lr: 0.000100 | Loss: 1.3790 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 20.51
+24-04-05 21:55:24.560 - INFO: Train epoch 519: [64000/94637 (68%)] Step: [2761570] | Lr: 0.000100 | Loss: 1.2279 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 18.78
+24-04-05 21:56:13.032 - INFO: Train epoch 519: [67200/94637 (71%)] Step: [2761670] | Lr: 0.000100 | Loss: 1.4781 | MSE loss: 0.0004 | Bpp loss: 0.88 | Aux loss: 19.09
+24-04-05 21:57:01.571 - INFO: Train epoch 519: [70400/94637 (74%)] Step: [2761770] | Lr: 0.000100 | Loss: 1.1445 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 26.12
+24-04-05 21:57:50.199 - INFO: Train epoch 519: [73600/94637 (78%)] Step: [2761870] | Lr: 0.000100 | Loss: 1.3030 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 18.17
+24-04-05 21:58:38.806 - INFO: Train epoch 519: [76800/94637 (81%)] Step: [2761970] | Lr: 0.000100 | Loss: 1.2543 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 21.02
+24-04-05 21:59:27.661 - INFO: Train epoch 519: [80000/94637 (85%)] Step: [2762070] | Lr: 0.000100 | Loss: 1.1685 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 20.69
+24-04-05 22:00:16.171 - INFO: Train epoch 519: [83200/94637 (88%)] Step: [2762170] | Lr: 0.000100 | Loss: 1.0611 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 17.95
+24-04-05 22:01:04.963 - INFO: Train epoch 519: [86400/94637 (91%)] Step: [2762270] | Lr: 0.000100 | Loss: 1.1254 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 15.86
+24-04-05 22:01:53.597 - INFO: Train epoch 519: [89600/94637 (95%)] Step: [2762370] | Lr: 0.000100 | Loss: 1.1597 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 16.19
+24-04-05 22:02:42.334 - INFO: Train epoch 519: [92800/94637 (98%)] Step: [2762470] | Lr: 0.000100 | Loss: 0.8802 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 15.65
+24-04-05 22:03:28.566 - INFO: Learning rate: 0.0001
+24-04-05 22:03:30.085 - INFO: Train epoch 520: [    0/94637 (0%)] Step: [2762527] | Lr: 0.000100 | Loss: 1.0596 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 14.09
+24-04-05 22:04:18.447 - INFO: Train epoch 520: [ 3200/94637 (3%)] Step: [2762627] | Lr: 0.000100 | Loss: 1.0208 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 15.79
+24-04-05 22:05:06.804 - INFO: Train epoch 520: [ 6400/94637 (7%)] Step: [2762727] | Lr: 0.000100 | Loss: 1.5049 | MSE loss: 0.0004 | Bpp loss: 0.83 | Aux loss: 16.52
+24-04-05 22:05:55.115 - INFO: Train epoch 520: [ 9600/94637 (10%)] Step: [2762827] | Lr: 0.000100 | Loss: 0.8604 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 15.87
+24-04-05 22:06:42.508 - INFO: Train epoch 520: [12800/94637 (14%)] Step: [2762927] | Lr: 0.000100 | Loss: 0.6803 | MSE loss: 0.0001 | Bpp loss: 0.44 | Aux loss: 16.16
+24-04-05 22:07:29.901 - INFO: Train epoch 520: [16000/94637 (17%)] Step: [2763027] | Lr: 0.000100 | Loss: 0.8719 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 15.46
+24-04-05 22:08:17.073 - INFO: Train epoch 520: [19200/94637 (20%)] Step: [2763127] | Lr: 0.000100 | Loss: 1.6905 | MSE loss: 0.0004 | Bpp loss: 1.05 | Aux loss: 16.74
+24-04-05 22:09:05.033 - INFO: Train epoch 520: [22400/94637 (24%)] Step: [2763227] | Lr: 0.000100 | Loss: 0.9765 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 15.86
+24-04-05 22:09:53.559 - INFO: Train epoch 520: [25600/94637 (27%)] Step: [2763327] | Lr: 0.000100 | Loss: 1.6327 | MSE loss: 0.0004 | Bpp loss: 0.97 | Aux loss: 16.87
+24-04-05 22:10:41.512 - INFO: Train epoch 520: [28800/94637 (30%)] Step: [2763427] | Lr: 0.000100 | Loss: 1.1485 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 16.40
+24-04-05 22:11:29.599 - INFO: Train epoch 520: [32000/94637 (34%)] Step: [2763527] | Lr: 0.000100 | Loss: 0.6725 | MSE loss: 0.0001 | Bpp loss: 0.44 | Aux loss: 17.83
+24-04-05 22:12:18.297 - INFO: Train epoch 520: [35200/94637 (37%)] Step: [2763627] | Lr: 0.000100 | Loss: 0.9514 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 17.67
+24-04-05 22:13:06.510 - INFO: Train epoch 520: [38400/94637 (41%)] Step: [2763727] | Lr: 0.000100 | Loss: 1.4779 | MSE loss: 0.0004 | Bpp loss: 0.88 | Aux loss: 16.82
+24-04-05 22:13:54.496 - INFO: Train epoch 520: [41600/94637 (44%)] Step: [2763827] | Lr: 0.000100 | Loss: 1.5097 | MSE loss: 0.0004 | Bpp loss: 0.92 | Aux loss: 17.83
+24-04-05 22:14:42.654 - INFO: Train epoch 520: [44800/94637 (47%)] Step: [2763927] | Lr: 0.000100 | Loss: 1.0547 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 16.96
+24-04-05 22:15:31.200 - INFO: Train epoch 520: [48000/94637 (51%)] Step: [2764027] | Lr: 0.000100 | Loss: 1.7763 | MSE loss: 0.0004 | Bpp loss: 1.06 | Aux loss: 19.79
+24-04-05 22:16:19.728 - INFO: Train epoch 520: [51200/94637 (54%)] Step: [2764127] | Lr: 0.000100 | Loss: 1.2924 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 18.40
+24-04-05 22:17:08.897 - INFO: Train epoch 520: [54400/94637 (57%)] Step: [2764227] | Lr: 0.000100 | Loss: 1.4727 | MSE loss: 0.0004 | Bpp loss: 0.89 | Aux loss: 18.44
+24-04-05 22:17:58.345 - INFO: Train epoch 520: [57600/94637 (61%)] Step: [2764327] | Lr: 0.000100 | Loss: 1.4983 | MSE loss: 0.0004 | Bpp loss: 0.89 | Aux loss: 19.55
+24-04-05 22:18:47.516 - INFO: Train epoch 520: [60800/94637 (64%)] Step: [2764427] | Lr: 0.000100 | Loss: 1.2911 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 20.67
+24-04-05 22:19:36.383 - INFO: Train epoch 520: [64000/94637 (68%)] Step: [2764527] | Lr: 0.000100 | Loss: 1.2335 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 20.25
+24-04-05 22:20:25.252 - INFO: Train epoch 520: [67200/94637 (71%)] Step: [2764627] | Lr: 0.000100 | Loss: 1.4761 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 20.32
+24-04-05 22:21:13.930 - INFO: Train epoch 520: [70400/94637 (74%)] Step: [2764727] | Lr: 0.000100 | Loss: 1.7336 | MSE loss: 0.0004 | Bpp loss: 1.09 | Aux loss: 20.49
+24-04-05 22:22:02.399 - INFO: Train epoch 520: [73600/94637 (78%)] Step: [2764827] | Lr: 0.000100 | Loss: 1.0973 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 19.14
+24-04-05 22:22:50.886 - INFO: Train epoch 520: [76800/94637 (81%)] Step: [2764927] | Lr: 0.000100 | Loss: 1.6554 | MSE loss: 0.0004 | Bpp loss: 1.03 | Aux loss: 22.16
+24-04-05 22:23:41.815 - INFO: Train epoch 520: [80000/94637 (85%)] Step: [2765027] | Lr: 0.000100 | Loss: 1.3284 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 21.53
+24-04-05 22:24:30.749 - INFO: Train epoch 520: [83200/94637 (88%)] Step: [2765127] | Lr: 0.000100 | Loss: 0.9638 | MSE loss: 0.0002 | Bpp loss: 0.57 | Aux loss: 22.48
+24-04-05 22:25:19.845 - INFO: Train epoch 520: [86400/94637 (91%)] Step: [2765227] | Lr: 0.000100 | Loss: 1.0670 | MSE loss: 0.0003 | Bpp loss: 0.65 | Aux loss: 21.73
+24-04-05 22:26:09.189 - INFO: Train epoch 520: [89600/94637 (95%)] Step: [2765327] | Lr: 0.000100 | Loss: 1.2824 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 22.38
+24-04-05 22:26:57.804 - INFO: Train epoch 520: [92800/94637 (98%)] Step: [2765427] | Lr: 0.000100 | Loss: 1.1411 | MSE loss: 0.0002 | Bpp loss: 0.74 | Aux loss: 22.33
+24-04-05 22:27:36.846 - INFO: Learning rate: 0.0001
+24-04-05 22:27:37.893 - INFO: Train epoch 521: [    0/94637 (0%)] Step: [2765484] | Lr: 0.000100 | Loss: 1.2502 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 20.52
+24-04-05 22:28:26.554 - INFO: Train epoch 521: [ 3200/94637 (3%)] Step: [2765584] | Lr: 0.000100 | Loss: 1.1293 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 22.69
+24-04-05 22:29:15.370 - INFO: Train epoch 521: [ 6400/94637 (7%)] Step: [2765684] | Lr: 0.000100 | Loss: 1.4852 | MSE loss: 0.0004 | Bpp loss: 0.90 | Aux loss: 22.71
+24-04-05 22:30:03.643 - INFO: Train epoch 521: [ 9600/94637 (10%)] Step: [2765784] | Lr: 0.000100 | Loss: 1.2585 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 21.92
+24-04-05 22:30:52.441 - INFO: Train epoch 521: [12800/94637 (14%)] Step: [2765884] | Lr: 0.000100 | Loss: 1.4602 | MSE loss: 0.0003 | Bpp loss: 0.92 | Aux loss: 24.46
+24-04-05 22:31:40.758 - INFO: Train epoch 521: [16000/94637 (17%)] Step: [2765984] | Lr: 0.000100 | Loss: 1.0917 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 25.51
+24-04-05 22:32:29.590 - INFO: Train epoch 521: [19200/94637 (20%)] Step: [2766084] | Lr: 0.000100 | Loss: 1.1130 | MSE loss: 0.0002 | Bpp loss: 0.71 | Aux loss: 24.71
+24-04-05 22:33:18.415 - INFO: Train epoch 521: [22400/94637 (24%)] Step: [2766184] | Lr: 0.000100 | Loss: 1.1074 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 24.50
+24-04-05 22:34:06.743 - INFO: Train epoch 521: [25600/94637 (27%)] Step: [2766284] | Lr: 0.000100 | Loss: 1.0060 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 24.13
+24-04-05 22:34:55.444 - INFO: Train epoch 521: [28800/94637 (30%)] Step: [2766384] | Lr: 0.000100 | Loss: 0.7734 | MSE loss: 0.0002 | Bpp loss: 0.50 | Aux loss: 23.12
+24-04-05 22:35:44.378 - INFO: Train epoch 521: [32000/94637 (34%)] Step: [2766484] | Lr: 0.000100 | Loss: 1.2091 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 24.35
+24-04-05 22:36:33.569 - INFO: Train epoch 521: [35200/94637 (37%)] Step: [2766584] | Lr: 0.000100 | Loss: 1.1498 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 24.06
+24-04-05 22:37:22.265 - INFO: Train epoch 521: [38400/94637 (41%)] Step: [2766684] | Lr: 0.000100 | Loss: 1.1532 | MSE loss: 0.0003 | Bpp loss: 0.70 | Aux loss: 25.80
+24-04-05 22:38:10.711 - INFO: Train epoch 521: [41600/94637 (44%)] Step: [2766784] | Lr: 0.000100 | Loss: 1.4155 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 23.97
+24-04-05 22:38:59.648 - INFO: Train epoch 521: [44800/94637 (47%)] Step: [2766884] | Lr: 0.000100 | Loss: 1.4086 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 26.09
+24-04-05 22:39:48.273 - INFO: Train epoch 521: [48000/94637 (51%)] Step: [2766984] | Lr: 0.000100 | Loss: 1.1972 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 24.02
+24-04-05 22:40:37.845 - INFO: Train epoch 521: [51200/94637 (54%)] Step: [2767084] | Lr: 0.000100 | Loss: 1.1552 | MSE loss: 0.0002 | Bpp loss: 0.76 | Aux loss: 26.93
+24-04-05 22:41:25.968 - INFO: Train epoch 521: [54400/94637 (57%)] Step: [2767184] | Lr: 0.000100 | Loss: 1.2326 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 25.85
+24-04-05 22:42:14.410 - INFO: Train epoch 521: [57600/94637 (61%)] Step: [2767284] | Lr: 0.000100 | Loss: 1.0424 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 25.70
+24-04-05 22:43:03.047 - INFO: Train epoch 521: [60800/94637 (64%)] Step: [2767384] | Lr: 0.000100 | Loss: 1.3718 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 26.00
+24-04-05 22:43:52.007 - INFO: Train epoch 521: [64000/94637 (68%)] Step: [2767484] | Lr: 0.000100 | Loss: 1.6675 | MSE loss: 0.0004 | Bpp loss: 1.06 | Aux loss: 26.20
+24-04-05 22:44:42.860 - INFO: Train epoch 521: [67200/94637 (71%)] Step: [2767584] | Lr: 0.000100 | Loss: 0.9301 | MSE loss: 0.0002 | Bpp loss: 0.61 | Aux loss: 25.66
+24-04-05 22:45:32.038 - INFO: Train epoch 521: [70400/94637 (74%)] Step: [2767684] | Lr: 0.000100 | Loss: 1.1971 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 27.05
+24-04-05 22:46:21.025 - INFO: Train epoch 521: [73600/94637 (78%)] Step: [2767784] | Lr: 0.000100 | Loss: 1.0444 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 26.14
+24-04-05 22:47:10.323 - INFO: Train epoch 521: [76800/94637 (81%)] Step: [2767884] | Lr: 0.000100 | Loss: 0.8283 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 26.95
+24-04-05 22:47:59.215 - INFO: Train epoch 521: [80000/94637 (85%)] Step: [2767984] | Lr: 0.000100 | Loss: 1.3428 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 26.72
+24-04-05 22:48:48.552 - INFO: Train epoch 521: [83200/94637 (88%)] Step: [2768084] | Lr: 0.000100 | Loss: 1.0172 | MSE loss: 0.0003 | Bpp loss: 0.59 | Aux loss: 26.10
+24-04-05 22:49:37.237 - INFO: Train epoch 521: [86400/94637 (91%)] Step: [2768184] | Lr: 0.000100 | Loss: 0.9651 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 24.09
+24-04-05 22:50:25.662 - INFO: Train epoch 521: [89600/94637 (95%)] Step: [2768284] | Lr: 0.000100 | Loss: 1.1100 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 26.77
+24-04-05 22:51:13.201 - INFO: Train epoch 521: [92800/94637 (98%)] Step: [2768384] | Lr: 0.000100 | Loss: 1.0191 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 26.43
+24-04-05 22:51:51.177 - INFO: Learning rate: 0.0001
+24-04-05 22:51:52.263 - INFO: Train epoch 522: [    0/94637 (0%)] Step: [2768441] | Lr: 0.000100 | Loss: 1.1881 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 24.85
+24-04-05 22:52:40.551 - INFO: Train epoch 522: [ 3200/94637 (3%)] Step: [2768541] | Lr: 0.000100 | Loss: 0.9910 | MSE loss: 0.0002 | Bpp loss: 0.65 | Aux loss: 27.23
+24-04-05 22:53:28.587 - INFO: Train epoch 522: [ 6400/94637 (7%)] Step: [2768641] | Lr: 0.000100 | Loss: 1.1442 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 25.02
+24-04-05 22:54:16.959 - INFO: Train epoch 522: [ 9600/94637 (10%)] Step: [2768741] | Lr: 0.000100 | Loss: 1.3290 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 27.79
+24-04-05 22:55:05.300 - INFO: Train epoch 522: [12800/94637 (14%)] Step: [2768841] | Lr: 0.000100 | Loss: 1.2579 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 26.37
+24-04-05 22:55:53.450 - INFO: Train epoch 522: [16000/94637 (17%)] Step: [2768941] | Lr: 0.000100 | Loss: 1.3739 | MSE loss: 0.0004 | Bpp loss: 0.77 | Aux loss: 28.02
+24-04-05 22:56:41.757 - INFO: Train epoch 522: [19200/94637 (20%)] Step: [2769041] | Lr: 0.000100 | Loss: 1.1682 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 26.27

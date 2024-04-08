@@ -1,0 +1,3 @@
+24-04-05 23:25:03.143 - INFO: Test epoch 522: Average losses: Loss: 1.0401 | MSE loss: 0.000270 | Bpp loss: 0.6009 | Aux loss: 30.69 | PSNR: 35.844981 | MS-SSIM: 0.985617
+24-04-05 23:25:10.394 - INFO: best checkpoint saved.
+24-04-05 23:49:25.270 - INFO: Test epoch 523: Average losses: Loss: 1.0416 | MSE loss: 0.000273 | Bpp loss: 0.5973 | Aux loss: 31.95 | PSNR: 35.807156 | MS-SSIM: 0.985502

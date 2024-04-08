@@ -1,7 +1,6 @@
 # Ignore some files
 *.pyc
 *.tar
-*.log
 *.0
 *.out
 *.DS_store

@@ -1,0 +1,1024 @@
+24-04-01 22:44:08.047 - INFO: Namespace(experiment='mlicpp_mse_0250', dataset='/mnt/bn/jiangwei-lvc3/dataset/image', epochs=500, learning_rate=0.0001, num_workers=8, lmbda=0.025, metrics='mse', batch_size=4, test_batch_size=1, aux_learning_rate=0.001, patch_size=[384, 384], gpu_id=0, cuda=True, save=True, seed=1984.0, clip_max_norm=1.0, checkpoint='/mnt/bn/jiangwei-lvc3/work_space/MLICPlusPlus/playground/experiments/mlicpp_mse_0250/checkpoints', world_size=4, dist_url='env://', rank=1, gpu=1, distributed=True, dist_backend='nccl')
+24-04-01 22:44:08.047 - INFO: {'N': 192, 'M': 320, 'enc_dims': [3, 192, 192, 192, 320], 'dec_dims': [320, 192, 192, 192, 16, 3], 'slice_num': 10, 'context_window': 5, 'slice_ch': [8, 8, 8, 8, 16, 16, 32, 32, 96, 96], 'max_support_slices': 5, 'quant': 'ste', 'lambda_list': [0.07, 0.08, 0.09], 'use_hyper_gain': False, 'interpolated_type': 'exponential', 'act': <class 'torch.nn.modules.activation.GELU'>, 'L': 10, 'target_bpp': [0.0761, 0.1854, 0.2752, 0.3652, 0.4282, 0.5238, 0.5653, 0.6334, 0.745], 'bpp_threshold': [0.02, 0.02, 0.02, 0.02, 0.03, 0.02, 0.02, 0.02, 0.02], 'min_lmbda': 0.001, 'init_lmbda': [0.001, 0.0018, 0.0035, 0.0035, 0.0067, 0.0067, 0.013, 0.013, 0.025, 0.0483], 'lower_bound': 1e-09, 'ki': 0.1, 'kp': 0.1}
+24-04-01 22:44:08.047 - INFO: DistributedDataParallel(
+  (module): MLICPlusPlus(
+    (entropy_bottleneck): EntropyBottleneck(
+      (likelihood_lower_bound): LowerBound()
+    )
+    (g_a): AnalysisTransform(
+      (analysis_transform): Sequential(
+        (0): ResidualBlockWithStride(
+          (conv1): Conv2d(3, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (gdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (skip): Conv2d(3, 192, kernel_size=(1, 1), stride=(2, 2))
+        )
+        (1): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (2): ResidualBlockWithStride(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (gdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (skip): Conv2d(192, 192, kernel_size=(1, 1), stride=(2, 2))
+        )
+        (3): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (4): ResidualBlockWithStride(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (gdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (skip): Conv2d(192, 192, kernel_size=(1, 1), stride=(2, 2))
+        )
+        (5): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (6): Conv2d(192, 320, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      )
+    )
+    (g_s): SynthesisTransform(
+      (synthesis_transform): Sequential(
+        (0): ResidualBlock(
+          (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (1): ResidualBlockUpsample(
+          (subpel_conv): Sequential(
+            (0): Conv2d(320, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (act): GELU(approximate='none')
+          (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (igdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (upsample): Sequential(
+            (0): Conv2d(320, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+        )
+        (2): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (3): ResidualBlockUpsample(
+          (subpel_conv): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (act): GELU(approximate='none')
+          (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (igdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (upsample): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+        )
+        (4): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (5): ResidualBlockUpsample(
+          (subpel_conv): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (act): GELU(approximate='none')
+          (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (igdn): GDN(
+            (beta_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+            (gamma_reparam): NonNegativeParametrizer(
+              (lower_bound): LowerBound()
+            )
+          )
+          (upsample): Sequential(
+            (0): Conv2d(192, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+        )
+        (6): ResidualBlock(
+          (conv1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (act): GELU(approximate='none')
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+        (7): Sequential(
+          (0): Conv2d(192, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+      )
+    )
+    (h_a): HyperAnalysis(
+      (reduction): Sequential(
+        (0): Conv2d(320, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): GELU(approximate='none')
+        (2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): GELU(approximate='none')
+        (4): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (5): GELU(approximate='none')
+        (6): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (7): GELU(approximate='none')
+        (8): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      )
+    )
+    (h_s): HyperSynthesis(
+      (increase): Sequential(
+        (0): Conv2d(192, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): GELU(approximate='none')
+        (2): Sequential(
+          (0): Conv2d(320, 1280, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+        (3): GELU(approximate='none')
+        (4): Conv2d(320, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (5): GELU(approximate='none')
+        (6): Sequential(
+          (0): Conv2d(480, 1920, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+        (7): GELU(approximate='none')
+        (8): Conv2d(480, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (gaussian_conditional): GaussianConditional(
+      (likelihood_lower_bound): LowerBound()
+      (lower_bound_scale): LowerBound()
+    )
+    (local_context): ModuleList(
+      (0-9): 10 x LocalContext(
+        (qkv_proj): Linear(in_features=32, out_features=96, bias=True)
+        (unfold): Unfold(kernel_size=5, dilation=1, padding=2, stride=1)
+        (softmax): Softmax(dim=-1)
+        (proj): Linear(in_features=64, out_features=64, bias=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=64, out_features=128, bias=True)
+          (act): GELU(approximate='none')
+          (fc2): Linear(in_features=128, out_features=64, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+        (norm1): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (fusion): Conv2d(32, 64, kernel_size=(5, 5), stride=(1, 1))
+      )
+    )
+    (channel_context): ModuleList(
+      (0): None
+      (1): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(32, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(64, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (3): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(96, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (4): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(128, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (5): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(160, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (6): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (7): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(224, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (8): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(256, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (9): ChannelContext(
+        (fushion): Sequential(
+          (0): Conv2d(288, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (global_inter_context): ModuleList(
+      (0): None
+      (1): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (queries): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (values): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (reprojection): Conv2d(32, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+        )
+        (queries): Sequential(
+          (0): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+        )
+        (values): Sequential(
+          (0): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+        )
+        (reprojection): Conv2d(64, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        )
+        (queries): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        )
+        (values): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        )
+        (reprojection): Conv2d(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (4): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+        )
+        (queries): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+        )
+        (values): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+        )
+        (reprojection): Conv2d(128, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (5): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(160, 160, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=160)
+        )
+        (queries): Sequential(
+          (0): Conv2d(160, 160, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=160)
+        )
+        (values): Sequential(
+          (0): Conv2d(160, 160, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=160)
+        )
+        (reprojection): Conv2d(160, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (6): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        )
+        (queries): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        )
+        (values): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        )
+        (reprojection): Conv2d(192, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (7): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(224, 224, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(224, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=224)
+        )
+        (queries): Sequential(
+          (0): Conv2d(224, 224, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(224, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=224)
+        )
+        (values): Sequential(
+          (0): Conv2d(224, 224, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(224, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=224)
+        )
+        (reprojection): Conv2d(224, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (8): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+        )
+        (queries): Sequential(
+          (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+        )
+        (values): Sequential(
+          (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+        )
+        (reprojection): Conv2d(256, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (9): LinearGlobalInterContext(
+        (keys): Sequential(
+          (0): Conv2d(288, 288, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(288, 288, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=288)
+        )
+        (queries): Sequential(
+          (0): Conv2d(288, 288, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(288, 288, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=288)
+        )
+        (values): Sequential(
+          (0): Conv2d(288, 288, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(288, 288, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=288)
+        )
+        (reprojection): Conv2d(288, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(96, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (skip): Conv2d(96, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (global_intra_context): ModuleList(
+      (0): None
+      (1-9): 9 x LinearGlobalIntraContext(
+        (keys): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (queries): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (values): Sequential(
+          (0): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+        )
+        (reprojection): Conv2d(32, 64, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+        (mlp): Sequential(
+          (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+    )
+    (entropy_parameters_anchor): ModuleList(
+      (0): EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(640, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+      (1-9): 9 x EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(832, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+    )
+    (entropy_parameters_nonanchor): ModuleList(
+      (0): EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(704, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+      (1-9): 9 x EntropyParameters(
+        (fusion): Sequential(
+          (0): Conv2d(960, 320, kernel_size=(1, 1), stride=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(320, 256, kernel_size=(1, 1), stride=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (5): GELU(approximate='none')
+          (6): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+    )
+    (lrp_anchor): ModuleList(
+      (0): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(352, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(384, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(416, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (3): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(448, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (4): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(480, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (5): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(512, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (6): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(544, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (7): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(576, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (8): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(608, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (9): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(640, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (lrp_nonanchor): ModuleList(
+      (0): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(352, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(384, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(416, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (3): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(448, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (4): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(480, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (5): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(512, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (6): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(544, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (7): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(576, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (8): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(608, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (9): LatentResidualPrediction(
+        (lrp_transform): Sequential(
+          (0): Conv2d(640, 224, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): GELU(approximate='none')
+          (2): Conv2d(224, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (3): GELU(approximate='none')
+          (4): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+  )
+)
+24-04-01 22:44:08.058 - INFO: Learning rate: 0.0001
+24-04-01 23:15:24.432 - INFO: Learning rate: 0.0001
+24-04-01 23:47:00.225 - INFO: Learning rate: 0.0001
+24-04-02 00:18:24.102 - INFO: Learning rate: 0.0001
+24-04-02 00:50:01.897 - INFO: Learning rate: 0.0001
+342: [ 1600/94637 (2%)] Step: [2023031] | Lr: 0.000100 | Loss: 0.9187 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 95.50
+24-04-01 22:45:24.655 - INFO: Train epoch 342: [ 3200/94637 (3%)] Step: [2023131] | Lr: 0.000100 | Loss: 0.8717 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 85.86
+24-04-01 22:45:55.843 - INFO: Train epoch 342: [ 4800/94637 (5%)] Step: [2023231] | Lr: 0.000100 | Loss: 1.0986 | MSE loss: 0.0003 | Bpp loss: 0.64 | Aux loss: 88.73
+24-04-01 22:46:27.152 - INFO: Train epoch 342: [ 6400/94637 (7%)] Step: [2023331] | Lr: 0.000100 | Loss: 1.5137 | MSE loss: 0.0004 | Bpp loss: 0.93 | Aux loss: 86.03
+24-04-01 22:46:58.579 - INFO: Train epoch 342: [ 8000/94637 (8%)] Step: [2023431] | Lr: 0.000100 | Loss: 1.4017 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 88.79
+24-04-01 22:47:29.484 - INFO: Train epoch 342: [ 9600/94637 (10%)] Step: [2023531] | Lr: 0.000100 | Loss: 1.5840 | MSE loss: 0.0004 | Bpp loss: 1.00 | Aux loss: 88.96
+24-04-01 22:48:00.331 - INFO: Train epoch 342: [11200/94637 (12%)] Step: [2023631] | Lr: 0.000100 | Loss: 0.8101 | MSE loss: 0.0002 | Bpp loss: 0.52 | Aux loss: 83.31
+24-04-01 22:48:31.237 - INFO: Train epoch 342: [12800/94637 (14%)] Step: [2023731] | Lr: 0.000100 | Loss: 0.9584 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 93.95
+24-04-01 22:49:02.630 - INFO: Train epoch 342: [14400/94637 (15%)] Step: [2023831] | Lr: 0.000100 | Loss: 1.3239 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 85.09
+24-04-01 22:49:33.634 - INFO: Train epoch 342: [16000/94637 (17%)] Step: [2023931] | Lr: 0.000100 | Loss: 1.5925 | MSE loss: 0.0003 | Bpp loss: 1.03 | Aux loss: 95.98
+24-04-01 22:50:04.564 - INFO: Train epoch 342: [17600/94637 (19%)] Step: [2024031] | Lr: 0.000100 | Loss: 0.7851 | MSE loss: 0.0002 | Bpp loss: 0.53 | Aux loss: 85.27
+24-04-01 22:50:35.565 - INFO: Train epoch 342: [19200/94637 (20%)] Step: [2024131] | Lr: 0.000100 | Loss: 0.9433 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 92.26
+24-04-01 22:51:06.683 - INFO: Train epoch 342: [20800/94637 (22%)] Step: [2024231] | Lr: 0.000100 | Loss: 1.3320 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 90.93
+24-04-01 22:51:38.205 - INFO: Train epoch 342: [22400/94637 (24%)] Step: [2024331] | Lr: 0.000100 | Loss: 2.1905 | MSE loss: 0.0006 | Bpp loss: 1.16 | Aux loss: 87.66
+24-04-01 22:52:09.384 - INFO: Train epoch 342: [24000/94637 (25%)] Step: [2024431] | Lr: 0.000100 | Loss: 0.9456 | MSE loss: 0.0003 | Bpp loss: 0.52 | Aux loss: 86.19
+24-04-01 22:52:40.168 - INFO: Train epoch 342: [25600/94637 (27%)] Step: [2024531] | Lr: 0.000100 | Loss: 1.3513 | MSE loss: 0.0003 | Bpp loss: 0.84 | Aux loss: 88.47
+24-04-01 22:53:11.582 - INFO: Train epoch 342: [27200/94637 (29%)] Step: [2024631] | Lr: 0.000100 | Loss: 1.2248 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 89.46
+24-04-01 22:53:43.050 - INFO: Train epoch 342: [28800/94637 (30%)] Step: [2024731] | Lr: 0.000100 | Loss: 1.2143 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 85.64
+24-04-01 22:54:14.798 - INFO: Train epoch 342: [30400/94637 (32%)] Step: [2024831] | Lr: 0.000100 | Loss: 1.5394 | MSE loss: 0.0004 | Bpp loss: 0.90 | Aux loss: 89.73
+24-04-01 22:54:46.076 - INFO: Train epoch 342: [32000/94637 (34%)] Step: [2024931] | Lr: 0.000100 | Loss: 1.3199 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 89.11
+24-04-01 22:55:19.604 - INFO: Train epoch 342: [33600/94637 (36%)] Step: [2025031] | Lr: 0.000100 | Loss: 1.1329 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 87.97
+24-04-01 22:55:50.947 - INFO: Train epoch 342: [35200/94637 (37%)] Step: [2025131] | Lr: 0.000100 | Loss: 1.7219 | MSE loss: 0.0005 | Bpp loss: 0.93 | Aux loss: 91.93
+24-04-01 22:56:23.011 - INFO: Train epoch 342: [36800/94637 (39%)] Step: [2025231] | Lr: 0.000100 | Loss: 1.0279 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 86.05
+24-04-01 22:56:54.928 - INFO: Train epoch 342: [38400/94637 (41%)] Step: [2025331] | Lr: 0.000100 | Loss: 1.6786 | MSE loss: 0.0004 | Bpp loss: 0.98 | Aux loss: 80.93
+24-04-01 22:57:26.089 - INFO: Train epoch 342: [40000/94637 (42%)] Step: [2025431] | Lr: 0.000100 | Loss: 1.3455 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 84.76
+24-04-01 22:57:57.754 - INFO: Train epoch 342: [41600/94637 (44%)] Step: [2025531] | Lr: 0.000100 | Loss: 0.9886 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 83.69
+24-04-01 22:58:29.170 - INFO: Train epoch 342: [43200/94637 (46%)] Step: [2025631] | Lr: 0.000100 | Loss: 2.1032 | MSE loss: 0.0005 | Bpp loss: 1.31 | Aux loss: 87.43
+24-04-01 22:59:00.537 - INFO: Train epoch 342: [44800/94637 (47%)] Step: [2025731] | Lr: 0.000100 | Loss: 0.7828 | MSE loss: 0.0002 | Bpp loss: 0.50 | Aux loss: 81.90
+24-04-01 22:59:31.877 - INFO: Train epoch 342: [46400/94637 (49%)] Step: [2025831] | Lr: 0.000100 | Loss: 0.9134 | MSE loss: 0.0003 | Bpp loss: 0.50 | Aux loss: 83.23
+24-04-01 23:00:03.081 - INFO: Train epoch 342: [48000/94637 (51%)] Step: [2025931] | Lr: 0.000100 | Loss: 1.4152 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 87.92
+24-04-01 23:00:34.515 - INFO: Train epoch 342: [49600/94637 (52%)] Step: [2026031] | Lr: 0.000100 | Loss: 0.9975 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 85.46
+24-04-01 23:01:06.071 - INFO: Train epoch 342: [51200/94637 (54%)] Step: [2026131] | Lr: 0.000100 | Loss: 1.0852 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 84.75
+24-04-01 23:01:37.531 - INFO: Train epoch 342: [52800/94637 (56%)] Step: [2026231] | Lr: 0.000100 | Loss: 1.4229 | MSE loss: 0.0004 | Bpp loss: 0.84 | Aux loss: 84.17
+24-04-01 23:02:09.170 - INFO: Train epoch 342: [54400/94637 (57%)] Step: [2026331] | Lr: 0.000100 | Loss: 1.2240 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 89.37
+24-04-01 23:02:40.659 - INFO: Train epoch 342: [56000/94637 (59%)] Step: [2026431] | Lr: 0.000100 | Loss: 1.1247 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 92.19
+24-04-01 23:03:11.938 - INFO: Train epoch 342: [57600/94637 (61%)] Step: [2026531] | Lr: 0.000100 | Loss: 1.2989 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 81.52
+24-04-01 23:03:43.315 - INFO: Train epoch 342: [59200/94637 (63%)] Step: [2026631] | Lr: 0.000100 | Loss: 1.4914 | MSE loss: 0.0004 | Bpp loss: 0.85 | Aux loss: 90.37
+24-04-01 23:04:14.539 - INFO: Train epoch 342: [60800/94637 (64%)] Step: [2026731] | Lr: 0.000100 | Loss: 1.1031 | MSE loss: 0.0003 | Bpp loss: 0.67 | Aux loss: 87.14
+24-04-01 23:04:46.446 - INFO: Train epoch 342: [62400/94637 (66%)] Step: [2026831] | Lr: 0.000100 | Loss: 0.9621 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 84.54
+24-04-01 23:05:18.095 - INFO: Train epoch 342: [64000/94637 (68%)] Step: [2026931] | Lr: 0.000100 | Loss: 1.0732 | MSE loss: 0.0003 | Bpp loss: 0.59 | Aux loss: 83.35
+24-04-01 23:05:49.669 - INFO: Train epoch 342: [65600/94637 (69%)] Step: [2027031] | Lr: 0.000100 | Loss: 1.8899 | MSE loss: 0.0005 | Bpp loss: 1.10 | Aux loss: 88.82
+24-04-01 23:06:21.583 - INFO: Train epoch 342: [67200/94637 (71%)] Step: [2027131] | Lr: 0.000100 | Loss: 1.4379 | MSE loss: 0.0003 | Bpp loss: 0.95 | Aux loss: 95.16
+24-04-01 23:06:53.164 - INFO: Train epoch 342: [68800/94637 (73%)] Step: [2027231] | Lr: 0.000100 | Loss: 1.2111 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 84.78
+24-04-01 23:07:25.449 - INFO: Train epoch 342: [70400/94637 (74%)] Step: [2027331] | Lr: 0.000100 | Loss: 1.2623 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 85.44
+24-04-01 23:07:57.781 - INFO: Train epoch 342: [72000/94637 (76%)] Step: [2027431] | Lr: 0.000100 | Loss: 0.9812 | MSE loss: 0.0003 | Bpp loss: 0.56 | Aux loss: 81.53
+24-04-01 23:08:31.409 - INFO: Train epoch 342: [73600/94637 (78%)] Step: [2027531] | Lr: 0.000100 | Loss: 1.3584 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 86.15
+24-04-01 23:09:03.077 - INFO: Train epoch 342: [75200/94637 (79%)] Step: [2027631] | Lr: 0.000100 | Loss: 1.3017 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 88.67
+24-04-01 23:09:34.261 - INFO: Train epoch 342: [76800/94637 (81%)] Step: [2027731] | Lr: 0.000100 | Loss: 1.7653 | MSE loss: 0.0004 | Bpp loss: 1.15 | Aux loss: 85.99
+24-04-01 23:10:05.565 - INFO: Train epoch 342: [78400/94637 (83%)] Step: [2027831] | Lr: 0.000100 | Loss: 1.4797 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 88.21
+24-04-01 23:10:36.668 - INFO: Train epoch 342: [80000/94637 (85%)] Step: [2027931] | Lr: 0.000100 | Loss: 1.1134 | MSE loss: 0.0002 | Bpp loss: 0.72 | Aux loss: 83.71
+24-04-01 23:11:08.473 - INFO: Train epoch 342: [81600/94637 (86%)] Step: [2028031] | Lr: 0.000100 | Loss: 1.3956 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 84.18
+24-04-01 23:11:39.901 - INFO: Train epoch 342: [83200/94637 (88%)] Step: [2028131] | Lr: 0.000100 | Loss: 1.5417 | MSE loss: 0.0004 | Bpp loss: 0.91 | Aux loss: 91.32
+24-04-01 23:12:11.489 - INFO: Train epoch 342: [84800/94637 (90%)] Step: [2028231] | Lr: 0.000100 | Loss: 1.7553 | MSE loss: 0.0004 | Bpp loss: 1.07 | Aux loss: 89.17
+24-04-01 23:12:42.851 - INFO: Train epoch 342: [86400/94637 (91%)] Step: [2028331] | Lr: 0.000100 | Loss: 1.7105 | MSE loss: 0.0004 | Bpp loss: 1.10 | Aux loss: 88.78
+24-04-01 23:13:14.442 - INFO: Train epoch 342: [88000/94637 (93%)] Step: [2028431] | Lr: 0.000100 | Loss: 1.3094 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 90.47
+24-04-01 23:13:45.851 - INFO: Train epoch 342: [89600/94637 (95%)] Step: [2028531] | Lr: 0.000100 | Loss: 1.2054 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 88.74
+24-04-01 23:14:16.885 - INFO: Train epoch 342: [91200/94637 (96%)] Step: [2028631] | Lr: 0.000100 | Loss: 0.9206 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 88.14
+24-04-01 23:14:48.389 - INFO: Train epoch 342: [92800/94637 (98%)] Step: [2028731] | Lr: 0.000100 | Loss: 1.2594 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 91.86
+24-04-01 23:15:19.787 - INFO: Train epoch 342: [94400/94637 (100%)] Step: [2028831] | Lr: 0.000100 | Loss: 1.4678 | MSE loss: 0.0003 | Bpp loss: 0.96 | Aux loss: 83.77
+24-04-01 23:15:43.444 - INFO: Learning rate: 0.0001
+24-04-01 23:15:44.604 - INFO: Train epoch 343: [    0/94637 (0%)] Step: [2028846] | Lr: 0.000100 | Loss: 1.0046 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 81.36
+24-04-01 23:16:16.387 - INFO: Train epoch 343: [ 1600/94637 (2%)] Step: [2028946] | Lr: 0.000100 | Loss: 0.9630 | MSE loss: 0.0002 | Bpp loss: 0.60 | Aux loss: 88.65
+24-04-01 23:16:47.512 - INFO: Train epoch 343: [ 3200/94637 (3%)] Step: [2029046] | Lr: 0.000100 | Loss: 1.1936 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 89.12
+24-04-01 23:17:18.457 - INFO: Train epoch 343: [ 4800/94637 (5%)] Step: [2029146] | Lr: 0.000100 | Loss: 0.9942 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 87.98
+24-04-01 23:17:49.451 - INFO: Train epoch 343: [ 6400/94637 (7%)] Step: [2029246] | Lr: 0.000100 | Loss: 1.4576 | MSE loss: 0.0003 | Bpp loss: 0.95 | Aux loss: 86.15
+24-04-01 23:18:20.623 - INFO: Train epoch 343: [ 8000/94637 (8%)] Step: [2029346] | Lr: 0.000100 | Loss: 0.9335 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 92.64
+24-04-01 23:18:52.121 - INFO: Train epoch 343: [ 9600/94637 (10%)] Step: [2029446] | Lr: 0.000100 | Loss: 0.8640 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 85.27
+24-04-01 23:19:23.415 - INFO: Train epoch 343: [11200/94637 (12%)] Step: [2029546] | Lr: 0.000100 | Loss: 1.3448 | MSE loss: 0.0003 | Bpp loss: 0.81 | Aux loss: 89.16
+24-04-01 23:19:54.755 - INFO: Train epoch 343: [12800/94637 (14%)] Step: [2029646] | Lr: 0.000100 | Loss: 0.7814 | MSE loss: 0.0002 | Bpp loss: 0.50 | Aux loss: 88.72
+24-04-01 23:20:26.008 - INFO: Train epoch 343: [14400/94637 (15%)] Step: [2029746] | Lr: 0.000100 | Loss: 1.4651 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 90.85
+24-04-01 23:20:57.149 - INFO: Train epoch 343: [16000/94637 (17%)] Step: [2029846] | Lr: 0.000100 | Loss: 1.5986 | MSE loss: 0.0004 | Bpp loss: 0.99 | Aux loss: 86.58
+24-04-01 23:21:28.650 - INFO: Train epoch 343: [17600/94637 (19%)] Step: [2029946] | Lr: 0.000100 | Loss: 0.9943 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 81.19
+24-04-01 23:22:02.061 - INFO: Train epoch 343: [19200/94637 (20%)] Step: [2030046] | Lr: 0.000100 | Loss: 1.4334 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 92.34
+24-04-01 23:22:33.445 - INFO: Train epoch 343: [20800/94637 (22%)] Step: [2030146] | Lr: 0.000100 | Loss: 0.9753 | MSE loss: 0.0003 | Bpp loss: 0.57 | Aux loss: 87.75
+24-04-01 23:23:04.594 - INFO: Train epoch 343: [22400/94637 (24%)] Step: [2030246] | Lr: 0.000100 | Loss: 0.7022 | MSE loss: 0.0002 | Bpp loss: 0.40 | Aux loss: 92.72
+24-04-01 23:23:36.338 - INFO: Train epoch 343: [24000/94637 (25%)] Step: [2030346] | Lr: 0.000100 | Loss: 0.8835 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 85.93
+24-04-01 23:24:07.955 - INFO: Train epoch 343: [25600/94637 (27%)] Step: [2030446] | Lr: 0.000100 | Loss: 0.7400 | MSE loss: 0.0002 | Bpp loss: 0.48 | Aux loss: 88.90
+24-04-01 23:24:39.549 - INFO: Train epoch 343: [27200/94637 (29%)] Step: [2030546] | Lr: 0.000100 | Loss: 1.7384 | MSE loss: 0.0004 | Bpp loss: 1.06 | Aux loss: 90.48
+24-04-01 23:25:11.050 - INFO: Train epoch 343: [28800/94637 (30%)] Step: [2030646] | Lr: 0.000100 | Loss: 1.7991 | MSE loss: 0.0004 | Bpp loss: 1.09 | Aux loss: 86.50
+24-04-01 23:25:42.383 - INFO: Train epoch 343: [30400/94637 (32%)] Step: [2030746] | Lr: 0.000100 | Loss: 2.4802 | MSE loss: 0.0006 | Bpp loss: 1.46 | Aux loss: 92.94
+24-04-01 23:26:13.627 - INFO: Train epoch 343: [32000/94637 (34%)] Step: [2030846] | Lr: 0.000100 | Loss: 0.9335 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 82.63
+24-04-01 23:26:45.882 - INFO: Train epoch 343: [33600/94637 (36%)] Step: [2030946] | Lr: 0.000100 | Loss: 0.9557 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 92.91
+24-04-01 23:27:17.933 - INFO: Train epoch 343: [35200/94637 (37%)] Step: [2031046] | Lr: 0.000100 | Loss: 1.1078 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 90.63
+24-04-01 23:27:50.193 - INFO: Train epoch 343: [36800/94637 (39%)] Step: [2031146] | Lr: 0.000100 | Loss: 1.8024 | MSE loss: 0.0004 | Bpp loss: 1.09 | Aux loss: 85.01
+24-04-01 23:28:22.255 - INFO: Train epoch 343: [38400/94637 (41%)] Step: [2031246] | Lr: 0.000100 | Loss: 1.7539 | MSE loss: 0.0004 | Bpp loss: 1.16 | Aux loss: 82.12
+24-04-01 23:28:54.379 - INFO: Train epoch 343: [40000/94637 (42%)] Step: [2031346] | Lr: 0.000100 | Loss: 0.8896 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 92.09
+24-04-01 23:29:25.953 - INFO: Train epoch 343: [41600/94637 (44%)] Step: [2031446] | Lr: 0.000100 | Loss: 1.8866 | MSE loss: 0.0005 | Bpp loss: 1.04 | Aux loss: 94.02
+24-04-01 23:29:58.178 - INFO: Train epoch 343: [43200/94637 (46%)] Step: [2031546] | Lr: 0.000100 | Loss: 1.3912 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 88.36
+24-04-01 23:30:29.813 - INFO: Train epoch 343: [44800/94637 (47%)] Step: [2031646] | Lr: 0.000100 | Loss: 1.3324 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 82.98
+24-04-01 23:31:01.718 - INFO: Train epoch 343: [46400/94637 (49%)] Step: [2031746] | Lr: 0.000100 | Loss: 1.1513 | MSE loss: 0.0002 | Bpp loss: 0.75 | Aux loss: 84.72
+24-04-01 23:31:33.106 - INFO: Train epoch 343: [48000/94637 (51%)] Step: [2031846] | Lr: 0.000100 | Loss: 1.0206 | MSE loss: 0.0003 | Bpp loss: 0.61 | Aux loss: 92.42
+24-04-01 23:32:04.770 - INFO: Train epoch 343: [49600/94637 (52%)] Step: [2031946] | Lr: 0.000100 | Loss: 1.5210 | MSE loss: 0.0004 | Bpp loss: 0.88 | Aux loss: 91.08
+24-04-01 23:32:36.477 - INFO: Train epoch 343: [51200/94637 (54%)] Step: [2032046] | Lr: 0.000100 | Loss: 1.2883 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 89.48
+24-04-01 23:33:07.968 - INFO: Train epoch 343: [52800/94637 (56%)] Step: [2032146] | Lr: 0.000100 | Loss: 1.1666 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 89.44
+24-04-01 23:33:39.637 - INFO: Train epoch 343: [54400/94637 (57%)] Step: [2032246] | Lr: 0.000100 | Loss: 1.4613 | MSE loss: 0.0004 | Bpp loss: 0.89 | Aux loss: 86.93
+24-04-01 23:34:10.996 - INFO: Train epoch 343: [56000/94637 (59%)] Step: [2032346] | Lr: 0.000100 | Loss: 1.0691 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 91.75
+24-04-01 23:34:42.184 - INFO: Train epoch 343: [57600/94637 (61%)] Step: [2032446] | Lr: 0.000100 | Loss: 1.5104 | MSE loss: 0.0004 | Bpp loss: 0.89 | Aux loss: 85.76
+24-04-01 23:35:15.919 - INFO: Train epoch 343: [59200/94637 (63%)] Step: [2032546] | Lr: 0.000100 | Loss: 1.0222 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 89.22
+24-04-01 23:35:47.392 - INFO: Train epoch 343: [60800/94637 (64%)] Step: [2032646] | Lr: 0.000100 | Loss: 1.1378 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 95.88
+24-04-01 23:36:19.132 - INFO: Train epoch 343: [62400/94637 (66%)] Step: [2032746] | Lr: 0.000100 | Loss: 1.2976 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 82.51
+24-04-01 23:36:50.382 - INFO: Train epoch 343: [64000/94637 (68%)] Step: [2032846] | Lr: 0.000100 | Loss: 1.0400 | MSE loss: 0.0002 | Bpp loss: 0.69 | Aux loss: 90.47
+24-04-01 23:37:21.883 - INFO: Train epoch 343: [65600/94637 (69%)] Step: [2032946] | Lr: 0.000100 | Loss: 1.1189 | MSE loss: 0.0002 | Bpp loss: 0.74 | Aux loss: 90.00
+24-04-01 23:37:53.715 - INFO: Train epoch 343: [67200/94637 (71%)] Step: [2033046] | Lr: 0.000100 | Loss: 1.9638 | MSE loss: 0.0006 | Bpp loss: 0.98 | Aux loss: 92.70
+24-04-01 23:38:25.878 - INFO: Train epoch 343: [68800/94637 (73%)] Step: [2033146] | Lr: 0.000100 | Loss: 1.0031 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 90.50
+24-04-01 23:38:57.934 - INFO: Train epoch 343: [70400/94637 (74%)] Step: [2033246] | Lr: 0.000100 | Loss: 1.1331 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 89.11
+24-04-01 23:39:29.342 - INFO: Train epoch 343: [72000/94637 (76%)] Step: [2033346] | Lr: 0.000100 | Loss: 1.5710 | MSE loss: 0.0004 | Bpp loss: 0.89 | Aux loss: 88.95
+24-04-01 23:40:01.718 - INFO: Train epoch 343: [73600/94637 (78%)] Step: [2033446] | Lr: 0.000100 | Loss: 0.9064 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 89.46
+24-04-01 23:40:34.246 - INFO: Train epoch 343: [75200/94637 (79%)] Step: [2033546] | Lr: 0.000100 | Loss: 2.6591 | MSE loss: 0.0007 | Bpp loss: 1.48 | Aux loss: 85.09
+24-04-01 23:41:06.504 - INFO: Train epoch 343: [76800/94637 (81%)] Step: [2033646] | Lr: 0.000100 | Loss: 0.9486 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 92.11
+24-04-01 23:41:38.783 - INFO: Train epoch 343: [78400/94637 (83%)] Step: [2033746] | Lr: 0.000100 | Loss: 2.0852 | MSE loss: 0.0005 | Bpp loss: 1.28 | Aux loss: 90.74
+24-04-01 23:42:10.697 - INFO: Train epoch 343: [80000/94637 (85%)] Step: [2033846] | Lr: 0.000100 | Loss: 0.9639 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 90.19
+24-04-01 23:42:42.157 - INFO: Train epoch 343: [81600/94637 (86%)] Step: [2033946] | Lr: 0.000100 | Loss: 1.1895 | MSE loss: 0.0003 | Bpp loss: 0.77 | Aux loss: 93.52
+24-04-01 23:43:13.348 - INFO: Train epoch 343: [83200/94637 (88%)] Step: [2034046] | Lr: 0.000100 | Loss: 1.3026 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 87.68
+24-04-01 23:43:45.016 - INFO: Train epoch 343: [84800/94637 (90%)] Step: [2034146] | Lr: 0.000100 | Loss: 1.2579 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 86.74
+24-04-01 23:44:16.869 - INFO: Train epoch 343: [86400/94637 (91%)] Step: [2034246] | Lr: 0.000100 | Loss: 0.7306 | MSE loss: 0.0002 | Bpp loss: 0.46 | Aux loss: 88.23
+24-04-01 23:44:49.075 - INFO: Train epoch 343: [88000/94637 (93%)] Step: [2034346] | Lr: 0.000100 | Loss: 1.6018 | MSE loss: 0.0004 | Bpp loss: 0.98 | Aux loss: 91.10
+24-04-01 23:45:20.396 - INFO: Train epoch 343: [89600/94637 (95%)] Step: [2034446] | Lr: 0.000100 | Loss: 1.3991 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 91.51
+24-04-01 23:45:51.980 - INFO: Train epoch 343: [91200/94637 (96%)] Step: [2034546] | Lr: 0.000100 | Loss: 1.4146 | MSE loss: 0.0004 | Bpp loss: 0.84 | Aux loss: 90.39
+24-04-01 23:46:24.099 - INFO: Train epoch 343: [92800/94637 (98%)] Step: [2034646] | Lr: 0.000100 | Loss: 2.0344 | MSE loss: 0.0005 | Bpp loss: 1.28 | Aux loss: 86.93
+24-04-01 23:46:55.700 - INFO: Train epoch 343: [94400/94637 (100%)] Step: [2034746] | Lr: 0.000100 | Loss: 1.7040 | MSE loss: 0.0004 | Bpp loss: 1.05 | Aux loss: 87.16
+24-04-01 23:47:11.642 - INFO: Learning rate: 0.0001
+24-04-01 23:47:12.405 - INFO: Train epoch 344: [    0/94637 (0%)] Step: [2034761] | Lr: 0.000100 | Loss: 1.3649 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 87.64
+24-04-01 23:47:44.061 - INFO: Train epoch 344: [ 1600/94637 (2%)] Step: [2034861] | Lr: 0.000100 | Loss: 0.9230 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 89.64
+24-04-01 23:48:15.490 - INFO: Train epoch 344: [ 3200/94637 (3%)] Step: [2034961] | Lr: 0.000100 | Loss: 1.3781 | MSE loss: 0.0004 | Bpp loss: 0.76 | Aux loss: 89.71
+24-04-01 23:48:48.670 - INFO: Train epoch 344: [ 4800/94637 (5%)] Step: [2035061] | Lr: 0.000100 | Loss: 2.0185 | MSE loss: 0.0006 | Bpp loss: 0.96 | Aux loss: 91.56
+24-04-01 23:49:20.094 - INFO: Train epoch 344: [ 6400/94637 (7%)] Step: [2035161] | Lr: 0.000100 | Loss: 1.0229 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 88.17
+24-04-01 23:49:51.393 - INFO: Train epoch 344: [ 8000/94637 (8%)] Step: [2035261] | Lr: 0.000100 | Loss: 0.9450 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 94.84
+24-04-01 23:50:22.842 - INFO: Train epoch 344: [ 9600/94637 (10%)] Step: [2035361] | Lr: 0.000100 | Loss: 0.9440 | MSE loss: 0.0002 | Bpp loss: 0.60 | Aux loss: 91.53
+24-04-01 23:50:54.127 - INFO: Train epoch 344: [11200/94637 (12%)] Step: [2035461] | Lr: 0.000100 | Loss: 1.5214 | MSE loss: 0.0004 | Bpp loss: 0.91 | Aux loss: 89.19
+24-04-01 23:51:25.801 - INFO: Train epoch 344: [12800/94637 (14%)] Step: [2035561] | Lr: 0.000100 | Loss: 1.2962 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 86.16
+24-04-01 23:51:57.070 - INFO: Train epoch 344: [14400/94637 (15%)] Step: [2035661] | Lr: 0.000100 | Loss: 0.6621 | MSE loss: 0.0001 | Bpp loss: 0.44 | Aux loss: 92.08
+24-04-01 23:52:28.726 - INFO: Train epoch 344: [16000/94637 (17%)] Step: [2035761] | Lr: 0.000100 | Loss: 1.0551 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 88.70
+24-04-01 23:53:00.334 - INFO: Train epoch 344: [17600/94637 (19%)] Step: [2035861] | Lr: 0.000100 | Loss: 1.3571 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 91.67
+24-04-01 23:53:31.940 - INFO: Train epoch 344: [19200/94637 (20%)] Step: [2035961] | Lr: 0.000100 | Loss: 1.3532 | MSE loss: 0.0003 | Bpp loss: 0.86 | Aux loss: 87.19
+24-04-01 23:54:02.777 - INFO: Train epoch 344: [20800/94637 (22%)] Step: [2036061] | Lr: 0.000100 | Loss: 0.8729 | MSE loss: 0.0002 | Bpp loss: 0.50 | Aux loss: 86.15
+24-04-01 23:54:34.262 - INFO: Train epoch 344: [22400/94637 (24%)] Step: [2036161] | Lr: 0.000100 | Loss: 1.0548 | MSE loss: 0.0003 | Bpp loss: 0.64 | Aux loss: 89.97
+24-04-01 23:55:05.366 - INFO: Train epoch 344: [24000/94637 (25%)] Step: [2036261] | Lr: 0.000100 | Loss: 1.1146 | MSE loss: 0.0003 | Bpp loss: 0.66 | Aux loss: 90.58
+24-04-01 23:55:37.004 - INFO: Train epoch 344: [25600/94637 (27%)] Step: [2036361] | Lr: 0.000100 | Loss: 1.5610 | MSE loss: 0.0003 | Bpp loss: 1.02 | Aux loss: 84.22
+24-04-01 23:56:08.107 - INFO: Train epoch 344: [27200/94637 (29%)] Step: [2036461] | Lr: 0.000100 | Loss: 0.7235 | MSE loss: 0.0002 | Bpp loss: 0.46 | Aux loss: 88.93
+24-04-01 23:56:40.055 - INFO: Train epoch 344: [28800/94637 (30%)] Step: [2036561] | Lr: 0.000100 | Loss: 1.7116 | MSE loss: 0.0005 | Bpp loss: 0.91 | Aux loss: 92.40
+24-04-01 23:57:12.014 - INFO: Train epoch 344: [30400/94637 (32%)] Step: [2036661] | Lr: 0.000100 | Loss: 1.1409 | MSE loss: 0.0003 | Bpp loss: 0.67 | Aux loss: 87.49
+24-04-01 23:57:43.529 - INFO: Train epoch 344: [32000/94637 (34%)] Step: [2036761] | Lr: 0.000100 | Loss: 1.1417 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 83.09
+24-04-01 23:58:14.918 - INFO: Train epoch 344: [33600/94637 (36%)] Step: [2036861] | Lr: 0.000100 | Loss: 1.6360 | MSE loss: 0.0004 | Bpp loss: 1.00 | Aux loss: 82.79
+24-04-01 23:58:45.917 - INFO: Train epoch 344: [35200/94637 (37%)] Step: [2036961] | Lr: 0.000100 | Loss: 1.3118 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 87.31
+24-04-01 23:59:17.220 - INFO: Train epoch 344: [36800/94637 (39%)] Step: [2037061] | Lr: 0.000100 | Loss: 0.9050 | MSE loss: 0.0002 | Bpp loss: 0.57 | Aux loss: 99.75
+24-04-01 23:59:48.101 - INFO: Train epoch 344: [38400/94637 (41%)] Step: [2037161] | Lr: 0.000100 | Loss: 2.2327 | MSE loss: 0.0007 | Bpp loss: 1.12 | Aux loss: 88.27
+24-04-02 00:00:19.764 - INFO: Train epoch 344: [40000/94637 (42%)] Step: [2037261] | Lr: 0.000100 | Loss: 1.1704 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 84.07
+24-04-02 00:00:51.273 - INFO: Train epoch 344: [41600/94637 (44%)] Step: [2037361] | Lr: 0.000100 | Loss: 1.7758 | MSE loss: 0.0004 | Bpp loss: 1.07 | Aux loss: 90.74
+24-04-02 00:01:23.086 - INFO: Train epoch 344: [43200/94637 (46%)] Step: [2037461] | Lr: 0.000100 | Loss: 1.2122 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 84.73
+24-04-02 00:01:56.546 - INFO: Train epoch 344: [44800/94637 (47%)] Step: [2037561] | Lr: 0.000100 | Loss: 1.8591 | MSE loss: 0.0004 | Bpp loss: 1.17 | Aux loss: 80.51
+24-04-02 00:02:28.113 - INFO: Train epoch 344: [46400/94637 (49%)] Step: [2037661] | Lr: 0.000100 | Loss: 1.5536 | MSE loss: 0.0004 | Bpp loss: 0.95 | Aux loss: 82.99
+24-04-02 00:02:59.515 - INFO: Train epoch 344: [48000/94637 (51%)] Step: [2037761] | Lr: 0.000100 | Loss: 0.6538 | MSE loss: 0.0001 | Bpp loss: 0.42 | Aux loss: 78.89
+24-04-02 00:03:31.117 - INFO: Train epoch 344: [49600/94637 (52%)] Step: [2037861] | Lr: 0.000100 | Loss: 1.4110 | MSE loss: 0.0003 | Bpp loss: 0.89 | Aux loss: 83.86
+24-04-02 00:04:02.837 - INFO: Train epoch 344: [51200/94637 (54%)] Step: [2037961] | Lr: 0.000100 | Loss: 1.2903 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 81.41
+24-04-02 00:04:34.265 - INFO: Train epoch 344: [52800/94637 (56%)] Step: [2038061] | Lr: 0.000100 | Loss: 1.7291 | MSE loss: 0.0004 | Bpp loss: 1.03 | Aux loss: 79.60
+24-04-02 00:05:05.879 - INFO: Train epoch 344: [54400/94637 (57%)] Step: [2038161] | Lr: 0.000100 | Loss: 1.2225 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 82.27
+24-04-02 00:05:37.459 - INFO: Train epoch 344: [56000/94637 (59%)] Step: [2038261] | Lr: 0.000100 | Loss: 1.2834 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 87.32
+24-04-02 00:06:08.672 - INFO: Train epoch 344: [57600/94637 (61%)] Step: [2038361] | Lr: 0.000100 | Loss: 1.0038 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 86.84
+24-04-02 00:06:39.980 - INFO: Train epoch 344: [59200/94637 (63%)] Step: [2038461] | Lr: 0.000100 | Loss: 1.5164 | MSE loss: 0.0004 | Bpp loss: 0.87 | Aux loss: 82.08
+24-04-02 00:07:10.954 - INFO: Train epoch 344: [60800/94637 (64%)] Step: [2038561] | Lr: 0.000100 | Loss: 1.7743 | MSE loss: 0.0004 | Bpp loss: 1.11 | Aux loss: 81.97
+24-04-02 00:07:42.680 - INFO: Train epoch 344: [62400/94637 (66%)] Step: [2038661] | Lr: 0.000100 | Loss: 0.9666 | MSE loss: 0.0002 | Bpp loss: 0.60 | Aux loss: 84.45
+24-04-02 00:08:14.149 - INFO: Train epoch 344: [64000/94637 (68%)] Step: [2038761] | Lr: 0.000100 | Loss: 1.3268 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 84.03
+24-04-02 00:08:46.005 - INFO: Train epoch 344: [65600/94637 (69%)] Step: [2038861] | Lr: 0.000100 | Loss: 0.8802 | MSE loss: 0.0002 | Bpp loss: 0.53 | Aux loss: 84.88
+24-04-02 00:09:18.163 - INFO: Train epoch 344: [67200/94637 (71%)] Step: [2038961] | Lr: 0.000100 | Loss: 1.4113 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 84.17
+24-04-02 00:09:49.713 - INFO: Train epoch 344: [68800/94637 (73%)] Step: [2039061] | Lr: 0.000100 | Loss: 1.9317 | MSE loss: 0.0004 | Bpp loss: 1.22 | Aux loss: 82.95
+24-04-02 00:10:21.713 - INFO: Train epoch 344: [70400/94637 (74%)] Step: [2039161] | Lr: 0.000100 | Loss: 0.9482 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 87.98
+24-04-02 00:10:53.494 - INFO: Train epoch 344: [72000/94637 (76%)] Step: [2039261] | Lr: 0.000100 | Loss: 1.0983 | MSE loss: 0.0003 | Bpp loss: 0.64 | Aux loss: 77.37
+24-04-02 00:11:24.882 - INFO: Train epoch 344: [73600/94637 (78%)] Step: [2039361] | Lr: 0.000100 | Loss: 1.6515 | MSE loss: 0.0004 | Bpp loss: 0.95 | Aux loss: 88.21
+24-04-02 00:11:56.150 - INFO: Train epoch 344: [75200/94637 (79%)] Step: [2039461] | Lr: 0.000100 | Loss: 0.9551 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 84.92
+24-04-02 00:12:28.089 - INFO: Train epoch 344: [76800/94637 (81%)] Step: [2039561] | Lr: 0.000100 | Loss: 0.8232 | MSE loss: 0.0002 | Bpp loss: 0.56 | Aux loss: 83.56
+24-04-02 00:12:59.772 - INFO: Train epoch 344: [78400/94637 (83%)] Step: [2039661] | Lr: 0.000100 | Loss: 1.1593 | MSE loss: 0.0002 | Bpp loss: 0.77 | Aux loss: 79.47
+24-04-02 00:13:31.259 - INFO: Train epoch 344: [80000/94637 (85%)] Step: [2039761] | Lr: 0.000100 | Loss: 1.2874 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 85.57
+24-04-02 00:14:02.608 - INFO: Train epoch 344: [81600/94637 (86%)] Step: [2039861] | Lr: 0.000100 | Loss: 0.7736 | MSE loss: 0.0002 | Bpp loss: 0.52 | Aux loss: 89.94
+24-04-02 00:14:34.287 - INFO: Train epoch 344: [83200/94637 (88%)] Step: [2039961] | Lr: 0.000100 | Loss: 0.9051 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 90.11
+24-04-02 00:15:08.552 - INFO: Train epoch 344: [84800/94637 (90%)] Step: [2040061] | Lr: 0.000100 | Loss: 0.8047 | MSE loss: 0.0002 | Bpp loss: 0.51 | Aux loss: 83.40
+24-04-02 00:15:40.213 - INFO: Train epoch 344: [86400/94637 (91%)] Step: [2040161] | Lr: 0.000100 | Loss: 1.3994 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 85.79
+24-04-02 00:16:12.518 - INFO: Train epoch 344: [88000/94637 (93%)] Step: [2040261] | Lr: 0.000100 | Loss: 0.5762 | MSE loss: 0.0001 | Bpp loss: 0.36 | Aux loss: 84.31
+24-04-02 00:16:44.127 - INFO: Train epoch 344: [89600/94637 (95%)] Step: [2040361] | Lr: 0.000100 | Loss: 1.2518 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 83.22
+24-04-02 00:17:15.661 - INFO: Train epoch 344: [91200/94637 (96%)] Step: [2040461] | Lr: 0.000100 | Loss: 0.9862 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 89.05
+24-04-02 00:17:47.624 - INFO: Train epoch 344: [92800/94637 (98%)] Step: [2040561] | Lr: 0.000100 | Loss: 1.7986 | MSE loss: 0.0005 | Bpp loss: 1.06 | Aux loss: 84.07
+24-04-02 00:18:19.496 - INFO: Train epoch 344: [94400/94637 (100%)] Step: [2040661] | Lr: 0.000100 | Loss: 1.1462 | MSE loss: 0.0003 | Bpp loss: 0.72 | Aux loss: 89.35
+24-04-02 00:18:35.595 - INFO: Learning rate: 0.0001
+24-04-02 00:18:36.412 - INFO: Train epoch 345: [    0/94637 (0%)] Step: [2040676] | Lr: 0.000100 | Loss: 1.4759 | MSE loss: 0.0005 | Bpp loss: 0.72 | Aux loss: 85.91
+24-04-02 00:19:08.127 - INFO: Train epoch 345: [ 1600/94637 (2%)] Step: [2040776] | Lr: 0.000100 | Loss: 1.3977 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 85.32
+24-04-02 00:19:39.422 - INFO: Train epoch 345: [ 3200/94637 (3%)] Step: [2040876] | Lr: 0.000100 | Loss: 1.2769 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 80.62
+24-04-02 00:20:11.671 - INFO: Train epoch 345: [ 4800/94637 (5%)] Step: [2040976] | Lr: 0.000100 | Loss: 1.5259 | MSE loss: 0.0004 | Bpp loss: 0.86 | Aux loss: 90.16
+24-04-02 00:20:43.264 - INFO: Train epoch 345: [ 6400/94637 (7%)] Step: [2041076] | Lr: 0.000100 | Loss: 3.4180 | MSE loss: 0.0015 | Bpp loss: 1.02 | Aux loss: 82.41
+24-04-02 00:21:15.388 - INFO: Train epoch 345: [ 8000/94637 (8%)] Step: [2041176] | Lr: 0.000100 | Loss: 0.9719 | MSE loss: 0.0002 | Bpp loss: 0.63 | Aux loss: 85.12
+24-04-02 00:21:46.955 - INFO: Train epoch 345: [ 9600/94637 (10%)] Step: [2041276] | Lr: 0.000100 | Loss: 1.3535 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 86.78
+24-04-02 00:22:18.719 - INFO: Train epoch 345: [11200/94637 (12%)] Step: [2041376] | Lr: 0.000100 | Loss: 1.5694 | MSE loss: 0.0004 | Bpp loss: 0.94 | Aux loss: 88.50
+24-04-02 00:22:50.351 - INFO: Train epoch 345: [12800/94637 (14%)] Step: [2041476] | Lr: 0.000100 | Loss: 1.0894 | MSE loss: 0.0002 | Bpp loss: 0.70 | Aux loss: 88.29
+24-04-02 00:23:22.169 - INFO: Train epoch 345: [14400/94637 (15%)] Step: [2041576] | Lr: 0.000100 | Loss: 0.8722 | MSE loss: 0.0002 | Bpp loss: 0.59 | Aux loss: 86.45
+24-04-02 00:23:53.673 - INFO: Train epoch 345: [16000/94637 (17%)] Step: [2041676] | Lr: 0.000100 | Loss: 0.5665 | MSE loss: 0.0001 | Bpp loss: 0.39 | Aux loss: 82.50
+24-04-02 00:24:25.297 - INFO: Train epoch 345: [17600/94637 (19%)] Step: [2041776] | Lr: 0.000100 | Loss: 1.6140 | MSE loss: 0.0004 | Bpp loss: 0.97 | Aux loss: 82.36
+24-04-02 00:24:56.936 - INFO: Train epoch 345: [19200/94637 (20%)] Step: [2041876] | Lr: 0.000100 | Loss: 0.7914 | MSE loss: 0.0002 | Bpp loss: 0.45 | Aux loss: 83.91
+24-04-02 00:25:28.830 - INFO: Train epoch 345: [20800/94637 (22%)] Step: [2041976] | Lr: 0.000100 | Loss: 1.4733 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 89.45
+24-04-02 00:26:01.461 - INFO: Train epoch 345: [22400/94637 (24%)] Step: [2042076] | Lr: 0.000100 | Loss: 1.0610 | MSE loss: 0.0002 | Bpp loss: 0.68 | Aux loss: 82.84
+24-04-02 00:26:33.318 - INFO: Train epoch 345: [24000/94637 (25%)] Step: [2042176] | Lr: 0.000100 | Loss: 1.1382 | MSE loss: 0.0002 | Bpp loss: 0.74 | Aux loss: 83.61
+24-04-02 00:27:05.793 - INFO: Train epoch 345: [25600/94637 (27%)] Step: [2042276] | Lr: 0.000100 | Loss: 2.3681 | MSE loss: 0.0006 | Bpp loss: 1.41 | Aux loss: 86.62
+24-04-02 00:27:37.912 - INFO: Train epoch 345: [27200/94637 (29%)] Step: [2042376] | Lr: 0.000100 | Loss: 1.2514 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 86.72
+24-04-02 00:28:09.579 - INFO: Train epoch 345: [28800/94637 (30%)] Step: [2042476] | Lr: 0.000100 | Loss: 1.2080 | MSE loss: 0.0003 | Bpp loss: 0.71 | Aux loss: 87.98
+24-04-02 00:28:43.587 - INFO: Train epoch 345: [30400/94637 (32%)] Step: [2042576] | Lr: 0.000100 | Loss: 1.6144 | MSE loss: 0.0004 | Bpp loss: 1.01 | Aux loss: 89.54
+24-04-02 00:29:15.303 - INFO: Train epoch 345: [32000/94637 (34%)] Step: [2042676] | Lr: 0.000100 | Loss: 1.3583 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 86.69
+24-04-02 00:29:46.841 - INFO: Train epoch 345: [33600/94637 (36%)] Step: [2042776] | Lr: 0.000100 | Loss: 1.2212 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 94.38
+24-04-02 00:30:18.745 - INFO: Train epoch 345: [35200/94637 (37%)] Step: [2042876] | Lr: 0.000100 | Loss: 1.0506 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 82.55
+24-04-02 00:30:50.535 - INFO: Train epoch 345: [36800/94637 (39%)] Step: [2042976] | Lr: 0.000100 | Loss: 1.2213 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 92.30
+24-04-02 00:31:22.958 - INFO: Train epoch 345: [38400/94637 (41%)] Step: [2043076] | Lr: 0.000100 | Loss: 0.9536 | MSE loss: 0.0002 | Bpp loss: 0.62 | Aux loss: 87.73
+24-04-02 00:31:54.865 - INFO: Train epoch 345: [40000/94637 (42%)] Step: [2043176] | Lr: 0.000100 | Loss: 1.1168 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 82.43
+24-04-02 00:32:27.652 - INFO: Train epoch 345: [41600/94637 (44%)] Step: [2043276] | Lr: 0.000100 | Loss: 1.1854 | MSE loss: 0.0003 | Bpp loss: 0.76 | Aux loss: 87.57
+24-04-02 00:32:59.359 - INFO: Train epoch 345: [43200/94637 (46%)] Step: [2043376] | Lr: 0.000100 | Loss: 0.9624 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 84.13
+24-04-02 00:33:31.373 - INFO: Train epoch 345: [44800/94637 (47%)] Step: [2043476] | Lr: 0.000100 | Loss: 1.6453 | MSE loss: 0.0004 | Bpp loss: 0.98 | Aux loss: 87.56
+24-04-02 00:34:03.546 - INFO: Train epoch 345: [46400/94637 (49%)] Step: [2043576] | Lr: 0.000100 | Loss: 1.3823 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 92.81
+24-04-02 00:34:35.418 - INFO: Train epoch 345: [48000/94637 (51%)] Step: [2043676] | Lr: 0.000100 | Loss: 1.1449 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 87.56
+24-04-02 00:35:07.566 - INFO: Train epoch 345: [49600/94637 (52%)] Step: [2043776] | Lr: 0.000100 | Loss: 1.6299 | MSE loss: 0.0005 | Bpp loss: 0.83 | Aux loss: 89.35
+24-04-02 00:35:39.677 - INFO: Train epoch 345: [51200/94637 (54%)] Step: [2043876] | Lr: 0.000100 | Loss: 1.1841 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 87.56
+24-04-02 00:36:11.712 - INFO: Train epoch 345: [52800/94637 (56%)] Step: [2043976] | Lr: 0.000100 | Loss: 1.2908 | MSE loss: 0.0003 | Bpp loss: 0.79 | Aux loss: 95.26
+24-04-02 00:36:43.474 - INFO: Train epoch 345: [54400/94637 (57%)] Step: [2044076] | Lr: 0.000100 | Loss: 1.3811 | MSE loss: 0.0003 | Bpp loss: 0.87 | Aux loss: 89.82
+24-04-02 00:37:15.385 - INFO: Train epoch 345: [56000/94637 (59%)] Step: [2044176] | Lr: 0.000100 | Loss: 0.8649 | MSE loss: 0.0002 | Bpp loss: 0.54 | Aux loss: 90.84
+24-04-02 00:37:46.832 - INFO: Train epoch 345: [57600/94637 (61%)] Step: [2044276] | Lr: 0.000100 | Loss: 1.2114 | MSE loss: 0.0003 | Bpp loss: 0.73 | Aux loss: 86.56
+24-04-02 00:38:18.909 - INFO: Train epoch 345: [59200/94637 (63%)] Step: [2044376] | Lr: 0.000100 | Loss: 1.7794 | MSE loss: 0.0004 | Bpp loss: 1.08 | Aux loss: 82.18
+24-04-02 00:38:50.873 - INFO: Train epoch 345: [60800/94637 (64%)] Step: [2044476] | Lr: 0.000100 | Loss: 1.1745 | MSE loss: 0.0003 | Bpp loss: 0.69 | Aux loss: 84.50
+24-04-02 00:39:22.507 - INFO: Train epoch 345: [62400/94637 (66%)] Step: [2044576] | Lr: 0.000100 | Loss: 1.4713 | MSE loss: 0.0003 | Bpp loss: 0.91 | Aux loss: 91.03
+24-04-02 00:39:53.982 - INFO: Train epoch 345: [64000/94637 (68%)] Step: [2044676] | Lr: 0.000100 | Loss: 1.4791 | MSE loss: 0.0004 | Bpp loss: 0.90 | Aux loss: 92.21
+24-04-02 00:40:25.750 - INFO: Train epoch 345: [65600/94637 (69%)] Step: [2044776] | Lr: 0.000100 | Loss: 1.5451 | MSE loss: 0.0004 | Bpp loss: 0.97 | Aux loss: 91.33
+24-04-02 00:40:57.437 - INFO: Train epoch 345: [67200/94637 (71%)] Step: [2044876] | Lr: 0.000100 | Loss: 1.2110 | MSE loss: 0.0003 | Bpp loss: 0.74 | Aux loss: 93.79
+24-04-02 00:41:29.202 - INFO: Train epoch 345: [68800/94637 (73%)] Step: [2044976] | Lr: 0.000100 | Loss: 0.8462 | MSE loss: 0.0002 | Bpp loss: 0.55 | Aux loss: 90.46
+24-04-02 00:42:03.001 - INFO: Train epoch 345: [70400/94637 (74%)] Step: [2045076] | Lr: 0.000100 | Loss: 1.3630 | MSE loss: 0.0003 | Bpp loss: 0.80 | Aux loss: 82.17
+24-04-02 00:42:35.311 - INFO: Train epoch 345: [72000/94637 (76%)] Step: [2045176] | Lr: 0.000100 | Loss: 1.3891 | MSE loss: 0.0004 | Bpp loss: 0.82 | Aux loss: 87.46
+24-04-02 00:43:07.109 - INFO: Train epoch 345: [73600/94637 (78%)] Step: [2045276] | Lr: 0.000100 | Loss: 1.4231 | MSE loss: 0.0003 | Bpp loss: 0.88 | Aux loss: 95.96
+24-04-02 00:43:38.918 - INFO: Train epoch 345: [75200/94637 (79%)] Step: [2045376] | Lr: 0.000100 | Loss: 0.8916 | MSE loss: 0.0002 | Bpp loss: 0.58 | Aux loss: 89.61
+24-04-02 00:44:10.854 - INFO: Train epoch 345: [76800/94637 (81%)] Step: [2045476] | Lr: 0.000100 | Loss: 1.0742 | MSE loss: 0.0002 | Bpp loss: 0.67 | Aux loss: 93.13
+24-04-02 00:44:43.118 - INFO: Train epoch 345: [78400/94637 (83%)] Step: [2045576] | Lr: 0.000100 | Loss: 0.7115 | MSE loss: 0.0001 | Bpp loss: 0.48 | Aux loss: 84.84
+24-04-02 00:45:14.984 - INFO: Train epoch 345: [80000/94637 (85%)] Step: [2045676] | Lr: 0.000100 | Loss: 2.0004 | MSE loss: 0.0005 | Bpp loss: 1.17 | Aux loss: 83.59
+24-04-02 00:45:46.648 - INFO: Train epoch 345: [81600/94637 (86%)] Step: [2045776] | Lr: 0.000100 | Loss: 1.1363 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 84.77
+24-04-02 00:46:17.703 - INFO: Train epoch 345: [83200/94637 (88%)] Step: [2045876] | Lr: 0.000100 | Loss: 1.2649 | MSE loss: 0.0003 | Bpp loss: 0.82 | Aux loss: 86.77
+24-04-02 00:46:49.148 - INFO: Train epoch 345: [84800/94637 (90%)] Step: [2045976] | Lr: 0.000100 | Loss: 1.8360 | MSE loss: 0.0004 | Bpp loss: 1.15 | Aux loss: 83.36
+24-04-02 00:47:20.614 - INFO: Train epoch 345: [86400/94637 (91%)] Step: [2046076] | Lr: 0.000100 | Loss: 1.9051 | MSE loss: 0.0004 | Bpp loss: 1.19 | Aux loss: 82.06
+24-04-02 00:47:51.813 - INFO: Train epoch 345: [88000/94637 (93%)] Step: [2046176] | Lr: 0.000100 | Loss: 1.1572 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 86.06
+24-04-02 00:48:23.249 - INFO: Train epoch 345: [89600/94637 (95%)] Step: [2046276] | Lr: 0.000100 | Loss: 1.6443 | MSE loss: 0.0005 | Bpp loss: 0.91 | Aux loss: 88.03
+24-04-02 00:48:54.497 - INFO: Train epoch 345: [91200/94637 (96%)] Step: [2046376] | Lr: 0.000100 | Loss: 0.6839 | MSE loss: 0.0001 | Bpp loss: 0.45 | Aux loss: 88.79
+24-04-02 00:49:26.071 - INFO: Train epoch 345: [92800/94637 (98%)] Step: [2046476] | Lr: 0.000100 | Loss: 1.1399 | MSE loss: 0.0002 | Bpp loss: 0.75 | Aux loss: 94.97
+24-04-02 00:49:57.419 - INFO: Train epoch 345: [94400/94637 (100%)] Step: [2046576] | Lr: 0.000100 | Loss: 1.1743 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 90.66
+24-04-02 00:50:13.013 - INFO: Learning rate: 0.0001
+24-04-02 00:50:14.297 - INFO: Train epoch 346: [    0/94637 (0%)] Step: [2046591] | Lr: 0.000100 | Loss: 1.3194 | MSE loss: 0.0003 | Bpp loss: 0.78 | Aux loss: 84.35
+24-04-02 00:50:45.589 - INFO: Train epoch 346: [ 1600/94637 (2%)] Step: [2046691] | Lr: 0.000100 | Loss: 0.8556 | MSE loss: 0.0002 | Bpp loss: 0.53 | Aux loss: 85.12
+24-04-02 00:51:17.144 - INFO: Train epoch 346: [ 3200/94637 (3%)] Step: [2046791] | Lr: 0.000100 | Loss: 1.3724 | MSE loss: 0.0003 | Bpp loss: 0.85 | Aux loss: 89.75
+24-04-02 00:51:48.492 - INFO: Train epoch 346: [ 4800/94637 (5%)] Step: [2046891] | Lr: 0.000100 | Loss: 1.4574 | MSE loss: 0.0003 | Bpp loss: 0.93 | Aux loss: 87.31
+24-04-02 00:52:19.834 - INFO: Train epoch 346: [ 6400/94637 (7%)] Step: [2046991] | Lr: 0.000100 | Loss: 1.4581 | MSE loss: 0.0003 | Bpp loss: 0.95 | Aux loss: 87.10
+24-04-02 00:52:51.176 - INFO: Train epoch 346: [ 8000/94637 (8%)] Step: [2047091] | Lr: 0.000100 | Loss: 0.9728 | MSE loss: 0.0002 | Bpp loss: 0.64 | Aux loss: 89.39
+24-04-02 00:53:22.703 - INFO: Train epoch 346: [ 9600/94637 (10%)] Step: [2047191] | Lr: 0.000100 | Loss: 0.9982 | MSE loss: 0.0002 | Bpp loss: 0.66 | Aux loss: 89.66
+24-04-02 00:53:54.094 - INFO: Train epoch 346: [11200/94637 (12%)] Step: [2047291] | Lr: 0.000100 | Loss: 1.5553 | MSE loss: 0.0004 | Bpp loss: 0.94 | Aux loss: 90.69
+24-04-02 00:54:26.228 - INFO: Train epoch 346: [12800/94637 (14%)] Step: [2047391] | Lr: 0.000100 | Loss: 1.2244 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 89.37
+24-04-02 00:54:57.284 - INFO: Train epoch 346: [14400/94637 (15%)] Step: [2047491] | Lr: 0.000100 | Loss: 1.3403 | MSE loss: 0.0003 | Bpp loss: 0.83 | Aux loss: 91.24
+24-04-02 00:55:31.170 - INFO: Train epoch 346: [16000/94637 (17%)] Step: [2047591] | Lr: 0.000100 | Loss: 1.1949 | MSE loss: 0.0003 | Bpp loss: 0.75 | Aux loss: 88.09
+24-04-02 00:56:03.273 - INFO: Train epoch 346: [17600/94637 (19%)] Step: [2047691] | Lr: 0.000100 | Loss: 1.1130 | MSE loss: 0.0003 | Bpp loss: 0.68 | Aux loss: 88.19
+24-04-02 00:56:35.132 - INFO: Train epoch 346: [19200/94637 (20%)] Step: [2047791] | Lr: 0.000100 | Loss: 1.5817 | MSE loss: 0.0004 | Bpp loss: 0.92 | Aux loss: 82.17

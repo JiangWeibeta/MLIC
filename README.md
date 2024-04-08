@@ -39,7 +39,7 @@ Benchmark
 
 #### Update 2024-04-08
 
-I upload the training log when the lambda is 0.0250.
+I upload the training log when the lambda is 0.0250. The model is trained on 4 GPU cards.
 
 I fix the LatentResidualPrediction and SynthesisTransform, you should use LatentResidualPredictionFix and SynthesisTransformFix. The parameter number becomes 83.5M.
 The modification leads to no performance drop.

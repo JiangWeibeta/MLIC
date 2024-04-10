@@ -49,7 +49,6 @@ def main():
     net = MLICPlusPlus(config=config)
     net = net.to(device)
     checkpoint = torch.load(args.checkpoint)
-    # new_ckpt = modify_checkpoint(checkpoint['state_dict'])
     net.load_state_dict(checkpoint['state_dict'])
     epoch = checkpoint["epoch"]
     logger_test.info(f"Start testing!" )

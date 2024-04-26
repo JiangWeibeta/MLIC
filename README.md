@@ -44,6 +44,9 @@ I upload the training log when the lambda is 0.0250. The model is trained on 4 G
 I fix the LatentResidualPrediction and SynthesisTransform, you should use LatentResidualPredictionFix and SynthesisTransformFix. The parameter number becomes 83.5M.
 The modification leads to no performance drop.
 
+Update checkpoint: https://disk.pku.edu.cn/link/AABED8912D2502477EB37C18FC7F2B2612
+code: ujrv
+
 #### Bug Fixes
 
 I fix the implementation of *LinearGlobalIntraContext*.

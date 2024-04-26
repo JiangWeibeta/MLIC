@@ -45,6 +45,7 @@ I fix the LatentResidualPrediction and SynthesisTransform, you should use Latent
 The modification leads to no performance drop.
 
 Update checkpoint: https://disk.pku.edu.cn/link/AABED8912D2502477EB37C18FC7F2B2612
+
 code: ujrv
 
 #### Bug Fixes

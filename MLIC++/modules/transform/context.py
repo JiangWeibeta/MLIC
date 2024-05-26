@@ -60,7 +60,7 @@ class LocalContext(nn.Module):
             k = k_windows.reshape(1, H * W, 1, self.window_size * self.window_size).permute(0, 1, 3, 2)
             attn_mask = (q @ k.transpose(-2, -1))
             attn_mask = attn_mask.masked_fill(attn_mask == 0., float(-100.0))
-            attn_mask = attn_mask.masked_fill(attn_mask != 0., float(0.0))
+            attn_mask = attn_mask.masked_fill(attn_mask != float(-100.0), float(0.0))
             self.attn_mask = attn_mask[0].to(device).detach()
             updated=True
         return updated

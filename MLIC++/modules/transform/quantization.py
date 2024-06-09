@@ -6,7 +6,7 @@ from modules.layers.conv import conv1x1, conv3x3, conv, deconv
 from modules.layers.res_blk import *
 
 
-class LatentResidualPrediction(nn.Module):
+class LatentResidualPredictionOld(nn.Module):
     def __init__(self, in_dim, out_dim, act=nn.GELU):
         super().__init__()
         diff = abs(out_dim - in_dim)
@@ -27,7 +27,7 @@ class LatentResidualPrediction(nn.Module):
         x = 0.5 * torch.tanh(x)
         return x
 
-class LatentResidualPredictionFix(nn.Module):
+class LatentResidualPrediction(nn.Module):
     def __init__(self, in_dim, out_dim, act=nn.GELU):
         super().__init__()
         self.lrp_transform = nn.Sequential(

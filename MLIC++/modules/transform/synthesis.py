@@ -33,7 +33,7 @@ class HyperSynthesis(nn.Module):
         return x
 
 
-class SynthesisTransform(nn.Module):
+class SynthesisTransformOld(nn.Module):
     def __init__(self, N, M):
         super().__init__()
         self.synthesis_transform = nn.Sequential(
@@ -53,7 +53,7 @@ class SynthesisTransform(nn.Module):
         return x
 
 
-class SynthesisTransformFix(nn.Module):
+class SynthesisTransform(nn.Module):
     def __init__(self, N, M):
         super().__init__()
         self.synthesis_transform = nn.Sequential(
@@ -70,46 +70,4 @@ class SynthesisTransformFix(nn.Module):
     def forward(self, x):
         x = self.synthesis_transform(x)
 
-        return x
-
-
-class SynthesisTransformEX(nn.Module):
-    def __init__(self, N, M, act=nn.GELU) -> None:
-        super().__init__()
-        self.synthesis_transform = nn.Sequential(
-            AttentionBlock(M),
-            deconv(M, N),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            deconv(N, N),
-            AttentionBlock(N),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            ResidualBottleneck(N, act=act),
-            deconv(N, N),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            ResidualBottleneck(N, act=act, groups=N * 2),
-            deconv(N, 3)
-        )
-
-    def forward(self, x):
-        x = self.synthesis_transform(x)
-        return x
-
-
-class HyperSynthesisEX(nn.Module):
-    def __init__(self, N, M, act=nn.GELU) -> None:
-        super().__init__()
-        self.increase = nn.Sequential(
-            deconv(N, M),
-            act(),
-            deconv(M, M * 3 // 2),
-            act(),
-            deconv(M * 3 // 2, M * 2, kernel_size=3, stride=1),
-        )
-
-    def forward(self, x):
-        x = self.increase(x)
         return x

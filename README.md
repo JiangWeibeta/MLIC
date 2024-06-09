@@ -41,7 +41,7 @@ Benchmark
 
 I upload the training log when the lambda is 0.0250. The model is trained on 4 GPU cards with ddp support.
 
-I fix the LatentResidualPrediction and SynthesisTransform, you should use LatentResidualPredictionFix and SynthesisTransformFix. The parameter number of **MLIC <sup> ++ </sup>** becomes 83.5M.
+I fix the LatentResidualPrediction and SynthesisTransform, you should use LatentResidualPrediction and SynthesisTransform instead of LatentResidualPredictionOld and SynthesisTransformOld. The parameter number of **MLIC <sup> ++ </sup>** becomes 83.5M.
 The modification leads to no performance drop.
 
 Update checkpoint: https://disk.pku.edu.cn/link/AABED8912D2502477EB37C18FC7F2B2612
@@ -99,7 +99,7 @@ img.resize((new_width, new_height), Image.ANTIALIAS)
 
 #### Command
 
-Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
+Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/MLIC%2B%2B/playground).
 
 ## Testing
 

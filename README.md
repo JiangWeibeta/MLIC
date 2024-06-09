@@ -103,7 +103,7 @@ Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/mai
 
 ## Testing
 
-Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/playground).
+Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/MLIC%2B%2B/playground).
 
 ## Environment
 

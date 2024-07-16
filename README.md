@@ -48,7 +48,7 @@ The modification leads to no performance drop.
 
 code: ujrv
 
-#### Bug Fixes
+#### Bug Fixes (2023-09)
 
 I fix the implementation of *LinearGlobalIntraContext*.
 

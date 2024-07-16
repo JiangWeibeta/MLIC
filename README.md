@@ -54,7 +54,7 @@ I fix the implementation of *LinearGlobalIntraContext*.
 
 Old pre-trained models are put below. The performance is slightly better than before on Kodak and Tecnick.
 
-#### Old Weights
+#### Old Weights (2023-09)
 
 To use old weights, you should use LatentResidualPredictionOld and SynthesisTransformOld.
 

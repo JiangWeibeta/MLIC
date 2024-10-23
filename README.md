@@ -114,6 +114,8 @@ Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/mai
 
 Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/MLIC%2B%2B/playground).
 
+***
+
 ## Environment
 
 CompressAI 1.2.0b3

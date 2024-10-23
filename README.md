@@ -15,10 +15,13 @@ For the versions of papers, we recommand the latest arxiv version.
   <img src="https://api.star-history.com/svg?repos=JiangWeibeta/MLIC&type=Date" width="70%" alt="Star History Chart">
 </a>
 
+***
+
 ## Architectures
 
 ![image](assets/arch.png)
 
+***
 
 ## Performance
 
@@ -34,6 +37,8 @@ Benchmark
 | MLIC (ACMMM'23)   | -8.05    |  -12.73  |-8.79 |
 | MLIC+ (ACMMM'23)  | -11.39    |   -16.38   |-12.56|
 | MLIC++ (NCW ICML'23)   | -13.39    |   -17.59   |-13.08|
+
+***
 
 ## Pretrained Models
 
@@ -103,7 +108,7 @@ img.resize((new_width, new_height), Image.ANTIALIAS)
 
 Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/MLIC%2B%2B/playground).
 
-**
+***
 
 ## Testing
 

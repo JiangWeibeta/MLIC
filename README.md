@@ -59,7 +59,7 @@ code: ujrv
 
 #### Old Weights (2023-09)
 
-To use old weights (**although the checkpoints below are named with 'new'**), you should use LatentResidualPredictionOld and SynthesisTransformOld.
+To use old weights (**although the checkpoints below are named with 'new' since I fixed a bug at September 2023**), you should use LatentResidualPredictionOld and SynthesisTransformOld.
 
 <div class="center">
 

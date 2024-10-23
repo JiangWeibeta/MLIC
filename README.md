@@ -52,12 +52,6 @@ code: ujrv
 
 ***
 
-#### Bug Fixes (2023-09)
-
-I fix the implementation of *LinearGlobalIntraContext*.
-
-Old pre-trained models are put below. The performance is slightly better than before on Kodak and Tecnick.
-
 #### Old Weights (2023-09)
 
 To use old weights, you should use LatentResidualPredictionOld and SynthesisTransformOld.
@@ -87,6 +81,8 @@ The structure of the provided weights is
 }
 ```
 
+***
+
 ## Training
 
 #### Settings
@@ -107,6 +103,8 @@ img.resize((new_width, new_height), Image.ANTIALIAS)
 
 Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/MLIC%2B%2B/playground).
 
+**
+
 ## Testing
 
 Example command is provided [Here](https://github.com/JiangWeibeta/MLIC/tree/main/MLIC%2B%2B/playground).
@@ -117,9 +115,13 @@ CompressAI 1.2.0b3
 
 Pytorch 2.0.1
 
+***
+
 ## Contact
 
 If you have any questions about MLIC, please contact Wei Jiang ( wei.jiang1999@outlook.com or jiangwei@stu.pku.edu.cn )
+
+***
 
 ## Citation
 If you find our papers and this repo useful, kindly cite:

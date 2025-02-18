@@ -11,6 +11,8 @@ We highlight **MLIC <sup> ++ </sup>**, which **sloves the quadratic complexity o
 
 For the versions of papers, we recommand the latest arxiv version.
 
+We also release the MLIC-Train-100K dataset on [HuggingFace](https://huggingface.co/datasets/Whiteboat/MLIC-Train-100K).
+
 <a href="https://star-history.com/#JiangWeibeta/MLIC&Date">
   <img src="https://api.star-history.com/svg?repos=JiangWeibeta/MLIC&type=Date" width="70%" alt="Star History Chart">
 </a>
@@ -104,7 +106,7 @@ We use following function from PIL to downsample images.
 img.resize((new_width, new_height), Image.ANTIALIAS)
 ```
 
-**The training set is available at [HuggingFace](https://huggingface.co/datasets/Whiteboat/MLIC-Train-100K).**
+The training set is available on [HuggingFace](https://huggingface.co/datasets/Whiteboat/MLIC-Train-100K).
 
 #### Command
 

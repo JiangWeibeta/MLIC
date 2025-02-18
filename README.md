@@ -104,7 +104,7 @@ We use following function from PIL to downsample images.
 img.resize((new_width, new_height), Image.ANTIALIAS)
 ```
 
-The training dataset is available at [HuggingFace](https://huggingface.co/datasets/Whiteboat/MLIC-Train-100K).
+The training set is available at [HuggingFace](https://huggingface.co/datasets/Whiteboat/MLIC-Train-100K).
 
 #### Command
 

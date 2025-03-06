@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import time
 from compressai.models import CompressionModel
-from compressai.ops import ste_round
+from compressai.ops import quantize_ste
 from compressai.ans import BufferedRansEncoder, RansDecoder
 from utils.func import update_registered_buffers, get_scale_table
 from utils.ckbd import *
@@ -95,7 +95,7 @@ class MLICPlusPlus(CompressionModel):
         z = self.h_a(y)
         _, z_likelihoods = self.entropy_bottleneck(z)
         z_offset = self.entropy_bottleneck._get_medians()
-        z_hat = ste_round(z - z_offset) + z_offset
+        z_hat = quantize_ste(z - z_offset) + z_offset
 
         # Hyper-parameters
         hyper_params = self.h_s(z_hat)
@@ -114,7 +114,7 @@ class MLICPlusPlus(CompressionModel):
                 scales_anchor = ckbd_anchor(scales_anchor)
                 means_anchor = ckbd_anchor(means_anchor)
                 # round anchor
-                slice_anchor = ste_round(slice_anchor - means_anchor) + means_anchor
+                slice_anchor = quantize_ste(slice_anchor - means_anchor) + means_anchor
                 # predict residuals cause by round
                 lrp_anchor = self.lrp_anchor[idx](torch.cat(([hyper_means] + y_hat_slices + [slice_anchor]), dim=1))
                 slice_anchor = slice_anchor + ckbd_anchor(lrp_anchor)
@@ -131,7 +131,7 @@ class MLICPlusPlus(CompressionModel):
                 means_slice = ckbd_merge(means_anchor, means_nonanchor)
                 _, y_slice_likelihoods = self.gaussian_conditional(y_slice, scales_slice, means_slice)
                 # round slice_nonanchor
-                slice_nonanchor = ste_round(slice_nonanchor - means_nonanchor) + means_nonanchor
+                slice_nonanchor = quantize_ste(slice_nonanchor - means_nonanchor) + means_nonanchor
                 y_hat_slice = slice_anchor + slice_nonanchor
                 # predict residuals cause by round
                 lrp_nonanchor = self.lrp_nonanchor[idx](torch.cat(([hyper_means] + y_hat_slices + [y_hat_slice]), dim=1))
@@ -149,7 +149,7 @@ class MLICPlusPlus(CompressionModel):
                 scales_anchor = ckbd_anchor(scales_anchor)
                 means_anchor = ckbd_anchor(means_anchor)
                 # round anchor
-                slice_anchor = ste_round(slice_anchor - means_anchor) + means_anchor
+                slice_anchor = quantize_ste(slice_anchor - means_anchor) + means_anchor
                 # predict residuals cause by round
                 lrp_anchor = self.lrp_anchor[idx](torch.cat(([hyper_means] + y_hat_slices + [slice_anchor]), dim=1))
                 slice_anchor = slice_anchor + ckbd_anchor(lrp_anchor)
@@ -167,7 +167,7 @@ class MLICPlusPlus(CompressionModel):
                 means_slice = ckbd_merge(means_anchor, means_nonanchor)
                 _, y_slice_likelihoods = self.gaussian_conditional(y_slice, scales_slice, means_slice)
                 # round slice_nonanchor
-                slice_nonanchor = ste_round(slice_nonanchor - means_nonanchor) + means_nonanchor
+                slice_nonanchor = quantize_ste(slice_nonanchor - means_nonanchor) + means_nonanchor
                 y_hat_slice = slice_anchor + slice_nonanchor
                 # predict residuals cause by round
                 lrp_nonanchor = self.lrp_nonanchor[idx](torch.cat(([hyper_means] + y_hat_slices + [y_hat_slice]), dim=1))

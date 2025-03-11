@@ -14,7 +14,7 @@ from compressai.datasets import ImageFolder
 from utils.logger import setup_logger
 from utils.utils import CustomDataParallel, save_checkpoint
 from utils.optimizers import configure_optimizers
-from utils.training import train_one_epoch, train_one_epoch_ddp
+from utils.training import train_one_epoch
 from utils.testing import test_one_epoch
 from loss.rd_loss import RateDistortionLoss
 from config.args import train_options

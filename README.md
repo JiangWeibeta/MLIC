@@ -161,3 +161,13 @@ If you find our papers and this repo useful, kindly cite:
   url={https://openreview.net/forum?id=hxIpcSoz2t}
 }
 ```
+
+#### MLICv2
+```
+@article{jiang2025mlicv2,
+  title={MLICv2: Enhanced Multi-Reference Entropy Modeling for Learned Image Compression},
+  author={Jiang, Wei and Zhai, Yongqi and Yang, Jiayu and Gao, Feng and Wang, Ronggang},
+  journal={arXiv preprint arXiv:2504.19119},
+  year={2025}
+}
+```

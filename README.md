@@ -153,12 +153,14 @@ If you find our papers and this repo useful, kindly cite:
 #### MLIC <sup> ++ </sup>
 
 ```
-@inproceedings{jiang2023mlicpp,
-  title={MLIC++: Linear Complexity Multi-Reference Entropy Modeling for Learned Image Compression},
-  author={Jiang, Wei and Wang, Ronggang},
-  booktitle={ICML 2023 Workshop Neural Compression: From Information Theory to Applications},
-  year={2023},
-  url={https://openreview.net/forum?id=hxIpcSoz2t}
+@article{jiang2025mlicpp,
+  title={MLIC++: Linear complexity multi-reference entropy modeling for learned image compression},
+  author={Jiang, Wei and Yang, Jiayu and Zhai, Yongqi and Gao, Feng and Wang, Ronggang},
+  journal={ACM Transactions on Multimedia Computing, Communications and Applications},
+  volume={21},
+  number={5},
+  pages={1--25},
+  year={2025}
 }
 ```
 
